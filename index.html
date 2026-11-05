@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>OMAHA — Survive the Landing | Prototype 3.3</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>OMAHA — Survive the Landing | Prototype 3.4</title>
 <style>
 :root{color-scheme:dark;--sand:#d6c19a;--white:#eeeae0;--muted:#a5aaa4;--accent:#e6be76;--panel:rgba(12,21,25,.79)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#182632;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial;color:var(--white)}canvas{display:block}#render{position:fixed;inset:0}#grain{position:fixed;inset:0;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");mix-blend-mode:soft-light}#vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(8,13,19,.45) 100%)}#hud{position:fixed;inset:0;pointer-events:none}#top{display:flex;align-items:start;justify-content:space-between;padding:18px 22px;gap:12px}.logo{font-size:12px;font-weight:900;letter-spacing:5px;color:#f0dcc0}.sub{font-size:10px;letter-spacing:2px;color:#bdc4bc;margin-top:7px}.section{font-size:10px;letter-spacing:2px;color:var(--accent)}#objective{margin:12px 0 0 22px;padding:12px 15px;border-left:2px solid #d8b67b;background:var(--panel);max-width:390px;font-size:13px;line-height:1.5}#right{text-align:right;background:var(--panel);padding:12px 15px;border:1px solid #7f8b8850}#bottom{position:absolute;bottom:20px;left:22px;right:22px;display:flex;align-items:end;justify-content:space-between;gap:14px}.stat{background:var(--panel);padding:11px 14px;min-width:195px;border:1px solid #8c989044;font-size:11px}.stathead{display:flex;justify-content:space-between;letter-spacing:1px;margin-bottom:9px}.meter{height:5px;background:#4d514e}.meter>div{height:100%;background:#c4c8b5;transition:width .2s}#staminabar{background:#d4b579}#healthbar{background:#8dbb98}#healthbar.low{background:#ee8a67}#coverdetail{font-size:10px;color:#cbd6ca;margin-top:7px;letter-spacing:.25px}#life{font-size:12px;letter-spacing:2px;margin-top:7px;color:#a7c4b6}#message{position:absolute;left:50%;top:23%;transform:translateX(-50%);text-align:center;max-width:85%;font-size:17px;letter-spacing:1.5px;text-shadow:0 2px 8px #000;opacity:0;transition:opacity .4s}#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#efe5d4a3;font-size:18px}#prompt{position:absolute;bottom:29%;left:50%;transform:translateX(-50%);padding:8px 13px;background:var(--panel);font-size:12px;opacity:0}#status{position:absolute;right:22px;bottom:20px;text-align:right;color:#d5d0bf;font-size:11px;line-height:1.8;letter-spacing:1px}#damage{position:absolute;inset:0;background:rgba(160,43,20,.4);opacity:0;transition:opacity .35s}#overlay{position:fixed;inset:0;background:linear-gradient(120deg,rgba(6,13,18,.95),rgba(18,31,36,.88));display:flex;align-items:center;justify-content:center;padding:25px;overflow-y:auto}#overlay.hidden{display:none}.panel{width:min(610px,100%);border-top:3px solid var(--accent);padding:25px 2px}.eyebrow{color:var(--accent);letter-spacing:4px;font-size:11px;font-weight:800}.title{font-size:clamp(45px,9vw,79px);line-height:.92;font-weight:950;letter-spacing:-3px;margin:19px 0 12px}.title span{color:var(--accent)}.tagline{font-size:15px;color:#cfcebf;line-height:1.7;max-width:510px}.rule{height:1px;background:#6a757266;margin:22px 0}.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12px;color:#c5c5bd;line-height:1.7}.facts strong{color:#f5e7d0;letter-spacing:1px;font-size:11px}.play{background:#e4bc76;color:#1f2320;border:0;padding:15px 25px;font-size:12px;font-weight:900;letter-spacing:2px;cursor:pointer;margin-top:25px;touch-action:manipulation}.play:hover{background:#f5d798}.tiny{font-size:11px;line-height:1.5;color:#a3aba7;margin-top:17px}#mobile{display:none;position:fixed;bottom:90px;left:0;right:0;pointer-events:none;padding:0 14px;justify-content:space-between}#joystick{width:125px;height:125px;border:1px solid #c5c8b455;background:#131f2288;border-radius:50%;position:relative;pointer-events:auto;touch-action:none}#stick{width:47px;height:47px;border-radius:50%;background:#ddd5bd77;border:1px solid #ddd5bdad;position:absolute;left:39px;top:39px}.mobilebuttons{display:flex;flex-direction:column;gap:9px;pointer-events:auto}.mobilebuttons button{background:#15252ab9;color:white;border:1px solid #e1d0ad77;border-radius:8px;padding:13px;min-width:85px;font-weight:800;letter-spacing:1px;touch-action:none}#looktip{position:fixed;top:50%;right:13px;transform:translateY(-50%);font-size:10px;letter-spacing:1px;color:#fff9;display:none;pointer-events:none}#qualityControls{position:absolute;right:20px;top:166px;pointer-events:auto;display:flex;align-items:center;gap:9px;background:#15252ab9;padding:7px 9px;border:1px solid #ffffff55;font-size:10px}#qualityControls select{color:#eee;background:#253439;border:1px solid #ffffff55;padding:4px;font-size:11px}#perf{font-variant-numeric:tabular-nums;color:#d8c9a6}#soundControls{position:absolute;right:20px;top:127px;pointer-events:auto;display:flex;align-items:center;gap:7px;background:#15252ab9;padding:6px 9px;border:1px solid #ffffff55;font-size:10px}#soundControls button{background:transparent;color:#eee;border:0;cursor:pointer;font-size:11px;font-weight:700}#volume{width:80px;accent-color:#d4b579}#audioStatus{color:#b3cbb9;font-size:9px;min-width:60px}#audioTest{border-left:1px solid #84918b77!important;padding-left:7px!important}#pause{pointer-events:auto;cursor:pointer;position:absolute;right:20px;top:88px;border:1px solid #ffffff55;background:#15252ab9;color:#eee;padding:7px 12px;font-size:11px;letter-spacing:1px}@media(pointer:coarse){#mobile{display:flex}#looktip{display:block}#crosshair{opacity:.5}#status{display:none}#bottom{bottom:15px;left:12px;right:12px}.stat{min-width:145px;padding:9px}.logo{font-size:10px;letter-spacing:3px}#top{padding:12px}#objective{margin-left:12px;max-width:72%;font-size:11px}#right{font-size:10px;padding:8px}.facts{grid-template-columns:1fr}.panel{padding-top:12px}.title{font-size:54px}}@media(max-height:600px){.panel{padding:8px 2px}.title{font-size:46px;margin:9px 0}.rule{margin:11px 0}.play{margin-top:12px}.tiny{margin-top:8px}}
 #injury,#suppression{font-size:10px;letter-spacing:.5px;margin-top:5px;color:#c8c8b6}#injury{color:#edc5a1}#eventBanner{position:absolute;top:32%;left:50%;transform:translateX(-50%);text-shadow:0 2px 8px #0009;color:#edd5a7;letter-spacing:2px;font-size:13px;opacity:0;transition:opacity .5s;text-align:center}#qualityControls label{white-space:nowrap}#qualityControls input{accent-color:#d4b579}#mission{color:#e6be76}#objective{max-width:430px}#perf{min-width:40px}#render canvas{outline:none}
@@ -17,7 +17,15 @@ function box(w,h,d,m,x,y,z,group=scene){const o=new THREE.Mesh(new THREE.BoxGeom
 function groundTexture(){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');ctx.fillStyle='#c6b99d';ctx.fillRect(0,0,512,512);const img=ctx.getImageData(0,0,512,512),d=img.data;for(let y=0;y<512;y++)for(let x=0;x<512;x++){let i=(y*512+x)*4;const grain=(Math.random()-.5)*65;const ripple=Math.sin(y*.21+x*.027)*9+Math.sin(y*.075-x*.11)*7;const v=grain+ripple;d[i]=clamp(197+v,0,255);d[i+1]=clamp(185+v,0,255);d[i+2]=clamp(159+v*.9,0,255)}ctx.putImageData(img,0,0);for(let i=0;i<1900;i++){const x=rand(0,512),y=rand(0,512);ctx.fillStyle=Math.random()<.5?'rgba(52,57,52,.22)':'rgba(242,226,195,.34)';ctx.fillRect(x,y,rand(.5,2.8),rand(.5,2.4))}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(32,19);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t}
 function smokeTexture(){const c=document.createElement('canvas');c.width=c.height=128;const cx=c.getContext('2d');for(let j=0;j<22;j++){let x=rand(36,92),y=rand(36,92),r=rand(19,44);const g=cx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba(255,255,255,.21)');g.addColorStop(.5,'rgba(255,255,255,.11)');g.addColorStop(1,'rgba(255,255,255,0)');cx.fillStyle=g;cx.fillRect(x-r,y-r,2*r,2*r)}return new THREE.CanvasTexture(c)}
 const smokeMapHolder={map:null};
-function heightAt(z){if(z>37)return -0.23;if(z>25)return (37-z)*.007-.23;if(z>-180)return .01+Math.sin(z*.055)*.08;if(z>-220)return (-180-z)*.16;return 6.4+(Math.abs(z+220)*.07)}
+function beachRelief(x,z){
+ // Very low dunes on the upper beach; ripples across exposed sand.
+ const duneZone=smoothstepSand(-z,55,115)*(1-smoothstepSand(-z,190,216));
+ const dunes=(.21*Math.sin(x*.026+z*.071)+.12*Math.sin(x*.059-z*.043)+.09*Math.cos(x*.095+z*.025))*duneZone;
+ const rippleZone=(1-smoothstepSand(z,25,39))*(1-smoothstepSand(-z,180,215));
+ const ripples=(.034*Math.sin(x*.68+z*.21)+.020*Math.sin(x*.94-z*.18)) * rippleZone;
+ return dunes+ripples;
+}
+function heightAt(z,x=0){let base;if(z>37)base=-.23;else if(z>25)base=(37-z)*.007-.23;else if(z>-180)base=.01+Math.sin(z*.055)*.08;else if(z>-220)base=(-180-z)*.16;else base=6.4+(Math.abs(z+220)*.07);return base+beachRelief(x,z)}
 function init(){scene=new THREE.Scene();scene.background=new THREE.Color(0x889aa1);scene.fog=new THREE.FogExp2(0x9ba7a5,.00105);camera=new THREE.PerspectiveCamera(77,innerWidth/innerHeight,.09,1500);renderer=new THREE.WebGLRenderer({antialias:!mobile,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,qualityProfiles[qualityMode]?.pixel||1.35));renderer.shadowMap.enabled=!mobile&&qualityProfiles[qualityMode]?.shadow;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;renderer.outputColorSpace=THREE.SRGBColorSpace;$('render').appendChild(renderer.domElement);clock=new THREE.Clock();scene.add(new THREE.HemisphereLight(0xc8d6df,0x5b5745,1.6));const sun=new THREE.DirectionalLight(0xffe2b8,2.05);sun.position.set(-180,170,-150);sun.castShadow=!mobile&&qualityProfiles[qualityMode]?.shadow;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-105;sun.shadow.camera.right=105;sun.shadow.camera.top=105;sun.shadow.camera.bottom=-105;sun.shadow.bias=-.00025;sunLight=sun;scene.add(sun);buildSky();buildTerrain();buildScenery();buildBoat();spawnSoldiers();createCrowd();buildAtmosphere();setQuality(qualityMode);player={x:0,z:117,y:2.1,health:100,stamina:100,suppression:0,legInjury:0,bleeding:0,crouched:false,alive:true,assisting:0,step:0};camera.position.set(0,2.8,120);camera.rotation.order='YXZ';window.addEventListener('resize',resize);document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyE')assist();if(e.code==='KeyR')bandage();if(e.code==='Escape'&&started)pauseGame();if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault()});document.addEventListener('keyup',e=>keys[e.code]=false);renderer.domElement.addEventListener('click',()=>{if(started&&!paused&&!mobile&&document.pointerLockElement!==renderer.domElement)renderer.domElement.requestPointerLock()});document.addEventListener('mousemove',e=>{if(document.pointerLockElement===renderer.domElement&&!paused){yaw-=e.movementX*.00225;pitch=clamp(pitch-e.movementY*.002,-1.35,1.35)}});setupMobile();requestAnimationFrame(animate)}
 function buildSky(){
  // Smooth, multi-tone sky dome with warm haze near the horizon.
@@ -36,7 +44,12 @@ function makeOceanMaterial(){
  const uniforms={uTime:{value:0},uSun:{value:new THREE.Vector3(-.54,.63,-.56).normalize()},uHaze:{value:new THREE.Color(0x9ba7a5)}};
  return new THREE.ShaderMaterial({uniforms,transparent:false,side:THREE.DoubleSide,depthWrite:true,
   vertexShader:`uniform float uTime; varying vec3 vWorld; varying float vShore; varying float vWave;
-   float waves(vec2 p,float t){return .12*sin(p.y*.14-t*1.35+p.x*.022)+.07*sin(p.x*.09+p.y*.055+t*1.64)+.035*sin(p.y*.37+p.x*.17-t*2.4);}
+   float waves(vec2 p,float t){
+    float a=.12*sin(p.y*.14-t*1.35+p.x*.022)+.07*sin(p.x*.09+p.y*.055+t*1.64)+.035*sin(p.y*.37+p.x*.17-t*2.4);
+    float swell=.22*sin(p.y*.043-t*.67+p.x*.012);
+    float breaker=.14*sin(p.y*.27-t*1.86+p.x*.019)*exp(-pow((p.y-58.)/34.,2.));
+    return a+swell+breaker;
+   }
    void main(){vec4 w=modelMatrix*vec4(position,1.);float shore=smoothstep(36.,70.,w.z);float wave=waves(w.xz,uTime)*shore;w.y+=wave;vWorld=w.xyz;vShore=shore;vWave=wave;gl_Position=projectionMatrix*viewMatrix*w;}`,
   fragmentShader:`uniform float uTime;uniform vec3 uSun;uniform vec3 uHaze;varying vec3 vWorld;varying float vShore;varying float vWave;
    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}
@@ -60,6 +73,9 @@ function makeOceanMaterial(){
     float bubble=noise(p*.85+vec2(t*.17,-t*.37));
     float breakers=streak*smoothstep(.35,.64,turbulence+.23*r1);
     float wake=smoothstep(.50,.85,r1)*smoothstep(48.,105.,p.y)*(1.-smoothstep(140.,220.,p.y))*.21*noise(p*.6);
+    float crest=sin(p.y*.24-t*1.85+p.x*.023+sin(p.x*.015)*.65);
+    float shoreBreak=smoothstep(.70,.94,crest)*smoothstep(38.,51.,p.y)*(1.-smoothstep(100.,122.,p.y));
+    wake+=shoreBreak*(.27+.23*noise(p*.29+vec2(t*.13,-t*.2)));
     float foam=clamp(breakers*(.45+.55*bubble)+wake,0.,.87);
     col=mix(col,vec3(.78,.84,.79),foam);
     // Distance haze reduces apparent saturation toward horizon.
@@ -70,11 +86,11 @@ function smoothstepSand(v,a,b){const u=clamp((v-a)/(b-a),0,1);return u*u*(3-2*u)
 function buildTerrain(){
  // Higher mesh density and vertex-painted sand: damp foreshore, wind-scoured beach,
  // pale upper beach, and irregular shingle at the base of the bluffs.
- const g=new THREE.PlaneGeometry(1500,850,176,106);g.rotateX(-Math.PI/2);const a=g.attributes.position,colors=[];
+ const g=new THREE.PlaneGeometry(1500,850,292,172);g.rotateX(-Math.PI/2);const a=g.attributes.position,colors=[];
  const base=new THREE.Color();for(let i=0;i<a.count;i++){
   const z=a.getZ(i),x=a.getX(i);const grain=Math.sin(x*.42+z*.34)*.04+Math.sin(x*.135-z*.39)*.055+Math.sin(x*.86+z*.96)*.025+Math.sin(x*.038+z*.07)*.16*smoothstepSand(-z,55,150);
   const ripple=Math.sin(x*.42+z*.21)*.035+Math.cos(x*.17-z*.51)*.028+Math.cos(x*.16+z*.19)*.012;
-  a.setY(i,heightAt(z)+grain+ripple);
+  a.setY(i,heightAt(z,x)+grain*.45+ripple*.45);
   if(z>37)base.setRGB(.30,.37,.35);
   else if(z>-42){let w=smoothstepSand(z,-42,37);base.setRGB(.61-.25*w,.55-.17*w,.44-.10*w)}
   else if(z>-158)base.setRGB(.62,.56,.44);
@@ -324,6 +340,22 @@ function soundExplosion(x,z){if(!audio.ctx||audio.muted)return;
  soundNoise(.35,.065*att,105,0,0,pan);soundTone(65,.5,.085*att,'sine',0,.42,pan);
  if(d<23)soundTone(1000,1.1,.009*(1-d/30),'sine');
 }
+// A nearby supersonic round gives a brief, sharply localized crack and a trailing whiz.
+function soundBulletPass(x,z,d){
+ if(!audio.ctx||audio.ctx.state!=='running'||audio.muted)return;
+ const right=(x-player.x)*Math.cos(yaw)-(z-player.z)*Math.sin(yaw);
+ const pan=clamp(right/Math.max(2,d),-1,1);
+ const level=.045*(1-clamp(d/14,0,.86));
+ // Short filtered transient; deliberately no continuous static.
+ soundNoise(.065,level,1950,1.2,0,pan);
+ soundTone(1450+Math.random()*540,.13,level*.36,'sine',.008,.29,pan);
+ if(d<5)soundTone(2350,.035,level*.3,'triangle',0,.65,pan);
+}
+function soundCoverImpact(x,z){
+ if(!audio.ctx||audio.ctx.state!=='running'||audio.muted)return;
+ const right=(x-player.x)*Math.cos(yaw)-(z-player.z)*Math.sin(yaw);
+ soundTone(410,.095,.022,'triangle',0,.48,clamp(right/5,-1,1));
+}
 function soundHit(){soundTone(100,.12,.055,'triangle');soundNoise(.11,.035,280)}
 function soundTick(dt){if(!audio.ctx||audio.ctx.state!=='running'||paused||audio.muted)return;
  const t=time;
@@ -409,7 +441,17 @@ function projectile(dt){
    const aimPlayer=Math.random()<.19,tx=aimPlayer?player.x+rand(-6,6):rand(-430,430),tz=aimPlayer?player.z+rand(-6,6):rand(-165,40);
    const start=new THREE.Vector3(tx+rand(-70,70),rand(9,35),rand(-260,-225)),end=new THREE.Vector3(tx,heightAt(tz)+rand(.8,2.2),tz);
    const geom=new THREE.BufferGeometry().setFromPoints([start,end]);const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:Math.random()>.35?0xf9d4a0:0xeab673,transparent:true,opacity:.79}));scene.add(line);tracers.push({line,life:rand(.06,.17)});
+   // Closest pass of this shot along its whole path, not just its landing point.
+   const vx=end.x-start.x,vz=end.z-start.z;
+   const along=clamp(((player.x-start.x)*vx+(player.z-start.z)*vz)/(vx*vx+vz*vz||1),0,1);
+   const passX=start.x+vx*along,passZ=start.z+vz*along;
+   const passDistance=Math.hypot(player.x-passX,player.z-passZ);
    const playerDistance=Math.hypot(tx-player.x,tz-player.z);
+   if(passDistance<13 && Math.random()<.85){
+     const blocked=physicalCoverBetween(start,end,player.x,player.z,player.crouched);
+     if(!blocked) soundBulletPass(passX,passZ,passDistance);
+     else if(passDistance<4) soundCoverImpact(passX,passZ);
+   }
    if(playerDistance<10&&Math.random()<.7){const blocked=physicalCoverBetween(start,end,player.x,player.z,player.crouched);player.suppression=clamp(player.suppression+rand(4,16),0,100);if(playerDistance<2.5&&!blocked&&Math.random()<.45)damage(rand(6,14),true);if(blocked)runCoverTime+=.05;}
    runShots++;
   }
