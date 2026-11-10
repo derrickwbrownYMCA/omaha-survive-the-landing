@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>OMAHA — Survive the Landing | Prototype 3.4</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>OMAHA — Survive the Landing | Prototype 3.5</title>
 <style>
 :root{color-scheme:dark;--sand:#d6c19a;--white:#eeeae0;--muted:#a5aaa4;--accent:#e6be76;--panel:rgba(12,21,25,.79)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#182632;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial;color:var(--white)}canvas{display:block}#render{position:fixed;inset:0}#grain{position:fixed;inset:0;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");mix-blend-mode:soft-light}#vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(8,13,19,.45) 100%)}#hud{position:fixed;inset:0;pointer-events:none}#top{display:flex;align-items:start;justify-content:space-between;padding:18px 22px;gap:12px}.logo{font-size:12px;font-weight:900;letter-spacing:5px;color:#f0dcc0}.sub{font-size:10px;letter-spacing:2px;color:#bdc4bc;margin-top:7px}.section{font-size:10px;letter-spacing:2px;color:var(--accent)}#objective{margin:12px 0 0 22px;padding:12px 15px;border-left:2px solid #d8b67b;background:var(--panel);max-width:390px;font-size:13px;line-height:1.5}#right{text-align:right;background:var(--panel);padding:12px 15px;border:1px solid #7f8b8850}#bottom{position:absolute;bottom:20px;left:22px;right:22px;display:flex;align-items:end;justify-content:space-between;gap:14px}.stat{background:var(--panel);padding:11px 14px;min-width:195px;border:1px solid #8c989044;font-size:11px}.stathead{display:flex;justify-content:space-between;letter-spacing:1px;margin-bottom:9px}.meter{height:5px;background:#4d514e}.meter>div{height:100%;background:#c4c8b5;transition:width .2s}#staminabar{background:#d4b579}#healthbar{background:#8dbb98}#healthbar.low{background:#ee8a67}#coverdetail{font-size:10px;color:#cbd6ca;margin-top:7px;letter-spacing:.25px}#life{font-size:12px;letter-spacing:2px;margin-top:7px;color:#a7c4b6}#message{position:absolute;left:50%;top:23%;transform:translateX(-50%);text-align:center;max-width:85%;font-size:17px;letter-spacing:1.5px;text-shadow:0 2px 8px #000;opacity:0;transition:opacity .4s}#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#efe5d4a3;font-size:18px}#prompt{position:absolute;bottom:29%;left:50%;transform:translateX(-50%);padding:8px 13px;background:var(--panel);font-size:12px;opacity:0}#status{position:absolute;right:22px;bottom:20px;text-align:right;color:#d5d0bf;font-size:11px;line-height:1.8;letter-spacing:1px}#damage{position:absolute;inset:0;background:rgba(160,43,20,.4);opacity:0;transition:opacity .35s}#overlay{position:fixed;inset:0;background:linear-gradient(120deg,rgba(6,13,18,.95),rgba(18,31,36,.88));display:flex;align-items:center;justify-content:center;padding:25px;overflow-y:auto}#overlay.hidden{display:none}.panel{width:min(610px,100%);border-top:3px solid var(--accent);padding:25px 2px}.eyebrow{color:var(--accent);letter-spacing:4px;font-size:11px;font-weight:800}.title{font-size:clamp(45px,9vw,79px);line-height:.92;font-weight:950;letter-spacing:-3px;margin:19px 0 12px}.title span{color:var(--accent)}.tagline{font-size:15px;color:#cfcebf;line-height:1.7;max-width:510px}.rule{height:1px;background:#6a757266;margin:22px 0}.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12px;color:#c5c5bd;line-height:1.7}.facts strong{color:#f5e7d0;letter-spacing:1px;font-size:11px}.play{background:#e4bc76;color:#1f2320;border:0;padding:15px 25px;font-size:12px;font-weight:900;letter-spacing:2px;cursor:pointer;margin-top:25px;touch-action:manipulation}.play:hover{background:#f5d798}.tiny{font-size:11px;line-height:1.5;color:#a3aba7;margin-top:17px}#mobile{display:none;position:fixed;bottom:90px;left:0;right:0;pointer-events:none;padding:0 14px;justify-content:space-between}#joystick{width:125px;height:125px;border:1px solid #c5c8b455;background:#131f2288;border-radius:50%;position:relative;pointer-events:auto;touch-action:none}#stick{width:47px;height:47px;border-radius:50%;background:#ddd5bd77;border:1px solid #ddd5bdad;position:absolute;left:39px;top:39px}.mobilebuttons{display:flex;flex-direction:column;gap:9px;pointer-events:auto}.mobilebuttons button{background:#15252ab9;color:white;border:1px solid #e1d0ad77;border-radius:8px;padding:13px;min-width:85px;font-weight:800;letter-spacing:1px;touch-action:none}#looktip{position:fixed;top:50%;right:13px;transform:translateY(-50%);font-size:10px;letter-spacing:1px;color:#fff9;display:none;pointer-events:none}#qualityControls{position:absolute;right:20px;top:166px;pointer-events:auto;display:flex;align-items:center;gap:9px;background:#15252ab9;padding:7px 9px;border:1px solid #ffffff55;font-size:10px}#qualityControls select{color:#eee;background:#253439;border:1px solid #ffffff55;padding:4px;font-size:11px}#perf{font-variant-numeric:tabular-nums;color:#d8c9a6}#soundControls{position:absolute;right:20px;top:127px;pointer-events:auto;display:flex;align-items:center;gap:7px;background:#15252ab9;padding:6px 9px;border:1px solid #ffffff55;font-size:10px}#soundControls button{background:transparent;color:#eee;border:0;cursor:pointer;font-size:11px;font-weight:700}#volume{width:80px;accent-color:#d4b579}#audioStatus{color:#b3cbb9;font-size:9px;min-width:60px}#audioTest{border-left:1px solid #84918b77!important;padding-left:7px!important}#pause{pointer-events:auto;cursor:pointer;position:absolute;right:20px;top:88px;border:1px solid #ffffff55;background:#15252ab9;color:#eee;padding:7px 12px;font-size:11px;letter-spacing:1px}@media(pointer:coarse){#mobile{display:flex}#looktip{display:block}#crosshair{opacity:.5}#status{display:none}#bottom{bottom:15px;left:12px;right:12px}.stat{min-width:145px;padding:9px}.logo{font-size:10px;letter-spacing:3px}#top{padding:12px}#objective{margin-left:12px;max-width:72%;font-size:11px}#right{font-size:10px;padding:8px}.facts{grid-template-columns:1fr}.panel{padding-top:12px}.title{font-size:54px}}@media(max-height:600px){.panel{padding:8px 2px}.title{font-size:46px;margin:9px 0}.rule{margin:11px 0}.play{margin-top:12px}.tiny{margin-top:8px}}
 #injury,#suppression{font-size:10px;letter-spacing:.5px;margin-top:5px;color:#c8c8b6}#injury{color:#edc5a1}#eventBanner{position:absolute;top:32%;left:50%;transform:translateX(-50%);text-shadow:0 2px 8px #0009;color:#edd5a7;letter-spacing:2px;font-size:13px;opacity:0;transition:opacity .5s;text-align:center}#qualityControls label{white-space:nowrap}#qualityControls input{accent-color:#d4b579}#mission{color:#e6be76}#objective{max-width:430px}#perf{min-width:40px}#render canvas{outline:none}
 </style></head><body>
 <div id="render"></div><div id="grain"></div><div id="vignette"></div>
-<div id="hud"><div id="damage"></div><div id="top"><div><div class="logo">OMAHA <span style="color:#e6be76">/</span> 1944</div><div class="sub">SURVIVE THE LANDING · PROTOTYPE 3.4</div></div><div id="right"><div class="section">JUNE 6, 1944</div><div id="clock">06:31:00</div><div id="weather">SECTOR: DOG GREEN</div></div></div><div id="objective"><div class="section">CURRENT OBJECTIVE</div><div id="objectiveText">Hold steady. Your landing craft is approaching shore.</div></div><button id="pause">PAUSE / MENU</button><div id="soundControls"><button id="mute" type="button" aria-label="Mute audio">SOUND ON</button><input id="volume" type="range" min="0" max="100" value="55" aria-label="Sound volume"><button id="audioTest" type="button" title="Play a test chime">TEST SOUND</button><span id="audioStatus" role="status" aria-live="polite">NOT STARTED</span></div><div id="qualityControls"><label for="quality">GRAPHICS</label><select id="quality"><option value="low">LOW</option><option value="balanced" selected>BALANCED</option><option value="sharp">SHARP</option><option value="ultra">ULTRA</option></select><span id="perf">-- FPS</span><label title="Adjust quality automatically for smooth gameplay"><input id="adaptive" type="checkbox"> AUTO</label></div><div id="message"></div><div id="eventBanner" aria-live="polite"></div><div id="crosshair">·</div><div id="prompt"></div><div id="bottom"><div class="stat"><div class="stathead"><span>STAMINA</span><span id="stamval">100%</span></div><div class="meter"><div id="staminabar" style="width:100%"></div></div><div class="stathead" style="margin-top:13px"><span>HEALTH</span><span id="healthval">100 / 100</span></div><div class="meter"><div id="healthbar" style="width:100%"></div></div><div id="life">STATUS: STABLE</div><div id="injury">INJURIES: NONE</div><div id="suppression">SUPPRESSION: LOW</div><div id="coverdetail">COVER PROTECTION: 0% · EXPOSED</div></div><div id="status"><div id="squadcount">SQUAD NEARBY: 8</div><div id="coverstatus">COVER: EXPOSED</div><div id="distance">DISTANCE TO SEAWALL: 220 M</div><div id="mission">TASK: REACH SHINGLE</div></div></div></div>
+<div id="hud"><div id="damage"></div><div id="top"><div><div class="logo">OMAHA <span style="color:#e6be76">/</span> 1944</div><div class="sub">SURVIVE THE LANDING · PROTOTYPE 3.5</div></div><div id="right"><div class="section">JUNE 6, 1944</div><div id="clock">06:31:00</div><div id="weather">SECTOR: DOG GREEN</div></div></div><div id="objective"><div class="section">CURRENT OBJECTIVE</div><div id="objectiveText">Hold steady. Your landing craft is approaching shore.</div></div><button id="pause">PAUSE / MENU</button><div id="soundControls"><button id="mute" type="button" aria-label="Mute audio">SOUND ON</button><input id="volume" type="range" min="0" max="100" value="55" aria-label="Sound volume"><button id="audioTest" type="button" title="Play a test chime">TEST SOUND</button><span id="audioStatus" role="status" aria-live="polite">NOT STARTED</span></div><div id="qualityControls"><label for="quality">GRAPHICS</label><select id="quality"><option value="low">LOW</option><option value="balanced" selected>BALANCED</option><option value="sharp">SHARP</option><option value="ultra">ULTRA</option></select><span id="perf">-- FPS</span><label title="Adjust quality automatically for smooth gameplay"><input id="adaptive" type="checkbox"> AUTO</label></div><div id="message"></div><div id="eventBanner" aria-live="polite"></div><div id="crosshair">·</div><div id="prompt"></div><div id="bottom"><div class="stat"><div class="stathead"><span>STAMINA</span><span id="stamval">100%</span></div><div class="meter"><div id="staminabar" style="width:100%"></div></div><div class="stathead" style="margin-top:13px"><span>HEALTH</span><span id="healthval">100 / 100</span></div><div class="meter"><div id="healthbar" style="width:100%"></div></div><div id="life">STATUS: STABLE</div><div id="injury">INJURIES: NONE</div><div id="suppression">SUPPRESSION: LOW</div><div id="coverdetail">COVER PROTECTION: 0% · EXPOSED</div></div><div id="status"><div id="squadcount">SQUAD NEARBY: 8</div><div id="coverstatus">COVER: EXPOSED</div><div id="distance">DISTANCE TO SEAWALL: 220 M</div><div id="mission">TASK: REACH SHINGLE</div></div></div></div>
 <div id="mobile"><div id="joystick"><div id="stick"></div></div><div class="mobilebuttons"><button id="mobSprint">SPRINT</button><button id="mobCrouch">CROUCH</button><button id="mobHelp">HELP</button></div></div><div id="looktip">DRAG TO LOOK</div>
-<div id="overlay"><div class="panel"><div class="eyebrow" id="overlayeyebrow">A SURVIVAL EXPERIENCE · EARLY PLAYABLE BUILD</div><div class="title" id="overlaytitle">OMAHA<span>.</span><br>THE LANDING</div><div class="tagline" id="overlaybody">You're not here to win the war. You're trying to survive the landing. The battlefield will keep moving even if you don't.</div><div class="rule"></div><div class="facts"><div><strong>MISSION</strong><br>Leave the landing craft, cross the exposed beach, and reach the seawall. Stay low, use obstacles for cover, and help someone if you can.</div><div><strong>CONTROLS</strong><br>Desktop: W goes where you look · A/D strafe · S back · Mouse look · Shift sprint · C crouch · E assist · R bandage.<br>Phone: left stick move · drag right side to look · action buttons.</div></div><button class="play" id="start">BEGIN LANDING</button> <button class="play" id="audioTestMenu" style="background:#324b53;color:#fff;margin-left:8px">TEST AUDIO</button><div class="tiny">V3.4: Directional near-miss audio, moving swells and breakers, rippled sand and low dunes. Fictional interactive prototype inspired by the historical Omaha Beach landings. Simplified geography and simulation; not a historically exact reconstruction. Graphics quality can be changed while playing. Auto quality can maintain FPS. Session stats save locally. 100 soldiers total. Rounded, jointed infantry silhouettes. Animated surf, foam, damp sand and shoreline details. Higher settings improve sharpness and lighting but may reduce FPS. Sound starts after clicking Begin Landing. Use TEST SOUND in the upper-right to check playback; if silent, verify Chrome and Windows volume mixer settings. Adjust it with the top-right control. Requires an internet connection for the 3D engine.</div></div></div>
+<div id="overlay"><div class="panel"><div class="eyebrow" id="overlayeyebrow">A SURVIVAL EXPERIENCE · EARLY PLAYABLE BUILD</div><div class="title" id="overlaytitle">OMAHA<span>.</span><br>THE LANDING</div><div class="tagline" id="overlaybody">You're not here to win the war. You're trying to survive the landing. The battlefield will keep moving even if you don't.</div><div class="rule"></div><div class="facts"><div><strong>MISSION</strong><br>Leave the landing craft, cross the exposed beach, and reach the seawall. Stay low, use obstacles for cover, and help someone if you can.</div><div><strong>CONTROLS</strong><br>Desktop: W goes where you look · A/D strafe · S back · Mouse look · Shift sprint · C crouch · E assist · R bandage.<br>Phone: left stick move · drag right side to look · action buttons.</div></div><button class="play" id="start">BEGIN LANDING</button> <button class="play" id="audioTestMenu" style="background:#324b53;color:#fff;margin-left:8px">TEST AUDIO</button><div class="tiny">V3.5: Machine-gun positions with fields of fire, casualties, a run-in under fire, deep water, a seawall, and concussion effects. Fictional interactive prototype inspired by the historical Omaha Beach landings. Simplified geography and simulation; not a historically exact reconstruction. Graphics quality can be changed while playing. Auto quality can maintain FPS. Session stats save locally. 100 soldiers total. Rounded, jointed infantry silhouettes. Animated surf, foam, damp sand and shoreline details. Higher settings improve sharpness and lighting but may reduce FPS. Sound starts after clicking Begin Landing. Use TEST SOUND in the upper-right to check playback; if silent, verify Chrome and Windows volume mixer settings. Adjust it with the top-right control. Requires an internet connection for the 3D engine.</div></div></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
 const $=id=>document.getElementById(id);let scene,camera,renderer,clock,player,boat,ramp,soldiers=[],shells=[],tracers=[],smokes=[],props=[],explosions=[],keys={},started=false,paused=true,phase='intro',time=0,lastEvent=0,lastWarning=0,spawnCounter=0,messageTimer=0,deathCount=0,runIndex=0;let qualityMode=localStorage.getItem('omahaQuality')||'balanced',crowd=null,crowdAgents=[],crowdActive=0,crowdFrames=0,frameSamples=0,frameAccumulator=0;let yaw=0,pitch=0,shake=0,terrain,water,foam,waterBase=null,waterFrame=0,skyDome=null,cloudSprites=[],sunLight=null,prevFrame=performance.now(),mobileMove={x:0,y:0},mobileSprint=false,mobileCrouch=false,touchLook=null,impactTimer=0,score=0,helped=0,checkpoint=0;const mobile=matchMedia('(pointer:coarse)').matches;const qualityProfiles={low:{pixel:0.9,crowd:40,shadow:false},balanced:{pixel:1.35,crowd:40,shadow:false},sharp:{pixel:1.8,crowd:40,shadow:true},ultra:{pixel:2.25,crowd:40,shadow:true}};const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -25,7 +25,7 @@ function beachRelief(x,z){
  const ripples=(.034*Math.sin(x*.68+z*.21)+.020*Math.sin(x*.94-z*.18)) * rippleZone;
  return dunes+ripples;
 }
-function heightAt(z,x=0){let base;if(z>37)base=-.23;else if(z>25)base=(37-z)*.007-.23;else if(z>-180)base=.01+Math.sin(z*.055)*.08;else if(z>-220)base=(-180-z)*.16;else base=6.4+(Math.abs(z+220)*.07);return base+beachRelief(x,z)}
+function heightAt(z,x=0){let base;if(z>37){const u=clamp((z-37)/40,0,1);base=-.23-1.1*u*u*(3-2*u)}else if(z>25)base=(37-z)*.007-.23;else if(z>-180)base=.01+Math.sin(z*.055)*.08;else if(z>-220)base=(-180-z)*.16;else base=6.4+(Math.abs(z+220)*.07);return base+beachRelief(x,z)}
 function init(){scene=new THREE.Scene();scene.background=new THREE.Color(0x889aa1);scene.fog=new THREE.FogExp2(0x9ba7a5,.00105);camera=new THREE.PerspectiveCamera(77,innerWidth/innerHeight,.09,1500);renderer=new THREE.WebGLRenderer({antialias:!mobile,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,qualityProfiles[qualityMode]?.pixel||1.35));renderer.shadowMap.enabled=!mobile&&qualityProfiles[qualityMode]?.shadow;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;renderer.outputColorSpace=THREE.SRGBColorSpace;$('render').appendChild(renderer.domElement);clock=new THREE.Clock();scene.add(new THREE.HemisphereLight(0xc8d6df,0x5b5745,1.6));const sun=new THREE.DirectionalLight(0xffe2b8,2.05);sun.position.set(-180,170,-150);sun.castShadow=!mobile&&qualityProfiles[qualityMode]?.shadow;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-105;sun.shadow.camera.right=105;sun.shadow.camera.top=105;sun.shadow.camera.bottom=-105;sun.shadow.bias=-.00025;sunLight=sun;scene.add(sun);buildSky();buildTerrain();buildScenery();buildBoat();spawnSoldiers();createCrowd();buildAtmosphere();setQuality(qualityMode);player={x:0,z:117,y:2.1,health:100,stamina:100,suppression:0,legInjury:0,bleeding:0,crouched:false,alive:true,assisting:0,step:0};camera.position.set(0,2.8,120);camera.rotation.order='YXZ';window.addEventListener('resize',resize);document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyE')assist();if(e.code==='KeyR')bandage();if(e.code==='Escape'&&started)pauseGame();if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault()});document.addEventListener('keyup',e=>keys[e.code]=false);renderer.domElement.addEventListener('click',()=>{if(started&&!paused&&!mobile&&document.pointerLockElement!==renderer.domElement)renderer.domElement.requestPointerLock()});document.addEventListener('mousemove',e=>{if(document.pointerLockElement===renderer.domElement&&!paused){yaw-=e.movementX*.00225;pitch=clamp(pitch-e.movementY*.002,-1.35,1.35)}});setupMobile();requestAnimationFrame(animate)}
 function buildSky(){
  // Smooth, multi-tone sky dome with warm haze near the horizon.
@@ -123,7 +123,7 @@ function updateWater(dt){
  if(water && water.material && water.material.uniforms){water.material.uniforms.uTime.value=time;}
 }
 
-function obstacle(x,z,scale=1){const g=new THREE.Group();g.position.set(x,heightAt(z)+.25,z);g.rotation.y=rand(-Math.PI,Math.PI);for(let j=0;j<3;j++){let beam=box(.45*scale,3.6*scale,.55*scale,steel,0,1.4*scale,0,g);beam.rotation.z=j*Math.PI/3+.15;beam.rotation.x=(j===1?.4:-.1)}scene.add(g);props.push({x,z,r:1.9*scale,type:"steel"});return g}function buildScenery(){for(let i=0;i<205;i++)obstacle(rand(-420,420),rand(-128,27),rand(.65,1.25));for(let i=0;i<65;i++){const x=rand(-430,430),z=rand(-172,-65);let g=new THREE.Group();g.position.set(x,heightAt(z),z);box(rand(1,2.3),rand(.35,.9),rand(.8,1.8),wood,0,.4,0,g);scene.add(g);props.push({x,z,r:1.1,type:"crate"})}for(let i=0;i<40;i++){const x=rand(-520,520),z=-207+rand(-12,16);const bunker=box(rand(5,11),rand(3,5),rand(4,7),steel,x,heightAt(z)+2,z);box(4,.32,.35,dark,x,heightAt(z)+2,z+3.1)}for(let i=0;i<4;i++){const x=i*170-255;const g=new THREE.Group();g.position.set(x,1.4,-206);box(9,3,7,steel,0,1.5,0,g);box(7,.5,1,dark,0,2,.1,g);scene.add(g)}for(let i=0;i<20;i++)makeSmoke(rand(-450,450),rand(-170,-10),rand(.6,2.3));for(let i=0;i<6;i++)makeBackgroundBoat(rand(-260,260),rand(95,300));for(let i=0;i<65;i++){const x=rand(-410,410),z=rand(-180,20);if(Math.random()<.56){let o=box(rand(1,3),rand(.12,.35),rand(.5,1.6),wet,x,heightAt(z)+.06,z);o.rotation.y=rand(0,Math.PI)}else{let o=box(rand(.3,1),rand(.7,1.8),rand(.3,.8),steel,x,heightAt(z)+.45,z);o.rotation.z=rand(-.5,.5)}}}
+function obstacle(x,z,scale=1){const g=new THREE.Group();g.position.set(x,heightAt(z)+.25,z);g.rotation.y=rand(-Math.PI,Math.PI);for(let j=0;j<3;j++){let beam=box(.45*scale,3.6*scale,.55*scale,steel,0,1.4*scale,0,g);beam.rotation.z=j*Math.PI/3+.15;beam.rotation.x=(j===1?.4:-.1)}scene.add(g);props.push({x,z,r:1.9*scale,type:"steel"});return g}function buildScenery(){for(let i=0;i<205;i++)obstacle(rand(-420,420),rand(-128,27),rand(.65,1.25));for(let i=0;i<65;i++){const x=rand(-430,430),z=rand(-172,-65);let g=new THREE.Group();g.position.set(x,heightAt(z),z);box(rand(1,2.3),rand(.35,.9),rand(.8,1.8),wood,0,.4,0,g);scene.add(g);props.push({x,z,r:1.1,type:"crate"})}for(let i=0;i<16;i++){const x=rand(-520,520),z=-207+rand(-12,16);const bunker=box(rand(5,11),rand(1.6,2.6),rand(4,7),steel,x,heightAt(z)+2,z);box(4,.32,.35,dark,x,heightAt(z)+2,z+3.1)}for(let i=0;i<4;i++){const x=i*170-255;const g=new THREE.Group();g.position.set(x,1.4,-206);box(9,3,7,steel,0,1.5,0,g);box(7,.5,1,dark,0,2,.1,g);scene.add(g)}for(let i=0;i<20;i++)makeSmoke(rand(-450,450),rand(-170,-10),rand(.6,2.3));for(let i=0;i<6;i++)makeBackgroundBoat((Math.random()<.5?-1:1)*rand(35,260),rand(95,300));for(let i=0;i<65;i++){const x=rand(-410,410),z=rand(-180,20);if(Math.random()<.56){let o=box(rand(1,3),rand(.12,.35),rand(.5,1.6),wet,x,heightAt(z)+.06,z);o.rotation.y=rand(0,Math.PI)}else{let o=box(rand(.3,1),rand(.7,1.8),rand(.3,.8),steel,x,heightAt(z)+.45,z);o.rotation.z=rand(-.5,.5)}}}
 function makeSmoke(x,z,size=1){
  if(!smokeMapHolder.map)smokeMapHolder.map=smokeTexture();
  const group=new THREE.Group(),clouds=[];
@@ -246,7 +246,7 @@ function setQuality(mode){
 function updateCrowd(dt){
  if(!crowd||phase==='boat')return;
  for(let i=0;i<crowdActive;i++){
-  const a=crowdAgents[i];a.pause-=dt;
+  const a=crowdAgents[i];if(a.down>0){a.down-=dt;if(a.down<=0){a.z=rand(38,95);a.x=rand(-355,355)}continue}a.pause-=dt;
   if(a.pause<=0){a.pause=rand(1.4,5);let closest=nearestObstacleAt(a.x,a.z,14);a.state=Math.random()<(a.z<0?.28:.12)&&closest?'cover':'running';
    if(a.state==='cover'&&closest){a.coverX=closest.x+rand(-1,1);a.coverZ=closest.z+Math.max(1.1,closest.r*.7);}
    a.heading=rand(-.43,.43);
@@ -254,14 +254,14 @@ function updateCrowd(dt){
   if(a.state==='cover'){
    if(Math.hypot(a.x-a.coverX,a.z-a.coverZ)>1.1){a.x+=(a.coverX-a.x)*Math.min(1,dt*.8);a.z+=(a.coverZ-a.z)*Math.min(1,dt*.8)}
   }else{a.x+=Math.sin(a.heading)*a.speed*dt;a.z-=Math.cos(a.heading)*a.speed*dt}
-  if(a.z<-192){a.z=rand(38,95);a.x=rand(-355,355);a.pause=rand(.5,3)}a.x=clamp(a.x,-415,415);
+  if(a.z<-182){a.z=-182;a.state='cover';a.coverX=a.x;a.coverZ=-182;a.wall=(a.wall||0)+dt;if(a.wall>14&&Math.hypot(a.x-player.x,a.z-player.z)>45){a.wall=0;a.z=rand(38,95);a.x=rand(-355,355);a.pause=rand(.5,3)}}a.x=clamp(a.x,-415,415);
  }
  crowdFrames++;if(crowdFrames%2===0)drawCrowd();
 }
 function drawCrowd(){
  if(!crowd)return;const d=crowd.dummy;
  for(let i=0;i<crowdActive;i++){
-  const a=crowdAgents[i],y=heightAt(a.z),crouch=a.state==='cover',rot=a.heading+Math.PI;
+  const a=crowdAgents[i];if(a.down>0){lieCrowd(i,a,d);continue}const y=heightAt(a.z),crouch=a.state==='cover',rot=a.heading+Math.PI;
   d.rotation.set(0,rot,0);d.scale.set(1,crouch?.68:1,1);d.position.set(a.x,y+(crouch?1.10:1.53),a.z);d.updateMatrix();crowd.body.setMatrixAt(i,d.matrix);
   d.scale.setScalar(1);d.position.y=y+(crouch?1.71:2.29);d.updateMatrix();crowd.heads.setMatrixAt(i,d.matrix);
   d.scale.set(1,1,1);d.position.y=y+(crouch?1.88:2.48);d.updateMatrix();crowd.hats.setMatrixAt(i,d.matrix);
@@ -303,7 +303,7 @@ async function audioStart(){
    audio.master=audio.ctx.createGain();
    audio.master.gain.value=0;
    const limiter=audio.ctx.createDynamicsCompressor();limiter.threshold.value=-18;limiter.knee.value=12;limiter.ratio.value=8;limiter.attack.value=.004;limiter.release.value=.2;
-   audio.master.connect(limiter);limiter.connect(audio.ctx.destination);
+   audio.lp=audio.ctx.createBiquadFilter();audio.lp.type='lowpass';audio.lp.frequency.value=20000;audio.limiter=limiter;audio.master.connect(audio.lp);audio.lp.connect(limiter);limiter.connect(audio.ctx.destination);
   }
   if(audio.ctx.state!=='running')await audio.ctx.resume();
   soundUpdateVolume();refreshAudioUI();
@@ -365,12 +365,12 @@ function soundTick(dt){if(!audio.ctx||audio.ctx.state!=='running'||paused||audio
   if(t>audio.nextBoat){soundTone(52,.36,.02,'sine');audio.nextBoat=t+rand(.65,.95)}
  }else if(phase==='beach'){
   if(t>audio.nextGun){
-   const dist=rand(75,280),v=.034/(1+dist/120);
+   const dist=rand(260,420),v=.03/(1+dist/120);
    for(let i=0;i<Math.floor(rand(2,5));i++){
     soundTone(rand(100,175),.065,v,'triangle',i*.11,.55);
     soundNoise(.035,v*.11,240,0,i*.11);
    }
-   audio.nextGun=t+rand(1.2,3.1);
+   audio.nextGun=t+rand(5,9);
   }
   const motion=Boolean(keys.KeyW||keys.KeyA||keys.KeyS||keys.KeyD||keys.ArrowUp||keys.ArrowDown||keys.ArrowLeft||keys.ArrowRight||Math.abs(mobileMove.x)+Math.abs(mobileMove.y)>.2);
   if(motion&&t>audio.nextStep){soundTone(player.z>34?82:120,.075,.019,'triangle');audio.nextStep=t+((keys.ShiftLeft||keys.ShiftRight||mobileSprint)? .28:player.crouched?.65:.43)}
@@ -404,12 +404,13 @@ $('audioTest').addEventListener('click',async()=>{
 refreshAudioUI();
 function showMsg(m,sec=3){$('message').textContent=m;$('message').style.opacity='1';messageTimer=sec}function objective(t){$('objectiveText').textContent=t}function openOverlay(title,body,button,eyebrow='OMAHA · SURVIVAL REPORT'){$('overlaytitle').innerHTML=title;$('overlaybody').textContent=body;$('start').textContent=button;$('overlayeyebrow').textContent=eyebrow;$('overlay').classList.remove('hidden')}function hideOverlay(){$('overlay').classList.add('hidden')}function startGame(){audioStart();if(!started){started=true;paused=false;phase='boat';time=0;hideOverlay();showMsg('DOG GREEN SECTOR — 06:31',4);objective('Hold steady. Your landing craft is approaching shore.');runStartedAt=time;runShots=0;runCoverTime=0;runHits=0;runHelpedAt=0;if(!mobile)renderer.domElement.requestPointerLock?.()}else if(phase==='dead'||phase==='won'){resetRun()}else{paused=false;hideOverlay();if(!mobile)renderer.domElement.requestPointerLock?.()}}function pauseGame(){if(!started||phase==='dead'||phase==='won')return;paused=!paused;if(paused){document.exitPointerLock?.();openOverlay('PAUSED<span>.</span>','The battlefield is frozen while paused. Resume when ready.','RESUME LANDING','MISSION PAUSED')}else hideOverlay()}
 function resetRun(){deathCount++;runIndex++;player.x=rand(-140,140);player.z=rand(19,37);player.health=100;player.stamina=100;player.suppression=0;player.legInjury=0;player.bleeding=0;player.alive=true;player.crouched=false;player.assisting=0;player.step=0;yaw=rand(-.28,.28);pitch=0;phase='beach';paused=false;checkpoint=0;score=0;helped=0;hideOverlay();showMsg('ANOTHER SOLDIER. ANOTHER CHANCE.',4);objective('Cross the open beach. Find cover, then reach the seawall.');runStartedAt=time;runShots=0;runCoverTime=0;runHits=0;runHelpedAt=0;if(!mobile)renderer.domElement.requestPointerLock?.()}
-function killPlayer(){if(!player.alive)return;recordRun(false);player.alive=false;phase='dead';paused=true;document.exitPointerLock?.();openOverlay('FALLEN<span>.</span>',`An infantryman has fallen on Omaha Beach after ${Math.max(1,Math.round(time-runStartedAt))} seconds. You assisted ${helped} soldier${helped===1?'':'s'}. ${statsSummary()} The landing goes on. Continue as another soldier.`, 'CONTINUE AS ANOTHER SOLDIER','THE LANDING CONTINUES')}function win(){recordRun(true);phase='won';paused=true;document.exitPointerLock?.();openOverlay('YOU MADE IT<span>.</span>',`You reached the seawall. Your squad's fate is still uncertain, and the fight is far from over. You assisted ${helped} soldier${helped===1?'':'s'}. ${statsSummary()} This is the end of Prototype 3.4 — survival, not victory.`, 'TRY ANOTHER LANDING','SURVIVOR · DOG GREEN')}
+function killPlayer(){if(!player.alive)return;recordRun(false);player.alive=false;phase='dead';paused=true;document.exitPointerLock?.();openOverlay('FALLEN<span>.</span>',`An infantryman has fallen on Omaha Beach after ${Math.max(1,Math.round(time-runStartedAt))} seconds. You assisted ${helped} soldier${helped===1?'':'s'}. ${statsSummary()} The landing goes on. Continue as another soldier.`, 'CONTINUE AS ANOTHER SOLDIER','THE LANDING CONTINUES')}function win(){recordRun(true);phase='won';paused=true;document.exitPointerLock?.();openOverlay('YOU MADE IT<span>.</span>',`You reached the seawall. Your squad's fate is still uncertain, and the fight is far from over. You assisted ${helped} soldier${helped===1?'':'s'}. ${statsSummary()} This is the end of Prototype 3.5 — survival, not victory.`, 'TRY ANOTHER LANDING','SURVIVOR · DOG GREEN')}
 function updateSoldiers(dt){for(const s of soldiers){if(!s.alive)continue;
- if(s.boat){if(phase!=='boat'&&time>15){s.boat=false;s.x+=rand(-2,2);s.z=rand(87,101);s.g.position.y=heightAt(s.z)}else{s.g.position.y=1.42+Math.sin(time*2+s.seed)*.035;continue}}
+ if(s.down){if(time>s.down&&Math.hypot(s.x-player.x,s.z-player.z)>40)recycleSoldier(s);else{s.fall=Math.min(1,(s.fall||0)+dt*2.6);s.g.rotation.x=-1.45*s.fall;s.g.position.y=Math.max(heightAt(s.z),-.25)+.2*s.fall}continue}
+ if(s.boat){if(phase!=='boat'&&time>15){s.boat=false;s.x+=rand(-2,2);s.z=rand(87,101);s.g.position.y=heightAt(s.z)}else{s.g.position.y=1.42+Math.sin(time*2+s.seed)*.035;s.g.position.z=s.z+boat.position.z-110;continue}}
  if(s.wounded){if(s.aided){s.wounded=false;s.kind='runner';s.speed=rand(.85,1.9);s.aided=false;s.g.rotation.z=0}else{s.g.rotation.z=.75;s.g.position.y=heightAt(s.z)-.45;continue}}
  s.life+=dt;
- if(Math.random()<dt*.0025*(s.z<30?2:1)){s.wounded=true;s.g.rotation.z=.7;continue}
+ if(Math.random()<dt*.0005){s.wounded=true;s.g.rotation.z=.7;continue}
  if(!s.aiState){s.aiState='advance';s.aiUntil=0;s.squad=Math.floor(s.seed)%7}
  if(time>s.aiUntil){const obstacle=nearestObstacleAt(s.x,s.z,21);const pressured=s.z<25&&Math.random()<.46;
   if(pressured&&obstacle){s.aiState='cover';s.goalX=obstacle.x+rand(-.7,.7);s.goalZ=obstacle.z+Math.max(1,obstacle.r*.8);s.aiUntil=time+rand(3,8)}
@@ -436,9 +437,9 @@ function updateSoldiers(dt){for(const s of soldiers){if(!s.alive)continue;
 function projectile(dt){
  fireTimer-=dt;
  if(fireTimer<=0&&phase==='beach'){
-  fireTimer=rand(.08,.22)*(battleIntensity>.6?.7:1.2);
+  fireTimer=rand(.3,.7)*(battleIntensity>.6?.7:1.2);
   if(tracers.length<52){
-   const aimPlayer=Math.random()<.19,tx=aimPlayer?player.x+rand(-6,6):rand(-430,430),tz=aimPlayer?player.z+rand(-6,6):rand(-165,40);
+   const aimPlayer=false,tx=aimPlayer?player.x+rand(-6,6):rand(-430,430),tz=aimPlayer?player.z+rand(-6,6):rand(-165,40);
    const start=new THREE.Vector3(tx+rand(-70,70),rand(9,35),rand(-260,-225)),end=new THREE.Vector3(tx,heightAt(tz)+rand(.8,2.2),tz);
    const geom=new THREE.BufferGeometry().setFromPoints([start,end]);const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:Math.random()>.35?0xf9d4a0:0xeab673,transparent:true,opacity:.79}));scene.add(line);tracers.push({line,life:rand(.06,.17)});
    // Closest pass of this shot along its whole path, not just its landing point.
@@ -462,7 +463,7 @@ function projectile(dt){
  for(let i=explosions.length-1;i>=0;i--){const ex=explosions[i];ex.life-=dt;ex.g.scale.setScalar(1+(1-ex.life/ex.start)*3);ex.g.material.opacity=clamp(ex.life/ex.start*.65,0,.7);if(ex.life<0){scene.remove(ex.g);ex.g.geometry.dispose();ex.g.material.dispose();explosions.splice(i,1)}}
  for(const smoke of smokes){smoke.group.position.y+=dt*smoke.rate;smoke.group.rotation.y+=dt*.025;if(smoke.group.position.y>18)smoke.group.position.y=0}
 }
-function makeExplosion(x,z){soundExplosion(x,z);const r=rand(1.2,2.7);const g=sphere(r,new THREE.MeshBasicMaterial({color:Math.random()>.6?0xffc27c:0x5e5c56,transparent:true,opacity:.7}),x,heightAt(z)+r,z);explosions.push({g,life:.6,start:.6});if(Math.hypot(x-player.x,z-player.z)<25){player.suppression=clamp(player.suppression+rand(20,42),0,100);shake=rand(.15,.4);if(Math.hypot(x-player.x,z-player.z)<7&&phase==='beach')damage(rand(8,24))}}
+function makeExplosion(x,z){soundExplosion(x,z);onExplosion(x,z);const r=rand(1.2,2.7);const g=sphere(r,new THREE.MeshBasicMaterial({color:Math.random()>.6?0xffc27c:0x5e5c56,transparent:true,opacity:.7}),x,heightAt(z)+r,z);explosions.push({g,life:.6,start:.6});if(Math.hypot(x-player.x,z-player.z)<25){player.suppression=clamp(player.suppression+rand(20,42),0,100);shake=rand(.15,.4);if(Math.hypot(x-player.x,z-player.z)<7&&phase==='beach')damage(rand(8,24))}}
 function damage(n,clearShot=false){if(phase!=='beach'||!player.alive)return;soundHit();const protection=coverProtection();const multiplier=(clearShot?1:(1-protection))*(player.crouched?.86:1);player.health=Math.max(0,player.health-n*multiplier);player.suppression=Math.min(100,player.suppression+25);runHits++;if(Math.random()<.18){player.legInjury=clamp(player.legInjury+rand(.12,.28),0,.65);player.bleeding=clamp(player.bleeding+rand(.1,.28),0,1)}impactTimer=.4;shake=.18;$('damage').style.opacity='.65';if(player.health<=0)killPlayer()}
 // Fire comes predominantly from the inland bluffs (negative Z). Merely standing near
 // an obstacle is NOT cover: the obstacle must be between the player and the bluffs.
@@ -486,10 +487,10 @@ function coverProtection(){
  return clamp(best,0,.87);
 }
 function nearCover(){return coverProtection()>.25} 
-function move(dt){if(phase==='boat'){let bob=Math.sin(time*2.1)*.12+Math.sin(time*.75)*.08;camera.position.set(Math.sin(time*.4)*.15,2.77+bob,112.8);boat.position.y=.25+bob*.7;camera.rotation.set(-.025,Math.sin(time*.4)*.035,Math.sin(time*1.5)*.012);if(time>7.5&&time<7.6)showMsg('RAMP COMING DOWN — BRACE YOURSELF!',3);if(time>12){ramp.rotation.x=clamp((time-12)*.8,0,Math.PI*.48);if(time>15){phase='beach';player.z=99;player.x=0;yaw=0;pitch=0;objective('Get off the landing craft. Reach the open beach.');showMsg('MOVE! FIND COVER!',3)}}return}if(phase!=='beach')return;let ahead=Number(Boolean(keys.KeyW||keys.ArrowUp))-Number(Boolean(keys.KeyS||keys.ArrowDown))-mobileMove.y;let side=Number(Boolean(keys.KeyD||keys.ArrowRight))-Number(Boolean(keys.KeyA||keys.ArrowLeft))+mobileMove.x;let mag=Math.hypot(ahead,side);if(mag>1){ahead/=mag;side/=mag}let sprint=(keys.ShiftLeft||keys.ShiftRight||mobileSprint)&&player.stamina>6&&!player.crouched&&ahead>0;player.crouched=Boolean(keys.KeyC||mobileCrouch);let speed=(player.crouched?2.1:sprint?8.6:4.15)* (player.health<35?.72:1)*(1-player.legInjury*.5);if(player.z>33)speed*=.56;const supp=player.suppression/100;if(!player.crouched)speed*=1-.3*supp;// Match Three.js camera forward (-sin(yaw), -cos(yaw)) and right (cos(yaw), -sin(yaw)).
-const dx=(-Math.sin(yaw)*ahead+Math.cos(yaw)*side)*speed*dt;const dz=(-Math.cos(yaw)*ahead-Math.sin(yaw)*side)*speed*dt;player.x=clamp(player.x+dx,-480,480);player.z=clamp(player.z+dz,-238,122);if(sprint&&mag>.15)player.stamina=clamp(player.stamina-24*dt,0,100);else player.stamina=clamp(player.stamina+(player.crouched?21:13)*(1-.5*supp)*dt,0,100);player.suppression=clamp(player.suppression-12*dt,0,100);player.step+=mag*speed*dt;const y=heightAt(player.z)+(player.crouched?1.05:1.75),bounce=mag>.1?Math.sin(player.step*2.8)*(.032+(sprint?.023:0)):0;camera.position.set(player.x+rand(-shake,shake)*.04,y+bounce+rand(-shake,shake)*.03,player.z);camera.rotation.set(pitch+rand(-shake,shake)*.015+Math.sin(time*19.3)*.007*supp*supp,yaw+Math.sin(time*23.7+1)*.007*supp*supp,0,'YXZ');shake*=Math.max(0,1-dt*7);if(player.z<34&&checkpoint===0){checkpoint=1;objective('Cross the exposed sand. Use steel obstacles for cover.');showMsg('THE OPEN BEACH',3)}if(player.z<-90&&checkpoint===1){checkpoint=2;objective('Reach the seawall at the base of the bluffs.');showMsg('KEEP MOVING. ALMOST THERE.',3)}if(player.z<-185)win();const protection=coverProtection();const cover=protection>.25;if(protection>.5)runCoverTime+=dt;if(player.bleeding>0){player.health=Math.max(0,player.health-player.bleeding*.45*dt);if(player.health<=0)killPlayer()}if(impactTimer>0){impactTimer-=dt;if(impactTimer<=0)$('damage').style.opacity='0'}const wounded=nearestWounded();$('prompt').style.opacity=wounded&&wounded.dist<3.4?'1':'0';$('prompt').textContent=wounded&&wounded.dist<3.4?'[ E / HELP ] Assist wounded soldier':'';$('staminabar').style.width=player.stamina+'%';$('stamval').textContent=Math.round(player.stamina)+'%';$('life').textContent=player.health>=75?'STATUS: STABLE':player.health>=35?'STATUS: WOUNDED':'STATUS: CRITICAL';$('injury').textContent=player.legInjury>.12?'LEG INJURY: MOBILITY REDUCED':player.bleeding>.1?'BLEEDING: HOLD R TO BANDAGE':'INJURIES: '+(player.health<75?'MINOR':'NONE');$('suppression').textContent='SUPPRESSION: '+(player.suppression>65?'HEAVY · SLOWED, STAY LOW':player.suppression>30?'MODERATE':'LOW');$('healthval').textContent=Math.round(player.health)+' / 100';$('healthbar').style.width=player.health+'%';$('healthbar').classList.toggle('low',player.health<35);$('coverdetail').textContent='COVER PROTECTION: '+Math.round(protection*100)+'% · '+(protection>.5?'GOOD COVER':protection>.25?'PARTIAL COVER':player.crouched?'LOW PROFILE':'EXPOSED');$('life').style.color=player.health>=75?'#a7c4b6':player.health>=35?'#e6be76':'#fa8170';$('coverstatus').textContent='COVER: '+(protection>.5?'GOOD':protection>.25?'PARTIAL':'EXPOSED')+' ('+Math.round(protection*100)+'%)';$('distance').textContent='DISTANCE TO SEAWALL: '+Math.max(0,Math.round(player.z+185))+' M';$('mission').textContent=checkpoint<1?'TASK: LEAVE THE SURF':checkpoint<2?'TASK: REACH THE SHINGLE':'TASK: REACH THE SEAWALL';$('squadcount').textContent='SOLDIERS NEARBY: '+(soldiers.filter(s=>s.alive&&!s.boat&&Math.hypot(s.x-player.x,s.z-player.z)<22).length+crowdAgents.slice(0,crowdActive).filter(s=>Math.hypot(s.x-player.x,s.z-player.z)<22).length)}
+function move(dt){if(phase==='boat'){boat.position.z=110+70*Math.pow(clamp(1-time/11.5,0,1),1.6);let bob=Math.sin(time*2.1)*.12+Math.sin(time*.75)*.08;camera.position.set(Math.sin(time*.4)*.15,2.77+bob,boat.position.z+2.8);boat.position.y=.25+bob*.7;camera.rotation.set(-.025,Math.sin(time*.4)*.035,Math.sin(time*1.5)*.012);if(time>7.5&&time<7.6)showMsg('RAMP COMING DOWN — BRACE YOURSELF!',3);if(time>12){ramp.rotation.x=clamp((time-12)*.8,0,Math.PI*.48);if(time>15){phase='beach';player.z=99;player.x=0;yaw=0;pitch=0;objective('Get off the landing craft. Reach the open beach.');showMsg('MOVE! FIND COVER!',3)}}return}if(phase!=='beach')return;let ahead=Number(Boolean(keys.KeyW||keys.ArrowUp))-Number(Boolean(keys.KeyS||keys.ArrowDown))-mobileMove.y;let side=Number(Boolean(keys.KeyD||keys.ArrowRight))-Number(Boolean(keys.KeyA||keys.ArrowLeft))+mobileMove.x;let mag=Math.hypot(ahead,side);if(mag>1){ahead/=mag;side/=mag}let sprint=(keys.ShiftLeft||keys.ShiftRight||mobileSprint)&&player.stamina>6&&!player.crouched&&ahead>0;player.crouched=Boolean(keys.KeyC||mobileCrouch);let speed=(player.crouched?2.1:sprint?8.6:4.15)* (player.health<35?.72:1)*(1-player.legInjury*.5);speed*=wadeFactor()*moveFactor;const supp=player.suppression/100;if(!player.crouched)speed*=1-.3*supp;// Match Three.js camera forward (-sin(yaw), -cos(yaw)) and right (cos(yaw), -sin(yaw)).
+const dx=(-Math.sin(yaw)*ahead+Math.cos(yaw)*side)*speed*dt;const dz=(-Math.cos(yaw)*ahead-Math.sin(yaw)*side)*speed*dt;player.x=clamp(player.x+dx,-480,480);player.z=clamp(player.z+dz,-238,122);if(sprint&&mag>.15)player.stamina=clamp(player.stamina-24*dt,0,100);else player.stamina=clamp(player.stamina+(player.crouched?21:13)*(1-.5*supp)*dt,0,100);player.suppression=clamp(player.suppression-12*dt,0,100);player.step+=mag*speed*dt;const y=heightAt(player.z)+(player.crouched?1.05:1.75),bounce=mag>.1?Math.sin(player.step*2.8)*(.032+(sprint?.023:0)):0;camera.position.set(player.x+rand(-shake,shake)*.04,Math.max(y+bounce-camDrop,player.z>37?.34-goingUnder*.2:-9)+rand(-shake,shake)*.03,player.z);camera.rotation.set(pitch+rand(-shake,shake)*.015+Math.sin(time*19.3)*.007*supp*supp,yaw+Math.sin(time*23.7+1)*.007*supp*supp,camRoll,'YXZ');shake*=Math.max(0,1-dt*7);if(player.z<34&&checkpoint===0){checkpoint=1;objective('Cross the exposed sand. Use steel obstacles for cover.');showMsg('THE OPEN BEACH',3)}if(player.z<-90&&checkpoint===1){checkpoint=2;objective('Reach the seawall at the base of the bluffs.');showMsg('KEEP MOVING. ALMOST THERE.',3)}if(player.z<-185)win();const protection=coverProtection();const cover=protection>.25;if(protection>.5)runCoverTime+=dt;if(player.bleeding>0){player.health=Math.max(0,player.health-player.bleeding*.45*dt);if(player.health<=0)killPlayer()}if(impactTimer>0){impactTimer-=dt;if(impactTimer<=0)$('damage').style.opacity='0'}const wounded=nearestWounded();$('prompt').style.opacity=wounded&&wounded.dist<3.4?'1':'0';$('prompt').textContent=wounded&&wounded.dist<3.4?'[ E / HELP ] Assist wounded soldier':'';$('staminabar').style.width=player.stamina+'%';$('stamval').textContent=Math.round(player.stamina)+'%';$('life').textContent=player.health>=75?'STATUS: STABLE':player.health>=35?'STATUS: WOUNDED':'STATUS: CRITICAL';$('injury').textContent=player.legInjury>.12?'LEG INJURY: MOBILITY REDUCED':player.bleeding>.1?'BLEEDING: HOLD R TO BANDAGE':'INJURIES: '+(player.health<75?'MINOR':'NONE');$('suppression').textContent='SUPPRESSION: '+(player.suppression>65?'HEAVY · SLOWED, STAY LOW':player.suppression>30?'MODERATE':'LOW');$('healthval').textContent=Math.round(player.health)+' / 100';$('healthbar').style.width=player.health+'%';$('healthbar').classList.toggle('low',player.health<35);$('coverdetail').textContent='COVER PROTECTION: '+Math.round(protection*100)+'% · '+(protection>.5?'GOOD COVER':protection>.25?'PARTIAL COVER':player.crouched?'LOW PROFILE':'EXPOSED');$('life').style.color=player.health>=75?'#a7c4b6':player.health>=35?'#e6be76':'#fa8170';$('coverstatus').textContent='COVER: '+(protection>.5?'GOOD':protection>.25?'PARTIAL':'EXPOSED')+' ('+Math.round(protection*100)+'%)';$('distance').textContent='DISTANCE TO SEAWALL: '+Math.max(0,Math.round(player.z+185))+' M';$('mission').textContent=checkpoint<1?'TASK: LEAVE THE SURF':checkpoint<2?'TASK: REACH THE SHINGLE':'TASK: REACH THE SEAWALL';$('squadcount').textContent='SOLDIERS NEARBY: '+(soldiers.filter(s=>s.alive&&!s.boat&&Math.hypot(s.x-player.x,s.z-player.z)<22).length+crowdAgents.slice(0,crowdActive).filter(s=>Math.hypot(s.x-player.x,s.z-player.z)<22).length)}
 function nearestWounded(){let nearest=null;for(const s of soldiers){if(!s.wounded||s.aided||s.boat)continue;const dist=Math.hypot(s.x-player.x,s.z-player.z);if(!nearest||dist<nearest.dist)nearest={soldier:s,dist}}return nearest}function assist(){if(phase!=='beach'||paused)return;let s=nearestWounded();if(s&&s.dist<3.4){s.soldier.aided=true;helped++;showMsg('YOU HELPED A SOLDIER TO HIS FEET',3);player.suppression=clamp(player.suppression+8,0,100)}}
-function hud(dt){$('clock').textContent=`06:${String(31+Math.floor(time/60)).padStart(2,'0')}:${String(Math.floor(time%60)).padStart(2,'0')}`;if(messageTimer>0){messageTimer-=dt;if(messageTimer<=0)$('message').style.opacity='0'}}function animate(){requestAnimationFrame(animate);let now=performance.now(),dt=Math.min((now-prevFrame)/1000,.05);prevFrame=now;if(started&&!paused){time+=dt;move(dt);if(!paused){updateSoldiers(dt);updateCrowd(dt);updateBattle(dt);projectile(dt);soundTick(dt);hud(dt)}}if(skyDome)skyDome.position.copy(camera.position);if(started&&!paused)updateWater(dt);if(renderer)renderer.render(scene,camera);frameAccumulator+=dt;frameSamples++;if(frameAccumulator>=1){const fps=Math.round(frameSamples/frameAccumulator);$('perf').textContent=fps+' FPS';adaptiveQuality(fps);frameSamples=0;frameAccumulator=0}}function resize(){if(!camera)return;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,qualityProfiles[qualityMode].pixel))}
+function hud(dt){$('clock').textContent=`06:${String(31+Math.floor(time/60)).padStart(2,'0')}:${String(Math.floor(time%60)).padStart(2,'0')}`;if(messageTimer>0){messageTimer-=dt;if(messageTimer<=0)$('message').style.opacity='0'}}function animate(){requestAnimationFrame(animate);let now=performance.now(),dt=Math.min((now-prevFrame)/1000,.05);prevFrame=now;if(started&&!paused){time+=dt;move(dt);if(!paused){updateSoldiers(dt);updateCrowd(dt);updateBattle(dt);projectile(dt);updateGuns(dt);updateV35(dt);soundTick(dt);hud(dt)}}if(skyDome)skyDome.position.copy(camera.position);if(started&&!paused)updateWater(dt);if(renderer)renderer.render(scene,camera);frameAccumulator+=dt;frameSamples++;if(frameAccumulator>=1){const fps=Math.round(frameSamples/frameAccumulator);$('perf').textContent=fps+' FPS';adaptiveQuality(fps);frameSamples=0;frameAccumulator=0}}function resize(){if(!camera)return;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,qualityProfiles[qualityMode].pixel))}
 function setupMobile(){if(!mobile)return;let joystick=$('joystick'),stick=$('stick'),jid=null;function joy(e){let r=joystick.getBoundingClientRect(),x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2),d=Math.max(1,Math.hypot(x,y)),limit=40;x=x/d*Math.min(d,limit);y=y/d*Math.min(d,limit);stick.style.transform=`translate(${x}px,${y}px)`;mobileMove={x:x/limit,y:y/limit}}joystick.addEventListener('pointerdown',e=>{jid=e.pointerId;joystick.setPointerCapture(jid);joy(e)});joystick.addEventListener('pointermove',e=>{if(e.pointerId===jid)joy(e)});function endJoy(){jid=null;mobileMove={x:0,y:0};stick.style.transform='translate(0,0)'}joystick.addEventListener('pointerup',endJoy);joystick.addEventListener('pointercancel',endJoy);renderer.domElement.addEventListener('pointerdown',e=>{if(e.clientX>innerWidth*.28){touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};renderer.domElement.setPointerCapture(e.pointerId)}});renderer.domElement.addEventListener('pointermove',e=>{if(!touchLook||e.pointerId!==touchLook.id||paused)return;const dx=e.clientX-touchLook.x,dy=e.clientY-touchLook.y;yaw-=dx*.004;pitch=clamp(pitch-dy*.003,-1.35,1.35);touchLook.x=e.clientX;touchLook.y=e.clientY});renderer.domElement.addEventListener('pointerup',()=>touchLook=null);for(let [id,field]of [['mobSprint','sprint'],['mobCrouch','crouch']]){let b=$(id);b.addEventListener('pointerdown',e=>{e.preventDefault();if(field==='sprint')mobileSprint=true;else mobileCrouch=!mobileCrouch;b.style.background='#9c7e53'});b.addEventListener('pointerup',()=>{if(field==='sprint'){mobileSprint=false;b.style.background=''}});b.addEventListener('pointercancel',()=>{if(field==='sprint'){mobileSprint=false;b.style.background=''}})}$('mobHelp').addEventListener('click',assist)}
 
 // Version 2.0 systems: proximity cover, battlefield events, audio spatialization,
@@ -519,14 +520,14 @@ function buildAtmosphere(){
  const points=new Float32Array(450*3);
  for(let i=0;i<450;i++){points[i*3]=rand(-380,380);points[i*3+1]=rand(2,38);points[i*3+2]=rand(-240,100)}
  const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(points,3));const particle=new THREE.Points(geom,particleMat);scene.add(particle);atmosphere.push(particle);
- for(let i=0;i<7;i++){const b=makeBackgroundBoat(rand(-320,320),rand(180,310));boatsInWaves.push({g:b,z:b.position.z,velocity:rand(1.5,3.3),wave:rand(0,50),active:true})}
+ for(let i=0;i<7;i++){const b=makeBackgroundBoat((Math.random()<.5?-1:1)*rand(35,320),rand(180,310));boatsInWaves.push({g:b,z:b.position.z,velocity:rand(1.5,3.3),wave:rand(0,50),active:true})}
 }
 function banner(text){const el=$('eventBanner');el.textContent=text;el.style.opacity='1';clearTimeout(banner.timer);banner.timer=setTimeout(()=>el.style.opacity='0',4000)}
 function updateBattle(dt){
  if(phase!=='beach')return;
  battleIntensity=.75+.23*Math.sin(time*.17)+.15*Math.sin(time*.55);
  for(const b of boatsInWaves){if(!b.active)continue;b.z-=b.velocity*dt;b.g.position.z=b.z;b.g.position.y=.75+Math.sin(time*1.6+b.wave)*.07;
-  if(b.z<82){b.z=rand(220,340);b.g.position.x=rand(-330,330);banner('ANOTHER LANDING WAVE REACHES SHORE');
+  if(b.z<82){b.z=rand(220,340);b.g.position.x=(Math.random()<.5?-1:1)*rand(35,330);banner('ANOTHER LANDING WAVE REACHES SHORE');
    for(let i=0;i<20;i++){const a=crowdAgents[Math.floor(Math.random()*crowdActive)];if(a){a.x=b.g.position.x+rand(-16,16);a.z=rand(25,50);a.state='running'}}
   }
  }
@@ -545,5 +546,174 @@ function adaptiveQuality(fps){if(!adaptiveCheck.checked||phase==='intro'||paused
  if(adaptationStreak<=-9){const modes=['low','balanced','sharp','ultra'],i=modes.indexOf(qualityMode);if(i<modes.length-1)setQuality(modes[i+1]);adaptationStreak=0}
 }
 
-$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();
+// ===== V3.5: gun positions with fields of fire, casualties, run-in, deep water, seawall, concussion =====
+// Each machine gun fires bursts from a fixed position on the bluff, walks its fire, pauses,
+// and stops to change belts. Rounds hit whoever is in the beaten zone and not behind an obstacle.
+const guns=[],gunTracers=[],puffs=[],WATER_Y=.075;
+let graceUntil=0,concuss=0,deaf=0,camDrop=0,camRoll=0,moveFactor=1,goingUnder=0,lastGunSound=-9,lastRunMark=-1,lastPX=0,lastPZ=0,fearShown=0,fxTimer=0,breathAt=0,deepWarned=false,underMsgAt=0,reloadCallAt=0,wasBoat=true,lastFilter='';
+function waterDepth(z){return Math.max(0,WATER_Y-heightAt(z))}
+function wadeFactor(){return 1-clamp(waterDepth(player.z)/1.4,0,1)*.6}
+function buildV35(){
+ const concrete=mat(0x8d8b80,.96,0),slit=mat(0x15171a,1,0);
+ const wz=-187,wy=heightAt(wz);
+ box(1000,1.9,1.5,concrete,0,wy+.7,wz).castShadow=false;
+ box(1000,.22,1.9,mat(0x7b796f,.96,0),0,wy+1.72,wz).castShadow=false;
+ for(let i=0;i<6;i++){const x=-325+i*130,z=-232,y=heightAt(z,x);
+  box(7.5,2.6,5.5,concrete,x,y+1.0,z);box(8.3,.5,6.3,concrete,x,y+2.5,z);box(3.4,.55,.4,slit,x,y+1.45,z+2.62);
+  const flash=sphere(.85,new THREE.MeshBasicMaterial({color:0xffdf9a,transparent:true,opacity:.95,fog:false}),x,y+1.45,z+3.1);flash.visible=false;
+  guns.push({x,y:y+1.45,z:z+3,state:'pause',t:rand(.5,3),left:0,shot:0,belt:Math.floor(rand(40,90)),aimX:x,aimZ:0,sweep:0,walk:3,onPlayer:false,hot:0,flash});
+ }
+ for(let i=0;i<36;i++){const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(new Float32Array(6),3));
+  const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:0xffd9a0,transparent:true,opacity:.9}));line.frustumCulled=false;line.visible=false;scene.add(line);
+  gunTracers.push({line,t:1,sx:0,sy:0,sz:0,ex:0,ey:0,ez:0,dur:.3})}
+ const pg=new THREE.IcosahedronGeometry(.5,0);
+ for(let i=0;i<30;i++){const m=new THREE.Mesh(pg,new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}));m.visible=false;scene.add(m);puffs.push({m,life:0,start:1,vy:0,size:1})}
+ window.__omaha={guns,soldiers,crowdAgents,get player(){return player},get phase(){return phase},get time(){return time},get concuss(){return concuss},get boatZ(){return boat.position.z},explode:(x,z)=>makeExplosion(x,z),keys,setYaw:v=>{yaw=v},get stats(){return{shots:runShots,hits:runHits,down:soldiers.filter(s=>s.down).length,wounded:soldiers.filter(s=>s.wounded).length,crowdDown:crowdAgents.filter(a=>a.down>0).length}},
+  // Test hook: advance the simulation without waiting for animation frames.
+  step:(n=1,dt=.033)=>{for(let i=0;i<n&&started&&!paused;i++){time+=dt;move(dt);if(!paused){updateSoldiers(dt);updateCrowd(dt);updateBattle(dt);projectile(dt);updateGuns(dt);updateV35(dt);hud(dt)}}renderer.render(scene,camera);return phase}};
+}
+function spawnPuff(x,y,z,color,size,vy,life){let p=null;for(const q of puffs)if(q.life<=0){p=q;break}if(!p)return;
+ p.m.position.set(x,y,z);p.m.material.color.setHex(color);p.m.material.opacity=.75;p.m.scale.setScalar(size);p.m.visible=true;p.life=p.start=life;p.vy=vy;p.size=size}
+function impactPuff(x,z){const wet=heightAt(z)<WATER_Y-.05;spawnPuff(x,wet?WATER_Y+.1:heightAt(z)+.1,z,wet?0xdfe8e6:0xb9a988,wet?.5:.38,wet?5.5:3.2,wet?.5:.38)}
+function fireTracer(g,ix,iy,iz){let tr=null;for(const q of gunTracers)if(q.t>=1){tr=q;break}if(!tr){impactPuff(ix,iz);return}
+ tr.sx=g.x;tr.sy=g.y;tr.sz=g.z;tr.ex=ix;tr.ey=iy;tr.ez=iz;tr.t=0;tr.dur=Math.max(.08,Math.hypot(ix-g.x,iz-g.z)/760);tr.line.visible=true}
+function updateTracersPuffs(dt){
+ for(const tr of gunTracers){if(tr.t>=1)continue;tr.t+=dt/tr.dur;
+  if(tr.t>=1){tr.line.visible=false;impactPuff(tr.ex,tr.ez);continue}
+  const a=Math.max(0,tr.t-.2),b=tr.t,p=tr.line.geometry.attributes.position;
+  p.setXYZ(0,tr.sx+(tr.ex-tr.sx)*a,tr.sy+(tr.ey-tr.sy)*a,tr.sz+(tr.ez-tr.sz)*a);
+  p.setXYZ(1,tr.sx+(tr.ex-tr.sx)*b,tr.sy+(tr.ey-tr.sy)*b,tr.sz+(tr.ez-tr.sz)*b);p.needsUpdate=true}
+ for(const p of puffs){if(p.life<=0)continue;p.life-=dt;if(p.life<=0){p.m.visible=false;continue}
+  const k=p.life/p.start;p.m.position.y+=p.vy*dt;p.vy-=9*dt;p.m.scale.setScalar(p.size*(1+(1-k)*2.2));p.m.material.opacity=k*.75}
+}
+// Distance from a point to the last stretch of a round's path, where it is low enough to hit a man.
+function beatenDist(g,ix,iz,px,pz){const ax=g.x+(ix-g.x)*.87,az=g.z+(iz-g.z)*.87,vx=(ix-g.x)*.15,vz=(iz-g.z)*.15,t=clamp(((px-ax)*vx+(pz-az)*vz)/(vx*vx+vz*vz||1),0,1);return Math.hypot(px-ax-vx*t,pz-az-vz*t)}
+// A round from the bluff comes in at a shallow downward angle, so an obstacle only shields the ground
+// just behind it: about 5 m for a standing man, 12 m for one who is low. Wood stops less than steel.
+function gunBlocked(g,x,z,low){const vx=x-g.x,vz=z-g.z,L=Math.hypot(vx,vz)||1,reach=low?12:5;
+ for(const p of props){if(Math.abs(p.x-x)>reach+3||Math.abs(p.z-z)>reach+3)continue;const t=((p.x-g.x)*vx+(p.z-g.z)*vz)/(L*L);if(t<=0||t>=1||(1-t)*L>reach)continue;
+  const rad=p.r*(p.type==='crate'?.65:.82);if(Math.hypot(p.x-(g.x+t*vx),p.z-(g.z+t*vz))<rad){if(p.type==='crate'&&!low&&Math.random()<.38)continue;return true}}
+ return false}
+function dropSoldier(s,kill){if(kill){s.down=time+rand(25,40);s.fall=0}else{s.wounded=true;s.aided=false;s.wT=0;s.g.rotation.z=.7}}
+function recycleSoldier(s){s.down=0;s.fall=0;s.wounded=false;s.aided=false;s.wT=0;s.wallAt=0;s.kind='runner';s.speed=s.speed>0?s.speed:rand(.85,1.9);s.z=rand(42,85);s.x=rand(-250,250);s.aiState='advance';s.aiUntil=0;s.g.rotation.set(0,0,0);s.g.scale.y=1}
+function lieCrowd(i,a,d){const y=Math.max(heightAt(a.z),-.12),h=a.heading,fx=Math.sin(h),fz=-Math.cos(h);
+ d.rotation.set(-1.5,h+Math.PI,0,'YXZ');d.scale.set(1,1,1);
+ d.position.set(a.x,y+.22,a.z);d.updateMatrix();crowd.body.setMatrixAt(i,d.matrix);
+ d.position.set(a.x+fx*.78,y+.2,a.z+fz*.78);d.updateMatrix();crowd.heads.setMatrixAt(i,d.matrix);
+ d.position.set(a.x+fx*.95,y+.24,a.z+fz*.95);d.updateMatrix();crowd.hats.setMatrixAt(i,d.matrix);
+ for(let k=0;k<4;k++){const arm=k>=2,side=k%2?1:-1,o=arm?.35:-.85;d.position.set(a.x+fx*o+Math.cos(h)*side*.25,y+.14,a.z+fz*o+Math.sin(h)*side*.25);d.updateMatrix();crowd.limbs[k].setMatrixAt(i,d.matrix)}
+ d.rotation.set(0,0,0,'XYZ')}
+function roundCasualties(g,ix,iz,chance){
+ for(const s of soldiers){if(!s.alive||s.boat||s.down||s.wounded||Math.abs(s.x-ix)>30||Math.abs(s.z-iz)>45)continue;const low=s.aiState==='cover'||s.aiState==='hold';
+  if(beatenDist(g,ix,iz,s.x,s.z)<(low?.5:.8)&&Math.random()<chance&&!gunBlocked(g,s.x,s.z,low))dropSoldier(s,Math.random()<.55)}
+ for(let i=0;i<crowdActive;i++){const a=crowdAgents[i];if(a.down>0||Math.abs(a.x-ix)>30||Math.abs(a.z-iz)>45)continue;const low=a.state==='cover';
+  if(beatenDist(g,ix,iz,a.x,a.z)<(low?.5:.8)&&Math.random()<chance&&!gunBlocked(g,a.x,a.z,low))a.down=rand(22,38)}
+}
+// Men near incoming fire go to ground: behind steel if there is any within reach, flat on the sand if not.
+function scareAround(x,z,r){
+ for(const s of soldiers){if(!s.alive||s.boat||s.down||s.wounded||Math.hypot(s.x-x,s.z-z)>r)continue;const o=nearestObstacleAt(s.x,s.z,24);
+  if(o){s.aiState='cover';s.goalX=o.x+rand(-.7,.7);s.goalZ=o.z+Math.max(1,o.r*.8);s.aiUntil=time+rand(4,9)}else{s.aiState='hold';s.aiUntil=time+rand(1.5,3.5)}}
+ for(let i=0;i<crowdActive;i++){const a=crowdAgents[i];if(a.down>0||Math.hypot(a.x-x,a.z-z)>r)continue;const o=nearestObstacleAt(a.x,a.z,18);
+  a.state='cover';a.pause=rand(3,7);if(o){a.coverX=o.x+rand(-1,1);a.coverZ=o.z+Math.max(1.1,o.r*.7)}else{a.coverX=a.x;a.coverZ=a.z}}
+}
+// The report of each burst comes from that gun's direction and arrives late, at the speed of sound.
+function gunSound(g,n){if(!audio.ctx||audio.muted||audio.ctx.state!=='running'||time<lastGunSound+.22)return;
+ const d=Math.hypot(g.x-player.x,g.z-player.z);if(d>400)return;lastGunSound=time;
+ const v=.085/(1+d/90),delay=d/343,pan=clamp(((g.x-player.x)*Math.cos(yaw)-(g.z-player.z)*Math.sin(yaw))/Math.max(20,d),-1,1);
+ for(let i=0;i<Math.min(n,12);i++){soundNoise(.06,v,1400,0,delay+i*.08,pan);soundTone(140,.05,v*.7,'square',delay+i*.08,.5,pan)}
+}
+function startBurst(g){
+ const was=g.onPlayer;g.state='burst';g.left=Math.floor(rand(6,14));g.shot=0;g.hot=0;g.onPlayer=false;
+ if(phase==='boat'){const near=Math.abs(g.x)<100;g.aimX=near?boat.position.x+rand(-14,14):g.x+rand(-120,120);g.aimZ=near?boat.position.z+rand(-22,4):rand(40,120);g.sweep=rand(-3,3)}
+ else{
+  const low=player.crouched||player.down>0||waterDepth(player.z)>.8,inSector=Math.abs(player.x-g.x)<170&&player.alive;
+  let p=inSector?(low?.2:.34):0;if(was&&inSector)p=low?.6:.75;if(time<graceUntil)p*=.3;
+  if(Math.random()<p){g.onPlayer=true;g.walk=rand(2.5,4.5);
+   if(!was||Math.hypot(g.aimX-player.x,g.aimZ-player.z)>14){g.aimX=player.x+rand(5,10)*(Math.random()<.5?-1:1);g.aimZ=player.z+rand(-3,3)}}
+  else{let tx=g.x+rand(-150,150),tz=rand(-150,60);const r=Math.random();
+   if(r<.45){const s=soldiers[Math.floor(Math.random()*soldiers.length)];if(s&&s.alive&&!s.boat&&!s.down&&!s.wounded&&Math.abs(s.x-g.x)<170&&s.z>-170){tx=s.x+rand(-3,3);tz=s.z+rand(-2,2)}}
+   else if(r<.75&&crowdActive>0){const a=crowdAgents[Math.floor(Math.random()*crowdActive)];if(a&&!(a.down>0)&&Math.abs(a.x-g.x)<170&&a.z>-170){tx=a.x+rand(-3,3);tz=a.z+rand(-2,2)}}
+   g.aimX=tx;g.aimZ=tz;g.sweep=rand(-7,7)}
+  scareAround(g.aimX,g.aimZ,9);
+ }
+ gunSound(g,g.left);
+}
+function fireRound(g){
+ const ix=g.aimX+rand(-1.8,1.8),iz=g.aimZ+rand(-3,3),iy=Math.max(heightAt(iz),WATER_Y)+.1;
+ g.flash.visible=true;g.flash.scale.setScalar(rand(.6,1.3));runShots++;
+ if((g.belt&1)===0)fireTracer(g,ix,iy,iz);
+ if(phase==='boat'){if(Math.hypot(ix-boat.position.x,iz-boat.position.z)<6&&Math.random()<.35)soundCoverImpact(ix,iz);return}
+ if(phase!=='beach')return;
+ roundCasualties(g,ix,iz,g.hot||.16);
+ if(!player.alive)return;
+ const d=beatenDist(g,ix,iz,player.x,player.z);if(d>9)return;
+ const low=player.crouched||player.down>0||waterDepth(player.z)>.8,blocked=gunBlocked(g,player.x,player.z,low);
+ player.suppression=clamp(player.suppression+rand(1.5,4)*(blocked?.6:1),0,100);
+ if(Math.random()<.3){if(blocked){if(d<4)soundCoverImpact(player.x+rand(-1,1),player.z-1.5)}else soundBulletPass(player.x+(ix-player.x)*.5,player.z+(iz-player.z)*.5,d)}
+ if(blocked){runCoverTime+=.03;return}
+ if(d<(low?.65:.9)&&Math.random()<(time<graceUntil?.05:.17))damage(rand(9,17));
+}
+function updateGuns(dt){
+ if(phase!=='beach'&&phase!=='boat')return;
+ for(const g of guns){g.flash.visible=false;g.t-=dt;
+  if(g.state==='reload'){if(g.t<=0){g.state='pause';g.t=rand(.3,1);g.belt=Math.floor(rand(50,95))}continue}
+  if(g.state==='pause'){if(g.t<=0)startBurst(g);continue}
+  if(g.onPlayer){const dx=player.x-g.aimX,dz=player.z-g.aimZ,m=Math.hypot(dx,dz);if(m>.3){const st=Math.min(m,g.walk*dt);g.aimX+=dx/m*st;g.aimZ+=dz/m*st}}else g.aimX+=g.sweep*dt;
+  g.shot-=dt;if(g.shot<=0&&g.left>0){g.shot+=.08;g.left--;g.belt--;fireRound(g)}
+  if(g.left<=0){
+   if(g.belt<=0){g.state='reload';g.t=rand(5,8);g.onPlayer=false;
+    if(phase==='beach'&&Math.abs(g.x-player.x)<70&&player.z<30&&time>reloadCallAt){reloadCallAt=time+30;showMsg('THE GUN AHEAD HAS GONE QUIET — MOVE!',2.5)}}
+   else{g.state='pause';g.t=rand(.7,2.4)/(battleIntensity||1)}}
+ }
+ updateTracersPuffs(dt);
+}
+function startRing(c){if(!audio.ctx||audio.muted||audio.ctx.state!=='running')return;
+ const t=audio.ctx.currentTime,o=audio.ctx.createOscillator(),g=audio.ctx.createGain(),dur=2.5+4*c;o.type='sine';o.frequency.value=3900;
+ g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.018*c*audio.volume,t+.08);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+ o.connect(g);g.connect(audio.limiter||audio.master);o.start(t);o.stop(t+dur+.05)}
+function onExplosion(x,z){
+ const wet=heightAt(z)<WATER_Y-.05,gy=Math.max(heightAt(z),WATER_Y);
+ for(let i=0;i<5;i++)spawnPuff(x+rand(-1.5,1.5),gy+.3,z+rand(-1.5,1.5),wet?0xdfe8e6:(i%2?0x8f8266:0x4c463c),rand(1.1,2),rand(6,13),rand(.7,1.2));
+ if(phase!=='beach')return;
+ for(const s of soldiers){if(!s.alive||s.boat||s.down||s.wounded)continue;if(Math.hypot(s.x-x,s.z-z)<5&&Math.random()<.6)dropSoldier(s,Math.random()<.6)}
+ for(let i=0;i<crowdActive;i++){const a=crowdAgents[i];if(a.down>0)continue;if(Math.hypot(a.x-x,a.z-z)<5&&Math.random()<.6)a.down=rand(22,38)}
+ scareAround(x,z,16);
+ const d=Math.hypot(x-player.x,z-player.z);
+ if(d<13&&player.alive){const c=1-d/13;concuss=Math.max(concuss,c);deaf=Math.max(deaf,3+6*c);startRing(c);
+  if(d<6&&!(player.down>0)){player.down=1.7;showMsg('KNOCKED DOWN',1.6)}}
+}
+// Per-frame state that is not gunfire: ramp burst, seawall, wading and drowning, knockdown, limp,
+// tunnel vision, dulled hearing and laboured breathing.
+function updateV35(dt){
+ if(runStartedAt!==lastRunMark){lastRunMark=runStartedAt;player.down=0;concuss=0;deaf=0;goingUnder=0;camDrop=0;camRoll=0;moveFactor=1;if(phase==='beach')graceUntil=time+4}
+ if(phase==='boat'){wasBoat=true;return}
+ if(phase!=='beach')return;
+ if(wasBoat){wasBoat=false;graceUntil=time+5;const g=guns.reduce((a,b)=>Math.abs(a.x)<Math.abs(b.x)?a:b);
+  g.state='burst';g.left=16;g.shot=.6;g.onPlayer=false;g.aimX=rand(-1.5,1.5);g.aimZ=97;g.sweep=0;g.hot=.09;g.belt=Math.max(g.belt,20);gunSound(g,12)}
+ for(const s of soldiers){if(!s.alive||s.boat||s.down)continue;const far=Math.hypot(s.x-player.x,s.z-player.z)>45;
+  if(s.wounded){if(!s.aided){s.wT=(s.wT||0)+dt;if(s.wT>50&&far)recycleSoldier(s)}continue}
+  if(s.z<-183){s.z=-183;s.aiState='hold';s.aiUntil=time+1;s.g.scale.y=.72;if(!s.wallAt)s.wallAt=time+rand(12,30);else if(time>s.wallAt&&far)recycleSoldier(s)}}
+ const depth=waterDepth(player.z),moved=Math.hypot(player.x-lastPX,player.z-lastPZ)/Math.max(dt,.001);lastPX=player.x;lastPZ=player.z;
+ let drop=0,roll=0;moveFactor=1;
+ if(player.down>0){player.down-=dt;moveFactor=0;const k=clamp(player.down/.5,0,1);drop=1.2*k;roll=.45*k}
+ if(player.legInjury>.12){const l=Math.sin(player.step*1.4);roll+=l*player.legInjury*.1;if(l>0)moveFactor*=1-.45*l*clamp(player.legInjury*2,0,1)}
+ if(depth>1){
+  if(!deepWarned){deepWarned=true;showMsg('DEEP WATER — YOUR GEAR DRAGS YOU DOWN. WADE, DON\'T SPRINT.',4)}
+  if(moved>.4)player.stamina=clamp(player.stamina-(13*(1-.5*player.suppression/100)+2.2)*dt,0,100);
+  if(player.stamina<=1){goingUnder=Math.min(1,goingUnder+dt*1.5);player.health=Math.max(0,player.health-7*dt);
+   if(time>underMsgAt){underMsgAt=time+3;showMsg('GOING UNDER — STOP AND GET YOUR BREATH',2)}
+   if(player.health<=0){killPlayer();return}}
+  else goingUnder=Math.max(0,goingUnder-dt)}
+ else goingUnder=Math.max(0,goingUnder-dt*2);
+ camDrop+=(drop-camDrop)*Math.min(1,dt*9);camRoll+=(roll-camRoll)*Math.min(1,dt*8);
+ concuss=Math.max(0,concuss-dt*.22);deaf=Math.max(0,deaf-dt);
+ if((player.stamina<30||player.suppression>70||goingUnder>0)&&time>breathAt){breathAt=time+1.15;soundNoise(.4,.012,750,1.1);soundNoise(.5,.009,430,.9,.5)}
+ fxTimer-=dt;if(fxTimer>0)return;fxTimer=.12;
+ const fear=clamp(Math.max(player.suppression/100*.75,(1-player.health/100)*.7,concuss,goingUnder*.8),0,1);
+ if(Math.abs(fear-fearShown)>.02){fearShown=fear;$('vignette').style.background=`radial-gradient(ellipse at center,transparent ${Math.round(40-27*fear)}%,rgba(8,10,14,${(.45+.5*fear).toFixed(2)}) 100%)`}
+ const blur=qualityMode==='low'?0:concuss*3.2,f=blur>.25?`blur(${blur.toFixed(1)}px) saturate(${(1-.5*concuss).toFixed(2)})`:'';
+ if(f!==lastFilter){lastFilter=f;renderer.domElement.style.filter=f}
+ if(audio.lp&&audio.ctx)audio.lp.frequency.setTargetAtTime((deaf>0||goingUnder>.5)?Math.max(320,2600-Math.min(deaf,6)*380):20000,audio.ctx.currentTime,.2);
+}
+$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();buildV35();
 </script></body></html>
