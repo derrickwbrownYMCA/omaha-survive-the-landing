@@ -7,7 +7,18 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v3.8
+## Current build: v4.1
+- Weapon choice on the start screen, with a drawn picture of each: M1 Garand (8-round clip, hardest hitting), M1 Carbine (15 rounds, quick, less punch), BAR (20 rounds, automatic, slows you down) and Thompson (30 rounds, automatic, short range only). The choice is remembered and can be changed with each new soldier, not mid-run.
+
+### From v4.0
+- Aim down the sights: hold the right mouse button (or press Q; AIM on mobile) for a narrower view through M1-style iron sights. A diamond marks the nearest gun slit ahead and turns green while that gun is suppressed. Movement and mouse speed slow while aiming.
+- Limited ammunition: an eight-round clip plus 72 rounds in reserve, shown at the bottom of the screen with two grenades. Walking over a fallen soldier picks up two clips. Grenades are kept for the bunker.
+
+### From v3.9
+- Aerial view: the AERIAL VIEW button or V freezes the game and lifts the camera above you, so you can see where the steel obstacles are and plan a route. A yellow ring marks your position.
+- Smoke is now soft and rises instead of faceted blobs that fell back down. Men in the landing craft stand on the deck and move with it.
+
+### From v3.8
 - The seawall is now the halfway point, not the end. There are no enemy soldiers in the game: the player suppresses and silences guns.
 - Rifle: left-click or F (FIRE on mobile). Eight rounds, then an automatic reload. Rounds on a bunker's firing slit make that gun stop for a few seconds; firing also draws its attention. You cannot shoot from deep water.
 - At the seawall you are safe crouched and exposed standing. An engineer crawls a Bangalore torpedo up to the wire; covering fire on the nearby guns makes him about three times faster. If he is hit, another man takes over.
@@ -22,7 +33,7 @@ Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (r
 - From v3.5: six machine-gun positions with fields of fire and belt changes, cover that only works close behind an obstacle, casualties, deep water, a seawall, and knockdown/concussion effects.
 - Target population: 100 soldiers.
 
-Controls: WASD movement, mouse look, left-click or F fire, G grenade, Shift sprint, C crouch, E assist, R bandage, Esc pause.
+Controls: WASD movement, mouse look, left-click or F fire, right-click or Q aim, G grenade, V aerial view, Shift sprint, C crouch, E assist, R bandage, Esc pause.
 Use TEST AUDIO if sound isn't playing. Chrome requires a user click to start audio.
 
 The game depends on Three.js from an external CDN.
