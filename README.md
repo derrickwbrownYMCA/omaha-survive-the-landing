@@ -7,7 +7,9 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v3.6
+## Current build: v3.7
+- Deadlier machine guns: they pick you out more often, stay on you longer, and hit harder. Walking upright across the beach usually gets you killed; moving between obstacles and going when a gun changes belts is the way through.
+- Soldiers reworked: period colours (olive helmet, tan jacket, brown trousers), a face, smaller hands and head, matte materials, slight height variation, and a lower crouch when taking cover.
 - Recorded sound for machine-gun bursts, shell bursts, distant booms, rounds striking steel, surf, the boat engine and a distant battle bed. Near misses and sand/water impacts are still synthesized.
 - Sixty animated soldier figures (run, crouch, stand, fall) replace the box figures; distant background figures are unchanged.
 - Directed landing: shells land near the boat on the run-in, the ramp drops into machine-gun fire and the front ranks fall, and you go under as you leave the boat.
@@ -21,8 +23,8 @@ Use TEST AUDIO if sound isn't playing. Chrome requires a user click to start aud
 The game depends on Three.js from an external CDN.
 
 ## Testing status
-- v3.6 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). Confirmed: all 13 sound files load and decode, the soldier model loads on all 60 figures, six men fall at the ramp, the underwater sequence starts and ends, and a scripted walk reaches the seawall and shows the end screen.
-- Not verified: how any of it sounds, the look of the underwater moment, real-time feel and frame rate, and mobile.
+- v3.7 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). In scripted runs at the shipped difficulty, a bot that sprints between obstacles and waits behind them reached the seawall 3 times in 8; walking straight up the beach survived 2 times in 6. Soldier appearance was checked in close-up screenshots.
+- Not verified: hands-on play at this difficulty, how the soldiers look in motion, real-time frame rate, and mobile.
 
 ## Credits
 - Soldier model: "Character Soldier" by Quaternius (CC0), via Poly Pizza.
