@@ -7,7 +7,12 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v3.7
+## Current build: v3.8
+- The seawall is now the halfway point, not the end. There are no enemy soldiers in the game: the player suppresses and silences guns.
+- Rifle: left-click or F (FIRE on mobile). Eight rounds, then an automatic reload. Rounds on a bunker's firing slit make that gun stop for a few seconds; firing also draws its attention. You cannot shoot from deep water.
+- At the seawall you are safe crouched and exposed standing. An engineer crawls a Bangalore torpedo up to the wire; covering fire on the nearby guns makes him about three times faster. If he is hit, another man takes over.
+- When the wire blows, a gap opens in the wall. Climb the bluff, get to the side of the bunker, and throw a grenade (G, or FIRE when close). The gun goes silent and the run ends.
+- Soldiers now carry kit built in code: a rounded steel-helmet shell, a field pack with bedroll, and a wood-and-dark-metal rifle. The corner panel follows the new stages, and bunkers are solid.
 - Deadlier machine guns: they pick you out more often, stay on you longer, and hit harder. Walking upright across the beach usually gets you killed; moving between obstacles and going when a gun changes belts is the way through.
 - Soldiers reworked: period colours (olive helmet, tan jacket, brown trousers), a face, smaller hands and head, matte materials, slight height variation, and a lower crouch when taking cover.
 - Recorded sound for machine-gun bursts, shell bursts, distant booms, rounds striking steel, surf, the boat engine and a distant battle bed. Near misses and sand/water impacts are still synthesized.
@@ -17,14 +22,15 @@ Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (r
 - From v3.5: six machine-gun positions with fields of fire and belt changes, cover that only works close behind an obstacle, casualties, deep water, a seawall, and knockdown/concussion effects.
 - Target population: 100 soldiers.
 
-Controls: WASD movement, mouse look, Shift sprint, C crouch, E assist, R bandage, Esc pause.
+Controls: WASD movement, mouse look, left-click or F fire, G grenade, Shift sprint, C crouch, E assist, R bandage, Esc pause.
 Use TEST AUDIO if sound isn't playing. Chrome requires a user click to start audio.
 
 The game depends on Three.js from an external CDN.
 
 ## Testing status
-- v3.7 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). In scripted runs at the shipped difficulty, a bot that sprints between obstacles and waits behind them reached the seawall 3 times in 8; walking straight up the beach survived 2 times in 6. Soldier appearance was checked in close-up screenshots.
-- Not verified: hands-on play at this difficulty, how the soldiers look in motion, real-time frame rate, and mobile.
+- v3.8 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). A scripted run completed the whole sequence: reached the wall and was stopped by it, suppressed the gun, the wire blew after 17 s of covering fire, climbed through the gap, threw the grenade, got the end screen, and restarted with the wall and wire restored.
+- The crossing difficulty from v3.7 is unchanged (scripted cover-using bot reached the wall 3 times in 8).
+- Not verified: hands-on play, aiming by mouse, the mobile FIRE button, how the new sections look in motion, frame rate.
 
 ## Credits
 - Soldier model: "Character Soldier" by Quaternius (CC0), via Poly Pizza.
