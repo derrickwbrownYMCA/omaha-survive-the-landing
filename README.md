@@ -7,7 +7,11 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v4.1
+## Current build: v4.2
+- New soldiers. The cartoon figure is replaced by an adult-proportioned body, painted by body part (skin, olive jacket, wool trousers, canvas leggings, boots) and equipped in code: M1 helmet, haversack with blanket roll and entrenching tool, shoulder straps, inflatable life belt, cartridge belt with pouches, canteen, and an M1 Garand without a scope.
+- New movement: jog, sprint, walk and a crouched run; men behind cover crouch properly, some with rifles up; the engineer kneels at the wire; the fallen lie face down. Each soldier is one draw call.
+
+### From v4.1
 - Weapon choice on the start screen, with a drawn picture of each: M1 Garand (8-round clip, hardest hitting), M1 Carbine (15 rounds, quick, less punch), BAR (20 rounds, automatic, slows you down) and Thompson (30 rounds, automatic, short range only). The choice is remembered and can be changed with each new soldier, not mid-run.
 
 ### From v4.0
@@ -41,10 +45,11 @@ The game depends on Three.js from an external CDN.
 ## Testing status
 - v3.8 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). A scripted run completed the whole sequence: reached the wall and was stopped by it, suppressed the gun, the wire blew after 17 s of covering fire, climbed through the gap, threw the grenade, got the end screen, and restarted with the wall and wire restored.
 - The crossing difficulty from v3.7 is unchanged (scripted cover-using bot reached the wall 3 times in 8).
+- v4.2 was syntax-checked, viewed in still screenshots (boat, surf, beach, seawall) and run once by script from boat to silenced bunker with no errors. Not verified: how the soldiers look in motion, and frame rate with sixty of them (each is about 14,800 triangles).
 - Not verified: hands-on play, aiming by mouse, the mobile FIRE button, how the new sections look in motion, frame rate.
 
 ## Credits
-- Soldier model: "Character Soldier" by Quaternius (CC0), via Poly Pizza.
+- Soldier body and animations: "Universal Animation Library" (Standard) by Quaternius, CC0 — https://opengameart.org/content/universal-animation-library . Trimmed to the 14 clips the game uses.
 - Machine gun: "Light Machine Gun" by KuraiWolf, CC-BY 4.0 — https://opengameart.org/content/light-machine-gun
 - Distant explosion: "Big low frequency explosion boom" by Hansjörg Malthaner (Varkalandar), CC-BY 4.0 — https://opengameart.org/content/big-low-frequency-explosion-boom
 - Engine: "Engine-loop heavy vehicle/tank" by Nayckron, CC-BY 3.0 — https://opengameart.org/content/engine-loop-heavy-vehicletank
