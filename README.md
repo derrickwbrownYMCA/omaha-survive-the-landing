@@ -7,7 +7,24 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v4.2
+## Current build: v4.5
+Soldier realism, in six self-contained sections near the end of `index.html` (each with its own config constants and switch; `?realism=0` turns all six off):
+- **Movement variety** (`SOLDIER_VARIETY`, `?variety=0`): each man has his own pace with slow surges, stride length, step-rate drift, hunch and sway, and every loop starts at his own point in the cycle, so the crowd no longer moves in step.
+- **Reactions to fire** (`REACTIONS`, `?reactions=0`): men flinch at near misses, dive flat when there is no steel close by, crawl to the next obstacle and sometimes freeze behind it. Deaths and wounds fall differently (crumple, stagger, drop to the knees, pitch forward; wounded lie on their backs, sit, double over or crawl). Nearby men drag wounded comrades back to cover and kneel by them.
+- **Water and sand** (`TERRAIN_GAIT`, `?gait=0`): men wade slowly and lean into the surf with splashes, slow on soft sand and shingle and sometimes stumble or trip. Clip speed now follows ground speed using the stride lengths measured from the animations, so planted feet no longer slide.
+- **Appearance** (`APPEARANCE`, `?appearance=0`): per-man helmet angle, uniform shade, skin tone and kit (pack, blanket roll, entrenching tool, life belt, canteen, assault gas-mask bag, bandolier). Cloth goes darker and glossy below the highest water each man has waded through and dries slowly; sand builds up on boots and leggings, and on the front of anyone who has been lying down. One shader patch, still one draw call per man.
+- **Distant soldiers** (`LOD_TUNE`, `?lodtune=0`): the low-poly switch distance follows the graphics setting (70/100/120/140 m), with hysteresis so men on the boundary don't flicker, and men far from the camera animate less often. Reactions, falls and appearance apply to the low-poly body too; arm gestures are skipped on it.
+- **Voices and gestures** (`VOICES`, `?voices=0`): synthesized shouts (formant synthesis, no recorded speech), heard from where the man is and captioned when he is close: "Move!", "Get down!", "Medic!", "I got you — hang on!". Leaders wave and point forward, frightened men hold their helmets, wounded men raise an arm.
+
+### From v4.4
+- German defenders. Each of the six bunkers now has a real embrasure with a two-man MG crew behind it (gunner and loader, the soldier model recoloured in field grey). Only heads and shoulders show through the slit, and they duck while rounds are hitting near it. Shoot the gunner and that gun stops: the loader takes it over after 5–8 s, or, if he is down too, a replacement comes up after 14–22 s. Without a loader the gun reloads much more slowly. A red X marks a hit.
+- Rounds now leave where you aimed (recoil used to be applied before the shot) and wander a little: least when aiming down the sights, more when suppressed or out of breath.
+- Distant soldiers (over 100 m) are drawn with a 192-triangle body instead of the 14,780-triangle one. `?lod=0` turns this off; `?fps=1` shows frame rate, draw calls, triangles and how many soldiers are low-poly.
+
+### From v4.3
+- In-engine opening cinematic: the boats' run-in to Dog Green, skippable.
+
+### From v4.2
 - New soldiers. The cartoon figure is replaced by an adult-proportioned body, painted by body part (skin, olive jacket, wool trousers, canvas leggings, boots) and equipped in code: M1 helmet, haversack with blanket roll and entrenching tool, shoulder straps, inflatable life belt, cartridge belt with pouches, canteen, and an M1 Garand without a scope.
 - New movement: jog, sprint, walk and a crouched run; men behind cover crouch properly, some with rifles up; the engineer kneels at the wire; the fallen lie face down. Each soldier is one draw call.
 
@@ -37,6 +54,8 @@ Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (r
 - From v3.5: six machine-gun positions with fields of fire and belt changes, cover that only works close behind an obstacle, casualties, deep water, a seawall, and knockdown/concussion effects.
 - Target population: 100 soldiers.
 
+URL switches for testing: `?fps=1` performance readout, `?lod=0` no low-poly bodies, `?realism=0` (or `?variety=0`, `?reactions=0`, `?gait=0`, `?appearance=0`, `?lodtune=0`, `?voices=0`) to turn the v4.5 sections off.
+
 Controls: WASD movement, mouse look, left-click or F fire, right-click or Q aim, G grenade, V aerial view, Shift sprint, C crouch, E assist, R bandage, Esc pause.
 Use TEST AUDIO if sound isn't playing. Chrome requires a user click to start audio.
 
@@ -46,6 +65,7 @@ The game depends on Three.js from an external CDN.
 - v3.8 was syntax-checked and run in a browser through a scripted test hook (`window.__omaha`). A scripted run completed the whole sequence: reached the wall and was stopped by it, suppressed the gun, the wire blew after 17 s of covering fire, climbed through the gap, threw the grenade, got the end screen, and restarted with the wall and wire restored.
 - The crossing difficulty from v3.7 is unchanged (scripted cover-using bot reached the wall 3 times in 8).
 - v4.2 was syntax-checked, viewed in still screenshots (boat, surf, beach, seawall) and run once by script from boat to silenced bunker with no errors. Not verified: how the soldiers look in motion, and frame rate with sixty of them (each is about 14,800 triangles).
+- v4.5 was checked in headless Chromium (software rendering) through `window.__omaha`: staged screenshots of each behaviour, 60-second battle runs with every section on and with each one switched off in turn, no page errors. Not verified: how it looks in motion on a real GPU, and the synthesized shouts by ear.
 - Not verified: hands-on play, aiming by mouse, the mobile FIRE button, how the new sections look in motion, frame rate.
 
 ## Credits
