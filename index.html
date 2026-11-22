@@ -6,7 +6,7 @@
 #cine{position:fixed;inset:0;pointer-events:none;display:none}body.cine #cine{display:block}body.cine #hud,body.cine #mobile,body.cine #looktip,body.cine #ammo,body.cine #sights,body.cine #tmark{display:none!important}#cine .bar{position:absolute;left:0;right:0;height:10.5vh;background:#030405}#cine .bar.t{top:0}#cine .bar.b{bottom:0}#cineCap{position:absolute;left:6vw;bottom:15vh;opacity:0;transition:opacity 1.1s;text-shadow:0 2px 10px #000c}#cineCap1{font-size:clamp(12px,1.5vw,17px);font-weight:800;letter-spacing:.34em;color:#e6be76}#cineCap2{margin-top:8px;font-size:clamp(12px,1.25vw,15px);letter-spacing:.06em;color:#e9e3d4}#cineSub{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);max-width:80vw;text-align:center;font-size:clamp(13px,1.5vw,18px);color:#f3efe2;text-shadow:0 2px 6px #000;opacity:0;transition:opacity .4s}#cineSkip{pointer-events:auto;position:absolute;right:3vw;bottom:calc(10.5vh + 14px);background:rgba(10,14,16,.55);border:1px solid #ffffff40;color:#eee6d2;font:700 11px/1 system-ui,sans-serif;letter-spacing:.22em;padding:10px 14px;cursor:pointer}#cineSkip:hover{border-color:#e6be76;color:#e6be76}#cineSkip small{display:block;margin-top:5px;font-size:9px;font-weight:500;letter-spacing:.14em;opacity:.65}#cineFade{position:absolute;inset:0;background:#000;opacity:0}
 </style></head><body>
 <div id="render"></div><div id="grain"></div><div id="underwater"></div><div id="ammo"></div><div id="tmark"></div><div id="sights"><svg viewBox="-100 -100 200 200"><circle r="80" fill="none" stroke="#0a0b0b" stroke-width="28" opacity=".66" style="filter:blur(2.5px)"/><path d="M-17 62 Q-22 22 -11 7" stroke="#101010" stroke-width="4.5" fill="none"/><path d="M17 62 Q22 22 11 7" stroke="#101010" stroke-width="4.5" fill="none"/><rect x="-2.3" y="0" width="4.6" height="62" fill="#101010"/><rect x="-24" y="60" width="48" height="60" fill="#101010"/></svg></div><div id="aerialNote">AERIAL VIEW · GAME FROZEN<br>The yellow ring is you. Dark crosses are steel obstacles. The bluffs are at the top.<br>Press V or the button to go back.</div><div id="vignette"></div>
-<div id="hud"><div id="damage"></div><div id="hitmark"></div><div id="fpsx"></div><div id="top"><div><div class="logo">OMAHA <span style="color:#e6be76">/</span> 1944</div><div class="sub">SURVIVE THE LANDING · PROTOTYPE 4.4</div></div><div id="right"><div class="section">JUNE 6, 1944</div><div id="clock">06:31:00</div><div id="weather">SECTOR: DOG GREEN</div></div></div><div id="objective"><div class="section">CURRENT OBJECTIVE</div><div id="objectiveText">Hold steady. Your landing craft is approaching shore.</div></div><button id="pause">PAUSE / MENU</button><button id="aerial">AERIAL VIEW (V)</button><div id="soundControls"><button id="mute" type="button" aria-label="Mute audio">SOUND ON</button><input id="volume" type="range" min="0" max="100" value="55" aria-label="Sound volume"><button id="audioTest" type="button" title="Play a test chime">TEST SOUND</button><span id="audioStatus" role="status" aria-live="polite">NOT STARTED</span></div><div id="qualityControls"><label for="quality">GRAPHICS</label><select id="quality"><option value="low">LOW</option><option value="balanced" selected>BALANCED</option><option value="sharp">SHARP</option><option value="ultra">ULTRA</option></select><span id="perf">-- FPS</span><label title="Adjust quality automatically for smooth gameplay"><input id="adaptive" type="checkbox"> AUTO</label></div><div id="message"></div><div id="eventBanner" aria-live="polite"></div><div id="crosshair">·</div><div id="prompt"></div><div id="bottom"><div class="stat"><div class="stathead"><span>STAMINA</span><span id="stamval">100%</span></div><div class="meter"><div id="staminabar" style="width:100%"></div></div><div class="stathead" style="margin-top:13px"><span>HEALTH</span><span id="healthval">100 / 100</span></div><div class="meter"><div id="healthbar" style="width:100%"></div></div><div id="life">STATUS: STABLE</div><div id="injury">INJURIES: NONE</div><div id="suppression">SUPPRESSION: LOW</div><div id="coverdetail">COVER PROTECTION: 0% · EXPOSED</div></div><div id="status"><div id="squadcount">SQUAD NEARBY: 8</div><div id="coverstatus">COVER: EXPOSED</div><div id="distance">DISTANCE TO SEAWALL: 220 M</div><div id="mission">TASK: REACH SHINGLE</div></div></div></div>
+<div id="hud"><div id="damage"></div><div id="hitmark"></div><div id="fpsx"></div><div id="top"><div><div class="logo">OMAHA <span style="color:#e6be76">/</span> 1944</div><div class="sub">SURVIVE THE LANDING · PROTOTYPE 4.5</div></div><div id="right"><div class="section">JUNE 6, 1944</div><div id="clock">06:31:00</div><div id="weather">SECTOR: DOG GREEN</div></div></div><div id="objective"><div class="section">CURRENT OBJECTIVE</div><div id="objectiveText">Hold steady. Your landing craft is approaching shore.</div></div><button id="pause">PAUSE / MENU</button><button id="aerial">AERIAL VIEW (V)</button><div id="soundControls"><button id="mute" type="button" aria-label="Mute audio">SOUND ON</button><input id="volume" type="range" min="0" max="100" value="55" aria-label="Sound volume"><button id="audioTest" type="button" title="Play a test chime">TEST SOUND</button><span id="audioStatus" role="status" aria-live="polite">NOT STARTED</span></div><div id="qualityControls"><label for="quality">GRAPHICS</label><select id="quality"><option value="low">LOW</option><option value="balanced" selected>BALANCED</option><option value="sharp">SHARP</option><option value="ultra">ULTRA</option></select><span id="perf">-- FPS</span><label title="Adjust quality automatically for smooth gameplay"><input id="adaptive" type="checkbox"> AUTO</label></div><div id="message"></div><div id="eventBanner" aria-live="polite"></div><div id="crosshair">·</div><div id="prompt"></div><div id="bottom"><div class="stat"><div class="stathead"><span>STAMINA</span><span id="stamval">100%</span></div><div class="meter"><div id="staminabar" style="width:100%"></div></div><div class="stathead" style="margin-top:13px"><span>HEALTH</span><span id="healthval">100 / 100</span></div><div class="meter"><div id="healthbar" style="width:100%"></div></div><div id="life">STATUS: STABLE</div><div id="injury">INJURIES: NONE</div><div id="suppression">SUPPRESSION: LOW</div><div id="coverdetail">COVER PROTECTION: 0% · EXPOSED</div></div><div id="status"><div id="squadcount">SQUAD NEARBY: 8</div><div id="coverstatus">COVER: EXPOSED</div><div id="distance">DISTANCE TO SEAWALL: 220 M</div><div id="mission">TASK: REACH SHINGLE</div></div></div></div>
 <div id="mobile"><div id="joystick"><div id="stick"></div></div><div class="mobilebuttons"><button id="mobSprint">SPRINT</button><button id="mobCrouch">CROUCH</button><button id="mobHelp">HELP</button><button id="mobFire">FIRE</button><button id="mobAim">AIM</button></div></div><div id="looktip">DRAG TO LOOK</div>
 <div id="cine"><div class="bar t"></div><div class="bar b"></div><div id="cineCap"><div id="cineCap1"></div><div id="cineCap2"></div></div><div id="cineSub"></div><button id="cineSkip" type="button">SKIP INTRO ›<small>SPACE / ENTER</small></button><div id="cineFade"></div></div>
 <div id="overlay"><div class="panel"><div class="eyebrow" id="overlayeyebrow">A SURVIVAL EXPERIENCE · EARLY PLAYABLE BUILD</div><div class="title" id="overlaytitle">OMAHA<span>.</span><br>THE LANDING</div><div class="tagline" id="overlaybody">You're not here to win the war. You're trying to survive the landing. The battlefield will keep moving even if you don't.</div><div class="rule"></div><div class="facts"><div><strong>MISSION</strong><br>Leave the landing craft, cross the exposed beach, and reach the seawall. Cover the engineers while they blow the wire, climb the bluff, and silence the bunker. Stay low, use obstacles for cover, and help someone if you can.</div><div><strong>CONTROLS</strong><br>Desktop: W goes where you look · A/D strafe · S back · Mouse look · Left-click or F fire · Right-click or Q aim · G grenade · V aerial view · Shift sprint · C crouch · E assist · R bandage.<br>Phone: left stick move · drag right side to look · action buttons.</div></div><div class="gunhead">CHOOSE YOUR WEAPON</div><div id="guns"><button type="button" class="gun" data-g="garand"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M6 30 L60 24 L150 24 L150 34 L70 36 L40 45 L8 47 Z"/><rect fill="#23262a" x="150" y="25" width="72" height="4"/><rect fill="#23262a" x="146" y="30" width="60" height="3"/><rect fill="#23262a" x="70" y="20" width="42" height="5"/><rect fill="#23262a" x="216" y="20" width="3" height="5"/><path d="M78 36 q9 9 18 0" stroke="#23262a" stroke-width="2" fill="none"/></svg><b>M1 GARAND</b><span>Standard rifle. 8-round clip, one shot per pull. Hits hardest at long range.</span></button><button type="button" class="gun" data-g="carbine"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M26 32 L70 26 L134 26 L134 34 L78 36 L52 45 L28 47 Z"/><rect fill="#23262a" x="134" y="27" width="58" height="3.5"/><rect fill="#23262a" x="78" y="22" width="32" height="5"/><rect fill="#23262a" x="96" y="36" width="8" height="15"/><rect fill="#23262a" x="186" y="22" width="3" height="5"/><path d="M82 36 q7 8 13 0" stroke="#23262a" stroke-width="2" fill="none"/></svg><b>M1 CARBINE</b><span>Light and quick. 15-round magazine, one shot per pull. Less punch.</span></button><button type="button" class="gun" data-g="bar"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M6 30 L50 24 L70 24 L70 37 L44 41 L8 45 Z"/><rect fill="#23262a" x="70" y="22" width="48" height="15"/><rect fill="#7a5433" x="118" y="25" width="38" height="10"/><rect fill="#23262a" x="156" y="28" width="74" height="4"/><rect fill="#23262a" x="228" y="26" width="8" height="8"/><rect fill="#23262a" x="96" y="37" width="12" height="20"/><path d="M214 32 L204 60 M214 32 L224 60" stroke="#23262a" stroke-width="2.5" fill="none"/></svg><b>BAR</b><span>Automatic rifle. 20-round magazine, hold to fire. Heavy: you move slower.</span></button><button type="button" class="gun" data-g="thompson"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M24 28 L64 26 L64 36 L32 47 L24 45 Z"/><rect fill="#23262a" x="64" y="22" width="64" height="12"/><path fill="#7a5433" d="M72 34 L83 34 L79 53 L68 53 Z"/><rect fill="#23262a" x="98" y="34" width="9" height="27"/><rect fill="#7a5433" x="128" y="30" width="30" height="8"/><rect fill="#23262a" x="128" y="25" width="60" height="5"/><rect fill="#23262a" x="188" y="23" width="9" height="9"/></svg><b>THOMPSON</b><span>Submachine gun. 30-round magazine, hold to fire. Short range only.</span></button></div><button class="play" id="start">BEGIN LANDING</button> <button class="play" id="audioTestMenu" style="background:#324b53;color:#fff;margin-left:8px">TEST AUDIO</button><div class="tiny">V4.1: Choose your weapon before the landing. Aim with the right mouse button, watch your ammunition, cover the engineers while they blow the wire, climb the bluff, and silence the bunker with a grenade (G). V shows an aerial view. Fictional interactive prototype inspired by the historical Omaha Beach landings. Simplified geography and simulation; not a historically exact reconstruction. Graphics quality can be changed while playing. Auto quality can maintain FPS. Session stats save locally. 100 soldiers total. Rounded, jointed infantry silhouettes. Animated surf, foam, damp sand and shoreline details. Higher settings improve sharpness and lighting but may reduce FPS. Sound starts after clicking Begin Landing. Use TEST SOUND in the upper-right to check playback; if silent, verify Chrome and Windows volume mixer settings. Adjust it with the top-right control. Requires an internet connection for the 3D engine.</div></div></div>
@@ -432,6 +432,7 @@ function killPlayer(){if(!player.alive)return;recordRun(false);player.alive=fals
 function updateSoldiers(dt){for(const s of soldiers){if(!s.alive)continue;
  if(s.down){if(time>s.down&&Math.hypot(s.x-player.x,s.z-player.z)>40)recycleSoldier(s);else{s.fall=Math.min(1,(s.fall||0)+dt*2.6);s.g.rotation.x=-1.45*s.fall;s.g.position.y=Math.max(heightAt(s.z),-.25)+.2*s.fall}continue}
  if(s.boat){if(phase!=='boat'&&time>15){s.boat=false;s.x+=rand(-2,2);s.z=rand(87,101);s.g.position.y=heightAt(s.z)}else{s.g.position.y=boat.position.y+1.55;s.g.position.z=s.z+boat.position.z-110;continue}}
+ if(RZ.drive(s,dt))continue; // V4.5 realism: reactions move this man themselves
  if(s.wounded){if(s.aided){s.wounded=false;s.kind='runner';s.speed=rand(.85,1.9);s.aided=false;s.g.rotation.z=0}else{s.g.rotation.z=.75;s.g.position.y=heightAt(s.z)-.45;continue}}
  s.life+=dt;
  if(Math.random()<dt*.0005){s.wounded=true;s.g.rotation.z=.7;continue}
@@ -441,7 +442,7 @@ function updateSoldiers(dt){for(const s of soldiers){if(!s.alive)continue;
   else if(Math.random()<.13){s.aiState='hold';s.aiUntil=time+rand(1,3)}
   else{s.aiState='advance';s.aiUntil=time+rand(2,6)}
  }
- let speed=s.speed,heading=s.heading,stopped=false;
+ let speed=s.speed*RZ.speed(s,dt),heading=s.heading,stopped=false;
  if(s.aiState==='cover'){
    const dx=s.goalX-s.x,dz=s.goalZ-s.z,dist=Math.hypot(dx,dz);
    if(dist>1.2){s.x+=dx/dist*speed*dt;s.z+=dz/dist*speed*dt;heading=Math.atan2(dx,-dz)}else stopped=true;
@@ -623,8 +624,8 @@ function gunBlocked(g,x,z,low){const vx=x-g.x,vz=z-g.z,L=Math.hypot(vx,vz)||1,re
  for(const p of props){if(Math.abs(p.x-x)>reach+3||Math.abs(p.z-z)>reach+3)continue;const t=((p.x-g.x)*vx+(p.z-g.z)*vz)/(L*L);if(t<=0||t>=1||(1-t)*L>reach)continue;
   const rad=p.r*(p.type==='crate'?.65:.82);if(Math.hypot(p.x-(g.x+t*vx),p.z-(g.z+t*vz))<rad){if(p.type==='crate'&&!low&&Math.random()<.38)continue;return true}}
  return false}
-function dropSoldier(s,kill){runFallen++;if(kill){s.down=time+rand(25,40);s.fall=0}else{s.wounded=true;s.aided=false;s.wT=0;s.g.rotation.z=.7}}
-function recycleSoldier(s){s.looted=false;s.boat=false;s.down=0;s.fall=0;s.wounded=false;s.aided=false;s.wT=0;s.wallAt=0;s.kind='runner';s.speed=s.speed>0?s.speed:rand(.85,1.9);s.z=rand(42,85);s.x=rand(-250,250);s.aiState='advance';s.aiUntil=0;s.g.rotation.set(0,0,0);s.g.scale.y=1}
+function dropSoldier(s,kill){runFallen++;if(kill){s.down=time+rand(25,40);s.fall=0}else{s.wounded=true;s.aided=false;s.wT=0;s.g.rotation.z=.7}RZ.onDrop(s,kill)}
+function recycleSoldier(s){s.looted=false;s.boat=false;s.down=0;s.fall=0;s.wounded=false;s.aided=false;s.wT=0;s.wallAt=0;s.kind='runner';s.speed=s.speed>0?s.speed:rand(.85,1.9);s.z=rand(42,85);s.x=rand(-250,250);s.aiState='advance';s.aiUntil=0;s.g.rotation.set(0,0,0);s.g.scale.y=1;RZ.onRecycle(s)}
 function lieCrowd(i,a,d){const y=Math.max(heightAt(a.z),-.12),h=a.heading,fx=Math.sin(h),fz=-Math.cos(h);
  d.rotation.set(-1.5,h+Math.PI,0,'YXZ');d.scale.set(1,1,1);
  d.position.set(a.x,y+.22,a.z);d.updateMatrix();crowd.body.setMatrixAt(i,d.matrix);
@@ -674,7 +675,7 @@ function fireRound(g){
  if((g.belt&1)===0)fireTracer(g,ix,iy,iz);
  if(phase==='boat'){if(Math.hypot(ix-boat.position.x,iz-boat.position.z)<6&&Math.random()<.35)soundCoverImpact(ix,iz);return}
  if(phase!=='beach')return;
- roundCasualties(g,ix,iz,g.hot||.16);
+ roundCasualties(g,ix,iz,g.hot||.16);RZ.onRound(g,ix,iz);
  if(!player.alive)return;
  const d=beatenDist(g,ix,iz,player.x,player.z);if(d>9)return;
  const low=player.crouched||player.down>0||waterDepth(player.z)>.8,blocked=player.z<-190||(player.z<-181.5&&low)||gunBlocked(g,player.x,player.z,low);
@@ -720,7 +721,7 @@ function onExplosion(x,z){
  if(phase!=='beach')return;
  for(const s of soldiers){if(!s.alive||s.boat||s.down||s.wounded)continue;if(Math.hypot(s.x-x,s.z-z)<5&&Math.random()<.6)dropSoldier(s,Math.random()<.6)}
  for(let i=0;i<crowdActive;i++){const a=crowdAgents[i];if(a.down>0)continue;if(Math.hypot(a.x-x,a.z-z)<5&&Math.random()<.6)(runFallen++,a.down=rand(22,38))}
- scareAround(x,z,16);
+ scareAround(x,z,16);RZ.onBlast(x,z);
  const d=Math.hypot(x-player.x,z-player.z);
  if(d<13&&player.alive){const c=1-d/13;concuss=Math.max(concuss,c);deaf=Math.max(deaf,3+6*c);startRing(c);
   if(d<6&&!(player.down>0)){player.down=1.7;showMsg('KNOCKED DOWN',1.6)}}
@@ -958,29 +959,32 @@ function buildGI(g,opt=giOpt){
 let soldierProto=null,soldierClips=null,modelFrame=0;
 // Beyond this range (metres from the camera) a soldier is drawn with the low-poly body. ?lod=0 turns it off.
 const LOD={on:!/[?&]lod=0/.test(location.search),dist:100};
-function setLod(o,dist){if(!o.hi||!o.lo)return;const far=LOD.on&&dist>LOD.dist;o.hi.visible=!far;o.lo.visible=far}const modelInfo={loaded:false,error:null,height:1.83,names:[]};
+function setLod(o,dist){if(!o.hi||!o.lo)return;const far=LOD.on&&RZ.lodFar(o,dist);o.hi.visible=!far;o.lo.visible=far}const modelInfo={loaded:false,error:null,height:1.83,names:[]};
 // Box figures remain as the fallback if the file fails to load.
-function loadSoldierModel(){new GLTFLoader().load('assets/models/gi.glb',g=>{try{const gi=buildGI(g);soldierClips=gi.clips;soldierProto=gi.root;Object.assign(modelInfo,gi.info,{loaded:true});buildCrews()}
+function loadSoldierModel(){new GLTFLoader().load('assets/models/gi.glb',g=>{try{const gi=buildGI(g);soldierClips=gi.clips;soldierProto=gi.root;Object.assign(modelInfo,gi.info,{loaded:true});buildCrews();RZ.onProto(gi.root,g.animations)}
  catch(e){modelInfo.error=String(e);console.warn('soldier model failed',e)}},undefined,e=>{modelInfo.error=String(e&&e.message||e);console.warn('soldier model not loaded',e)})}
 function attachModel(s){for(const c of s.g.children)c.visible=false;const m=SkeletonUtils.clone(soldierProto);m.scale.setScalar(.95);s.g.add(m);s.model=m;s.hi=m.getObjectByName('GI');s.lo=m.getObjectByName('GI_LOD');s.mixer=new THREE.AnimationMixer(m);s.acts={};
  for(const n in soldierClips){const a=s.mixer.clipAction(soldierClips[n]);if(n==='Death'||n==='Hit'){a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true}if(n==='Kneel')a.setLoop(THREE.LoopPingPong,Infinity);s.acts[n]=a}
- s.act='';s.arm='';s.px=s.x;s.pz=s.z;s.face=0;s.acc=0;s.hs=rand(.95,1.05);s.low=s.seed%10<4;s.aims=s.seed%3<1}
+ s.act='';s.arm='';s.px=s.x;s.pz=s.z;s.face=0;s.acc=0;s.hs=rand(.95,1.05);s.low=s.seed%10<4;s.aims=s.seed%3<1;RZ.onAttach(s)}
 // A soldier plays a movement clip for legs and trunk plus a carrying pose for the arms; deaths and kneeling use the whole body.
 function setAct(s,n,arm=''){if(s.act!==n&&s.acts[n]){const p=s.acts[s.act],a=s.acts[n];if(p)p.fadeOut(.25);a.reset().fadeIn(.25).play();s.act=n}
  if(s.arm!==arm){const p=s.acts[s.arm],a=s.acts[arm];if(p)p.fadeOut(.25);if(a)a.reset().fadeIn(.25).play();s.arm=arm}}
 const GAIT={Walk:1.4,Jog:3.3,Sprint:5.6,Crouch:2.1};
-function updateModels(dt){if(!soldierProto)return;modelFrame++;
+function updateModels(dt){if(!soldierProto)return;modelFrame++;RZ.tick(dt);
  for(let i=0;i<soldiers.length;i++){const s=soldiers[i];if(!s.model)attachModel(s);
   const dx=s.x-s.px,dz=s.z-s.pz,v=Math.hypot(dx,dz)/Math.max(dt,.001);s.px=s.x;s.pz=s.z;
   const lying=s.down||s.wounded;s.g.rotation.x=0;s.g.rotation.z=0;s.g.scale.setScalar(s.hs);
-  if(lying){s.g.position.y=s.boat?boat.position.y+1.55:Math.max(heightAt(s.z),-.3);setAct(s,'Death')}
+  if(lying)s.g.position.y=s.boat?boat.position.y+1.55:Math.max(heightAt(s.z),-.3);
+  if(RZ.anim(s,dt,v,lying,dx,dz)){} // V4.5 realism picks the clip when its sections are on
+  else if(lying)setAct(s,'Death')
   else if(s.boat){setAct(s,s.low?'CrouchIdle':'Idle','Ready');s.g.rotation.y=Math.PI}
   else{if(s.script){s.face=0;setAct(s,'Kneel')}
    else if(v>.3&&v<30){s.face=Math.atan2(dx,-dz);const gait=s.low&&v<4?'Crouch':v>4.6?'Sprint':v>1.9?'Jog':'Walk';setAct(s,gait,'Ready');s.acts[gait].timeScale=clamp(v/GAIT[gait],.6,1.45)}
    else{const cov=s.aiState==='cover'||s.aiState==='hold';setAct(s,cov?'CrouchIdle':'Idle',cov&&s.aims?'Hold':'Ready')}
    s.g.rotation.y=Math.PI-s.face}
-  setLod(s,Math.hypot(s.x-camera.position.x,s.z-camera.position.z));
-  s.acc+=dt;if((modelFrame+i)%4===0||Math.hypot(s.x-player.x,s.z-player.z)<90){s.mixer.update(s.acc);s.acc=0}
+  const camD=Math.hypot(s.x-camera.position.x,s.z-camera.position.z);setLod(s,camD);
+  s.acc+=dt;if((modelFrame+i)%RZ.animEvery(camD)===0||Math.hypot(s.x-player.x,s.z-player.z)<90){s.mixer.update(s.acc);s.acc=0}
+  RZ.post(s,dt,v,camD);
  }
  updateCrews(dt)}
 // German defenders: a two-man MG crew behind each embrasure, built from the GI model recoloured in field grey.
@@ -1121,5 +1125,334 @@ function updateCinematic(dt){
  if(sub){if($('cineSub').textContent!==sub[2])$('cineSub').textContent=sub[2];$('cineSub').style.opacity='1'}else $('cineSub').style.opacity='0'}
 $('cineSkip').addEventListener('click',e=>{e.stopPropagation();endCinematic()});
 addEventListener('keydown',e=>{if(phase==='cinematic'&&['Space','Enter','Escape','NumpadEnter'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();endCinematic()}},true);
-$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();buildV35();buildAssault();loadSoldierModel();window.__omaha.modelInfo=modelInfo;window.__omaha.sfx=sfx;window.__omaha.nearestObstacle=(x,z,r)=>nearestObstacleAt(x,z,r);window.__omaha.tune=T;window.__omaha.cine={get t(){return cine.t},seek:t=>{while(phase==='cinematic'&&cine.t<t)updateCinematic(Math.min(1/30,t-cine.t+1e-4));renderer.render(scene,camera);return cine.t},skip:()=>endCinematic()};Object.defineProperties(window.__omaha,Object.getOwnPropertyDescriptors({get renderInfo(){const r=renderer.info.render;return{calls:r.calls,triangles:r.triangles,programs:renderer.info.programs.length}},crewHit:(ex,ey,ez,d)=>crewHit(ex,ey,ez,d),get cam(){return camera.position},resetCrews,get germansKilled(){return germanKills},lod:LOD}));
+// =====================================================================================================
+// V4.5 SOLDIER REALISM. Six self-contained sections, each with its own config and its own switch:
+//   SOLDIER_VARIETY ?variety=0   REACTIONS ?reactions=0   TERRAIN_GAIT ?gait=0
+//   APPEARANCE ?appearance=0     LOD_TUNE ?lodtune=0      VOICES ?voices=0
+// ?realism=0 turns all six off, which gives back v4.4 behaviour. At runtime: __omaha.realism.VOICES.on=false.
+// The rest of the game reaches these sections only through the RZ hooks at the bottom of this block
+// (search for "RZ." to find every call site: updateSoldiers, updateModels, fireRound, onExplosion,
+// dropSoldier, recycleSoldier, attachModel, loadSoldierModel and setLod).
+// =====================================================================================================
+const RZ_Q=new URLSearchParams(location.search),rzFlag=k=>RZ_Q.get('realism')!=='0'&&RZ_Q.get(k)!=='0';
+const rzR=a=>rand(a[0],a[1]),rzPick=a=>a[Math.floor(Math.random()*a.length)];
+function rzWeighted(t){let r=Math.random()*Object.values(t).reduce((a,b)=>a+b,0);for(const k in t){r-=t[k];if(r<=0)return k}return Object.keys(t)[0]}
+
+// ----- 1. SOLDIER_VARIETY: every man moves at his own pace, stride and posture, never in step with the next. -----
+const SOLDIER_VARIETY={on:rzFlag('variety'),
+ SPEED:[.8,1.2],            // each man's own pace, times his base speed
+ SURGE:.16,SURGE_HZ:[.05,.2],// slow surges and lulls in that pace (catching breath, short dashes)
+ STRIDE:[.88,1.12],         // stride length: a longer stride means fewer steps for the same ground speed
+ CADENCE_DRIFT:.06,         // slow drift in step rate so that neighbours never fall into step
+ LEAN:[-.03,.16],           // habitual forward hunch while moving (radians)
+ LOW_LEAN:.3,               // extra hunch for the men who run bent double
+ SWAY:[.015,.055],          // side-to-side roll with each step
+ init(s,r){r.spd=rzR(this.SPEED);r.sf=rzR(this.SURGE_HZ);r.sp=rand(0,6.3);r.stride=rzR(this.STRIDE);r.cd=rand(0,6.3);r.lean=rzR(this.LEAN);r.sway=rzR(this.SWAY);r.phase=Math.random()},
+ speed(s,r){return r.spd*(1+this.SURGE*Math.sin(time*6.283*r.sf+r.sp))},
+ cadence(r){return r.stride*(1+this.CADENCE_DRIFT*Math.sin(time*.7+r.cd))},
+ // A newly started loop begins at this man's own point in the cycle instead of frame 0.
+ desync(r,a){if(a&&a.loop!==THREE.LoopOnce)a.time=((r.phase+Math.random()*.25)%1)*a.getClip().duration},
+ posture(s,r,o,moving,v,cyc){if(!moving)return;o.pitch+=r.lean+(s.low?this.LOW_LEAN:0)*clamp(v/3,0,1);o.roll+=Math.sin(cyc*12.566)*r.sway}};
+
+// ----- 2. REACTIONS: flinch at near misses, dive prone, crawl, freeze in cover; varied falls; men drag the wounded. -----
+const REACTIONS={on:rzFlag('reactions'),
+ FLINCH_R:3.5,FLINCH_T:[.35,.6],FLINCH_P:.7,  // near miss within this many metres: flinch (chance), for this long
+ PRONE_P:.35,BLAST_R:14,BLAST_PRONE_P:.65,     // ...and dive flat if there is no steel close by; shell bursts
+ PRONE_T:[2.5,6],CRAWL_P:.5,CRAWL_POSE:{pitch:.22,lift:-.84}, // the swim clip, lowered and levelled onto the sand, reads as a crawl
+CRAWL_SPEED:[.3,.45],CRAWL_RANGE:12,CRAWL_T:25,
+ FREEZE_P:.45,FREEZE_T:[4,11],UNDER_FIRE_R:9,  // men reaching cover while rounds land close may freeze there
+ DRAG_GAP:1.65, // the dragged man's feet are this far ahead of the man pulling him (his head, 1.1 m up the body, reaches the puller's hands)
+ DRAG_R:16,DRAG_P:.35,DRAG_MAX:3,DRAG_SPEED:.75,DRAG_CHECK:1.2,DRAG_SEEN:120, // dragging the wounded to cover
+ KILL_FALLS:{crumple:.45,stagger:.2,knees:.15,pitch:.2},
+ WOUND_FALLS:{back:.35,sit:.25,curl:.25,crawl:.15},
+ nextDrag:0,
+ able(s){return s.alive&&!s.boat&&!s.down&&!s.wounded&&!s.script},
+ setSt(s,r,st,t){r.st=st;r.stT=time;r.stUntil=time+t;if(st==='prone'||st==='crawl'||st==='freeze'){s.aiState='hold';s.aiUntil=time+1}},
+ endSt(s,r,resume){const was=r.st;r.st='';if(resume){s.aiState='advance';s.aiUntil=time+rand(2,4);if(was==='prone'||was==='freeze'||was==='crawl')RZ.emit(s,'resume')}},
+ speed(s,r){return r.st==='flinch'?.25:1},
+ onRound(g,ix,iz){
+  for(const s of soldiers){if(!this.able(s))continue;const d=Math.hypot(s.x-ix,s.z-iz);if(d>this.UNDER_FIRE_R)continue;const r=RZ.ensure(s);r.fireAt=time;
+   if(d>this.FLINCH_R||time<(r.reactAt||0))continue;r.reactAt=time+.8;
+   if(r.st==='prone'||r.st==='crawl'){r.stUntil=Math.max(r.stUntil,time+rand(1.5,3));continue}
+   if(r.st==='freeze'){r.stUntil+=1;RZ.gesture(s,'helmet',2);continue}
+   if(r.st)continue;
+   const dry=waterDepth(s.z)<.25,cover=nearestObstacleAt(s.x,s.z,5);
+   if(dry&&!cover&&Math.random()<this.PRONE_P)this.setSt(s,r,'prone',rzR(this.PRONE_T));
+   else if(Math.random()<this.FLINCH_P){this.setSt(s,r,'flinch',rzR(this.FLINCH_T));RZ.gesture(s,'helmet',1.2)}}},
+ onBlast(x,z){let caller=null;
+  for(const s of soldiers){if(!this.able(s))continue;const d=Math.hypot(s.x-x,s.z-z);if(d>26)continue;const r=RZ.ensure(s);r.fireAt=time;if(d>8&&!caller)caller=s;
+   if(r.st==='prone'||r.st==='crawl'||r.st==='drag'){if(r.st!=='drag')r.stUntil+=2;continue}
+   if(d<this.BLAST_R&&waterDepth(s.z)<.25&&Math.random()<this.BLAST_PRONE_P)this.setSt(s,r,'prone',rzR(this.PRONE_T));
+   else if(d<this.BLAST_R){this.setSt(s,r,'flinch',rzR(this.FLINCH_T));RZ.gesture(s,'helmet',1.5)}
+   else if(s.aiState==='cover'&&Math.random()<.5){this.setSt(s,r,'freeze',rzR(this.FREEZE_T));RZ.gesture(s,'helmet',3)}}
+  if(caller)RZ.emit(caller,'downCall')},
+ onDrop(s,kill){const r=RZ.ensure(s);if(r.dragW)this.dropDrag(r.dragW);if(r.dragBy){const h=r.dragBy;h.rz.st='';h.rz.dragW=null;r.dragBy=null}r.st='';r.fall=null;this.pickFall(s,r,kill)},
+ pickFall(s,r,kill){const kind=rzWeighted(kill?this.KILL_FALLS:this.WOUND_FALLS);r.fall={kind,kill,t0:time,ts:rand(.75,1.35),yaw:rand(-1.3,1.3),slide:kind==='pitch'?rand(.6,1.4):0,cx:s.x,cz:s.z+rand(3,7)};if(!kill)RZ.emit(s,'hit')},
+ dropDrag(w){const r=w.rz;if(r)r.dragBy=null},
+ // Called from updateSoldiers before the normal AI; returns true while a reaction is moving this man itself.
+ drive(s,r,dt){if(s.script){r.st='';return false} // the Bangalore man is scripted by the assault
+  if(s.wounded){if(s.aided){if(r.dragBy){r.dragBy.rz.st='';r.dragBy.rz.dragW=null;r.dragBy=null}r.fall=null;return false}
+   if(r.dragBy)return true;
+   if(r.fall&&r.fall.kind==='crawl'&&time-r.fall.t0<40){const dx=r.fall.cx-s.x,dz=r.fall.cz-s.z,L=Math.hypot(dx,dz);if(L>.4){const st=Math.min(L,.15*dt);s.x+=dx/L*st;s.z+=dz/L*st;s.face=Math.atan2(dx,-dz);s.g.position.x=s.x;s.g.position.z=s.z}else r.fall.kind='curl';return true}
+   return false}
+  if(!r.st)return false;
+  if(r.st==='flinch'){if(time>r.stUntil)this.endSt(s,r,false);return false}
+  if(r.st==='prone'){if(time>r.stUntil){
+    if(Math.random()<this.CRAWL_P){const o=nearestObstacleAt(s.x,s.z-4,this.CRAWL_RANGE);r.goal=o?{x:o.x+rand(-.6,.6),z:o.z+Math.max(1,o.r*.8),cover:true}:{x:s.x+rand(-2,2),z:s.z-rand(3,6)};r.cs=rzR(this.CRAWL_SPEED);this.setSt(s,r,'crawl',this.CRAWL_T)}
+    else this.endSt(s,r,true)}
+   s.g.position.set(s.x,heightAt(s.z),s.z);return true}
+  if(r.st==='crawl'){const dx=r.goal.x-s.x,dz=r.goal.z-s.z,L=Math.hypot(dx,dz);
+   if(L<.5||time>r.stUntil){if(r.goal.cover&&Math.random()<this.FREEZE_P){this.setSt(s,r,'freeze',rzR(this.FREEZE_T));RZ.gesture(s,'helmet',3)}else this.endSt(s,r,true)}
+   else{const st=Math.min(L,r.cs*dt);s.x+=dx/L*st;s.z+=dz/L*st;s.face=Math.atan2(dx,-dz)}
+   s.g.position.set(s.x,heightAt(s.z),s.z);return true}
+  if(r.st==='freeze'){if(time>r.stUntil)this.endSt(s,r,true);s.aiUntil=time+1;s.g.position.set(s.x,heightAt(s.z),s.z);return true}
+  if(r.st==='drag'){const w=r.dragW;if(!w||!w.alive||w.down||!w.wounded||w.aided||time>r.stUntil){if(w&&w.rz)w.rz.dragBy=null;r.dragW=null;this.endSt(s,r,true);return false}
+   if(r.dragPhase==='go'){const dx=w.x-s.x,dz=w.z-s.z,L=Math.hypot(dx,dz);if(L<1.4){r.dragPhase='pull';RZ.emit(s,'dragStart');RZ.emit(w,'dragged')}else{const st=Math.min(L,2.6*dt);s.x+=dx/L*st;s.z+=dz/L*st;s.face=Math.atan2(dx,-dz)}}
+   else if(r.dragPhase==='pull'){const dx=r.goal.x-s.x,dz=r.goal.z-s.z,L=Math.hypot(dx,dz);
+    if(L<.6){r.dragPhase='tend';r.stUntil=time+rand(3,6);w.rz.dragBy=null;r.dragW=null;w.rz.fall=w.rz.fall||{};w.rz.fall.kind='back';this.setSt(s,r,'freeze',r.stUntil-time);r.tend=true}
+    else{const st=Math.min(L,this.DRAG_SPEED*dt);s.x+=dx/L*st;s.z+=dz/L*st;
+     // He walks backwards, facing the man he is pulling, who lies head-first behind him.
+     s.face=Math.atan2(-dx,dz);const fx=Math.sin(s.face),fz=-Math.cos(s.face);w.x=s.x+fx*this.DRAG_GAP;w.z=s.z+fz*this.DRAG_GAP;w.face=s.face;w.g.position.set(w.x,heightAt(w.z),w.z)}}
+   s.aiState='hold';s.aiUntil=time+1;s.g.position.set(s.x,heightAt(s.z),s.z);return true}
+  return false},
+ tick(dt){if(time<this.nextDrag||phase!=='beach')return;this.nextDrag=time+this.DRAG_CHECK;
+  let active=0;for(const s of soldiers)if(s.rz&&s.rz.st==='drag')active++;if(active>=this.DRAG_MAX)return;
+  for(const w of soldiers){if(!w.wounded||w.aided||w.boat||w.down||!w.alive||(w.rz&&w.rz.dragBy))continue;if(Math.hypot(w.x-player.x,w.z-player.z)>this.DRAG_SEEN||Math.random()>this.DRAG_P)continue;
+   let best=null,bd=this.DRAG_R;for(const s of soldiers){if(!this.able(s)||(s.rz&&s.rz.st&&s.rz.st!=='freeze'))continue;const d=Math.hypot(s.x-w.x,s.z-w.z);if(d<bd){bd=d;best=s}}
+   if(!best)continue;const r=RZ.ensure(best),o=nearestObstacleAt(w.x,w.z+3,18);
+   r.goal=o?{x:o.x+rand(-.5,.5),z:o.z+Math.max(1.2,o.r*.8)+.6}:{x:w.x+rand(-2,2),z:w.z<-150?-183.2:w.z+rand(6,9)};
+   r.dragW=w;r.dragPhase='go';r.tend=false;this.setSt(best,r,'drag',35);RZ.ensure(w).dragBy=best;return}},
+ // Body animation while a reaction is running. Returns false when it has nothing to say about this frame.
+ anim(s,r,b,v,moving){
+  switch(r.st){
+   case'flinch':RZ.act(s,'Hit');s.acts.Hit.timeScale=1.5;return true;
+   case'prone':RZ.act(s,'Idle','Hold');b.pitch=Math.PI/2;b.lift=.14;return true;
+   case'crawl':if(s.acts.Crawl){RZ.act(s,'Crawl');s.acts.Crawl.timeScale=clamp(r.cs/.4,.6,1.3)*.8;b.pitch=this.CRAWL_POSE.pitch;b.lift=this.CRAWL_POSE.lift}else{RZ.act(s,'Idle','Hold');b.pitch=Math.PI/2;b.lift=.14+.03*Math.sin(time*6);b.roll=.1*Math.sin(time*3)}return true;
+   case'freeze':if(r.tend)RZ.act(s,'Kneel');else RZ.act(s,'CrouchIdle','Ready');return true;
+   case'drag':if(r.dragPhase==='pull'){RZ.act(s,'Push');s.acts.Push.timeScale=-.9;b.pitch=.15}else{RZ.act(s,v>1.6?'Jog':'Crouch','Ready');RZ.matchSpeed(s,r,v);b.pitch=.3}return true}
+  return false},
+ lying(s,r,b,dt){if(!r.fall)this.pickFall(s,r,!s.wounded);const f=r.fall,t=time-f.t0;
+  if(r.dragBy){RZ.act(s,'Death');s.acts.Death.timeScale=3;b.yaw=0;return}
+  switch(f.kind){
+   case'stagger':if(t<.55){RZ.act(s,'Hit');s.acts.Hit.timeScale=1.3}else{RZ.act(s,'Death');s.acts.Death.timeScale=f.ts}b.yaw=f.yaw*.5;break;
+   case'knees':if(t<.85)RZ.act(s,'Kneel');else{RZ.act(s,'Death');s.acts.Death.timeScale=.7}b.yaw=f.yaw*.3;break;
+   case'pitch':RZ.act(s,'Idle','Ready');b.pitch=Math.PI/2;b.lift=.13;if(t<.35){const fx=Math.sin(s.face),fz=-Math.cos(s.face),st=f.slide*dt/.35;s.x+=fx*st;s.z+=fz*st;s.g.position.x=s.x;s.g.position.z=s.z}break;
+   case'sit':RZ.act(s,'CrouchIdle','Ready');b.pitch=-.42;b.lift=-.04;break;
+   case'curl':RZ.act(s,'Kneel');s.acts.Kneel.timeScale=.15;b.pitch=.35;b.yaw=f.yaw*.4;break; // doubled over on hands and knees
+   case'crawl':if(s.acts.Crawl){RZ.act(s,'Crawl');s.acts.Crawl.timeScale=.45;b.pitch=this.CRAWL_POSE.pitch;b.lift=this.CRAWL_POSE.lift}else{RZ.act(s,'Idle','Hold');b.pitch=Math.PI/2;b.lift=.14}break;
+   case'back':RZ.act(s,'Death');s.acts.Death.timeScale=f.ts;b.roll=.12*Math.sin(time*.9+s.seed)*(f.kill?0:1);b.yaw=f.yaw*.4;break;
+   default:RZ.act(s,'Death');s.acts.Death.timeScale=f.ts;b.yaw=f.yaw}}};
+
+// ----- 3. TERRAIN_GAIT: wading slows and leans men in the surf, soft sand trips them, and feet no longer slide. -----
+const TERRAIN_GAIT={on:rzFlag('gait'),
+ // How fast the planted foot travels backwards in each clip at timeScale 1, in model units (measured from the clips:
+ // walk 1.0-1.25, jog 5.8-6.4, sprint 8.1-9.7, crouch .55-.84). timeScale = ground speed / this, so a planted foot stays put.
+ CLIP_SPEED:{Walk:1.1,Jog:5.9,Sprint:8.8,Crouch:.65},
+ SCALE:[.3,2.2],            // allowed clip timeScale; the gait changes before the clip is stretched past this
+ CROUCH_MAX:1.4,WALK_MAX:2.1,SPRINT_MIN:5.2, // gait boundaries, m/s
+ WADE:[.25,1.35],WADE_SLOW:.7,WADE_LEAN:.32,WADE_SWAY:.07,WADE_WALK:.55, // depth range (m), speed lost at the deep end, lean into the surf
+ SPLASH_EVERY:[.35,.9],SPLASH_DIST:70,
+ SOFT_SAND_Z:-42,SHINGLE_Z:-158,SOFT_SLOW:.9,SHINGLE_SLOW:.8,
+ STUMBLE_RATE:.05,STUMBLE_T:.6,STUMBLE_PITCH:.42,TRIP_P:.3,TRIP_T:.9,
+ wade(s){return smoothstepSand(waterDepth(s.z),this.WADE[0],this.WADE[1])},
+ speed(s,r,dt){let k=1-this.WADE_SLOW*this.wade(s);
+  if(s.z<this.SHINGLE_Z)k*=this.SHINGLE_SLOW;else if(s.z<this.SOFT_SAND_Z)k*=this.SOFT_SLOW;
+  if(s.z<20&&waterDepth(s.z)<.05&&s.speed>2.4&&!(r.stumbleAt>time-2)&&Math.random()<this.STUMBLE_RATE*dt*(s.z<this.SOFT_SAND_Z?1.6:1)){r.stumbleAt=time;r.trip=Math.random()<this.TRIP_P}
+  const st=time-(r.stumbleAt??-9);if(st<(r.trip?this.TRIP_T:this.STUMBLE_T))k*=r.trip?.05:.4;return k},
+ tripping(r){return r.trip&&time-(r.stumbleAt??-9)<this.TRIP_T},
+ pick(s,r,v){const sc=.95*(s.hs||1)*(SOLDIER_VARIETY.on?SOLDIER_VARIETY.cadence(r):1),deep=waterDepth(s.z)>this.WADE_WALK;
+  const g=deep||v<this.WALK_MAX&&!(s.low&&v<this.CROUCH_MAX)?'Walk':s.low&&v<this.CROUCH_MAX?'Crouch':v>this.SPRINT_MIN?'Sprint':'Jog';
+  return[g,clamp(v/(this.CLIP_SPEED[g]*sc),this.SCALE[0],this.SCALE[1])]},
+ posture(s,r,o,moving,v,cyc,dt){const w=this.wade(s);if(w>0&&moving){o.pitch+=this.WADE_LEAN*w;o.roll+=Math.sin(cyc*6.283+1)*this.WADE_SWAY*w}
+  const st=time-(r.stumbleAt??-9),T=r.trip?this.TRIP_T:this.STUMBLE_T;if(st<T&&!r.trip)o.pitch+=this.STUMBLE_PITCH*Math.sin(Math.PI*st/T);
+  if(w>.05&&moving&&time>(r.splashAt||0)){r.splashAt=time+rzR(this.SPLASH_EVERY);if(Math.hypot(s.x-camera.position.x,s.z-camera.position.z)<this.SPLASH_DIST)spawnPuff(s.x+rand(-.3,.3),WATER_Y+.15,s.z+rand(-.3,.3),0xe4ebe8,.28+.2*w,2+2*w,.45)}}};
+
+// ----- 4. APPEARANCE: helmet angles, kit loadouts, uniform shade, wet cloth below the waterline, sand and grime. -----
+const APPEARANCE={on:rzFlag('appearance'),
+ HELMET_PITCH:[-.24,.12],HELMET_ROLL:[-.08,.08],     // pushed back ... tipped over the eyes; cocked to one side
+ CLOTH:{h:[-.02,.03],s:[-.12,.06],l:[-.1,.07]},      // per-man fading and dye-lot differences
+ SKIN:[[1,1,1],[.93,.86,.8],[1.06,1.02,.97],[.82,.7,.62],[1.04,.95,.9]],
+ KIT:{pack:.85,roll:.7,shovel:.6,lifebelt:.75,canteen:.9,gasmask:.55,bandolier:.35}, // chance each man carries each item
+ DRY_RATE:.003,SURF_SPLASH:.35,SAND_LEGS:.38,SAND_RATE:.006,SAND_FRONT_RATE:.7,
+ // Part ids, written into a vertex attribute and recognised from the kit's paint colours.
+ PART:{body:0,helmet:1,pack:2,roll:3,shovel:4,skin:5,lifebelt:6,canteen:7,gasmask:8,bandolier:9},
+ pivot:new THREE.Vector3(0,1.7,0),
+ onProto(root){const hi=root.getObjectByName('GI'),lo=root.getObjectByName('GI_LOD');if(!hi)return;
+  const P=this.PART,byCol=[[GI.HELMET,P.helmet],[0x4a442c,P.helmet],[GI.PACK,P.pack],[0x65623f,P.roll],[0x2c2f25,P.shovel],[GI.SKIN,P.skin],[0xa87b5d,P.skin],[0x8a845f,P.lifebelt],[0x55553a,P.canteen],[0x4f5236,P.gasmask],[0x857f5a,P.bandolier]].map(([h,p])=>[new THREE.Color(h),p]);
+  const tag=geo=>{const c=geo.attributes.color,n=c.count,a=new Float32Array(n);for(let i=0;i<n;i++){const r=c.getX(i),g=c.getY(i),b=c.getZ(i);for(const[k,p]of byCol)if(Math.abs(k.r-r)+Math.abs(k.g-g)+Math.abs(k.b-b)<.003){a[i]=p;break}}geo.setAttribute('rzPart',new THREE.BufferAttribute(a,1));return geo};
+  // Extra kit: the assault gas-mask bag worn on the chest and a cloth bandolier, both optional per man.
+  const geo=hi.geometry,bones=hi.skeleton.bones,B=n=>Math.max(0,bones.findIndex(b=>b.name===n)),pos=geo.attributes.position,si=geo.attributes.skinIndex,sw=geo.attributes.skinWeight,chest=new THREE.Box3(),s3=B('DEF-spine003'),s2=B('DEF-spine002');
+  for(let i=0;i<pos.count;i++){let bi=0,bw=-1;for(let k=0;k<4;k++){const w=sw.getComponent(i,k);if(w>bw){bw=w;bi=si.getComponent(i,k)}}if(bi===s3||bi===s2)chest.expandByPoint(new THREE.Vector3(pos.getX(i),pos.getY(i),pos.getZ(i)))}
+  const T=(x,y,z,rz=0)=>new THREE.Matrix4().makeRotationZ(rz).setPosition(x,y,z),cz=chest.max.z,cy=chest.min.y;
+  const bag=giPart(new THREE.BoxGeometry(.21,.17,.075),s2,0x4f5236,T(-.02,cy+.13,cz+.03));
+  const flap=giPart(new THREE.BoxGeometry(.215,.05,.085),s2,0x4f5236,T(-.02,cy+.2,cz+.035));
+  const band=giPart(new THREE.BoxGeometry(.05,.6,.02),s3,0x857f5a,T(0,(chest.max.y+cy)/2+.04,cz+.012,.62));
+  const parts=[geo,bag,flap,band].map(g=>{const o=new THREE.BufferGeometry();for(const k of['position','normal','color','skinIndex','skinWeight'])o.setAttribute(k,g.attributes[k]);o.setIndex(g.index);return o});
+  hi.geometry=tag(mergeGeometries(parts,false));if(lo)tag(lo.geometry);
+  const hb=new THREE.Box3(),hp=hi.geometry.attributes.position,ha=hi.geometry.attributes.rzPart;for(let i=0;i<hp.count;i++)if(ha.getX(i)===P.helmet)hb.expandByPoint(new THREE.Vector3(hp.getX(i),hp.getY(i),hp.getZ(i)));
+  if(!hb.isEmpty()){hb.getCenter(this.pivot);this.pivot.y=hb.min.y+.04}this.ready=true},
+ makeMaterial(s,r){const m=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0}),P=this.PART,K=this.KIT;
+  const c=new THREE.Color(1,1,1);c.setHSL(.15+rzR(this.CLOTH.h),.2+rzR(this.CLOTH.s),.5+rzR(this.CLOTH.l));const base=new THREE.Color().setHSL(.15,.2,.5);
+  const cloth=new THREE.Vector3(c.r/base.r,c.g/base.g,c.b/base.b),skin=new THREE.Vector3(...rzPick(this.SKIN)),helm=new THREE.Vector3().setScalar(rand(.85,1.1));
+  let hide=0;const off=k=>{hide+=Math.pow(2,P[k])};const pack=Math.random()<K.pack;if(!pack){off('pack');off('roll');off('shovel')}else{if(Math.random()>K.roll)off('roll');if(Math.random()>K.shovel)off('shovel')}
+  for(const k of['lifebelt','canteen','gasmask','bandolier'])if(Math.random()>K[k])off(k);
+  const u=r.u={rzPivot:{value:this.pivot},rzTilt:{value:new THREE.Vector2(rzR(this.HELMET_PITCH),rzR(this.HELMET_ROLL))},rzHide:{value:hide},rzFeetY:{value:0},rzWetH:{value:0},rzSandH:{value:0},rzSandFront:{value:0},rzCloth:{value:cloth},rzSkin:{value:skin},rzHelm:{value:helm}};
+  m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,u);
+   sh.vertexShader=sh.vertexShader.replace('#include <common>',`#include <common>
+attribute float rzPart;uniform vec3 rzPivot;uniform vec2 rzTilt;uniform float rzHide;uniform float rzFeetY;varying float vRzPart;varying float vRzH;varying float vRzNy;varying vec3 vRzW;`)
+    .replace('#include <beginnormal_vertex>',`#include <beginnormal_vertex>
+mat3 rzRot=mat3(1.);if(abs(rzPart-1.)<.5){float cp=cos(rzTilt.x),sp=sin(rzTilt.x),cr=cos(rzTilt.y),sr=sin(rzTilt.y);rzRot=mat3(cr,sr,0.,-sr,cr,0.,0.,0.,1.)*mat3(1.,0.,0.,0.,cp,sp,0.,-sp,cp);objectNormal=rzRot*objectNormal;}`)
+    .replace('#include <begin_vertex>',`#include <begin_vertex>
+if(abs(rzPart-1.)<.5)transformed=rzRot*(transformed-rzPivot)+rzPivot;if(rzPart>1.5&&mod(floor((rzHide+.5)/exp2(rzPart)),2.)>.5)transformed=rzPivot;`)
+    .replace('#include <skinning_vertex>',`#include <skinning_vertex>
+vec4 rzWp=modelMatrix*vec4(transformed,1.);vRzW=rzWp.xyz;vRzH=rzWp.y-rzFeetY;vRzPart=rzPart;vRzNy=normalize(mat3(modelMatrix)*objectNormal).y;`);
+   sh.fragmentShader=sh.fragmentShader.replace('#include <common>',`#include <common>
+uniform float rzWetH;uniform float rzSandH;uniform float rzSandFront;uniform vec3 rzCloth;uniform vec3 rzSkin;uniform vec3 rzHelm;varying float vRzPart;varying float vRzH;varying float vRzNy;varying vec3 vRzW;
+float rzHash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}`)
+    .replace('#include <color_fragment>',`#include <color_fragment>
+float rzSk=step(4.5,vRzPart)*step(vRzPart,5.5),rzHm=1.-step(.5,abs(vRzPart-1.));
+diffuseColor.rgb*=mix(mix(rzCloth,rzHelm,rzHm),rzSkin,rzSk);
+float rzN=rzHash(floor(vRzW*22.))*.45+rzHash(floor(vRzW*6.))*.55;
+float rzWet=(1.-smoothstep(rzWetH-.05,rzWetH+.05,vRzH+(rzN-.5)*.07))*step(.01,rzWetH);
+diffuseColor.rgb*=mix(1.,mix(.5,.82,rzSk),rzWet);
+float rzSand=(1.-smoothstep(rzSandH-.14,rzSandH+.05,vRzH+(rzN-.5)*.3))*step(.01,rzSandH);
+rzSand=max(rzSand,rzSandFront*smoothstep(.15,.7,-vRzNy));rzSand=max(rzSand,rzSandFront*.3*step(.72,rzN));
+rzSand*=smoothstep(.2,.7,rzN+.25)*(1.-.6*rzSk);
+diffuseColor.rgb=mix(diffuseColor.rgb,mix(vec3(.36,.27,.15),vec3(.16,.12,.07),rzWet),clamp(rzSand,0.,1.)*.65);`)
+    .replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
+roughnessFactor=mix(roughnessFactor,.42,rzWet*(1.-.7*clamp(rzSand,0.,1.)));`)};
+  m.customProgramCacheKey=()=>'rz-appearance-1';return m},
+ onAttach(s,r){if(!this.ready)return;const m=this.makeMaterial(s,r);if(s.hi)s.hi.material=m;if(s.lo)s.lo.material=m;r.wetH=0;r.sandH=0;r.sandFront=0},
+ update(s,r,dt,v){if(!r.u)return;const u=r.u,depth=waterDepth(s.z),lying=s.down||s.wounded||r.st==='prone'||r.st==='crawl';
+  let wetTo=s.boat?0:depth>0?depth+.12+(s.z<60?this.SURF_SPLASH:0):0;if(lying&&s.z>-42&&!s.boat)wetTo=Math.max(wetTo,.35);
+  r.wetH=wetTo>r.wetH?wetTo:Math.max(0,r.wetH-this.DRY_RATE*dt);
+  if(!s.boat&&s.z<40&&v>.3)r.sandH=Math.min(this.SAND_LEGS*(1+.4*(r.wetH>.05)),r.sandH+this.SAND_RATE*dt*v);
+  if(lying&&!s.boat&&depth<.3)r.sandFront=Math.min(1,r.sandFront+this.SAND_FRONT_RATE*dt);
+  u.rzFeetY.value=s.g.position.y;u.rzWetH.value=r.wetH;u.rzSandH.value=r.sandH;u.rzSandFront.value=r.sandFront}};
+
+// ----- 5. LOD_TUNE: builds on the 100 m low-poly body: per-quality switch distance, hysteresis, cheaper far animation. -----
+const LOD_TUNE={on:rzFlag('lodtune'),
+ DIST:{low:70,balanced:100,sharp:120,ultra:140},  // metres from the camera where the 192-triangle body takes over
+ HYST:8,                     // switch back only this much closer, so men walking along the boundary don't flicker
+ FAR_ANIM_DIST:160,FAR_ANIM_EVERY:6,NEAR_ANIM_EVERY:4, // animation update interval (frames) for men far from the player
+ GESTURE_DIST:70,            // arm gestures are skipped beyond this (they are a few pixels wide); low-poly men never get them
+ far(o,dist){const d=this.DIST[qualityMode]||LOD.dist,was=!!(o.lo&&o.lo.visible);return dist>(was?d-this.HYST:d+this.HYST)},
+ animEvery(dist){return dist>this.FAR_ANIM_DIST?this.FAR_ANIM_EVERY:this.NEAR_ANIM_EVERY},
+ gestures(s,dist){return dist<this.GESTURE_DIST&&!(s.lo&&s.lo.visible)}};
+
+// ----- 6. VOICES: synthesized shouts (no recorded speech), and small gestures: pointing, waving forward, a hand on the helmet. -----
+const VOICES={on:rzFlag('voices'),
+ MAX_DIST:80,MIN_GAP:.55,PER_MAN_GAP:4,CAPTION_DIST:14,VOL:.32,
+ LEADER_P:.15,LEADER_EVERY:[6,13],WOUNDED_EVERY:[3,8],WOUNDED_DIST:35,RESUME_SHOUT_P:.35,
+ GESTURE_T:{point:1.6,wave:2.2,helmet:2.5,medic:2.6},
+ // Formants (Hz) of the vowels the shouts are built from; two names joined by '-' glide from one to the other.
+ V:{a:[730,1090,2440],o:[570,840,2410],u:[320,870,2240],e:[530,1840,2480],i:[300,2200,2960],ah:[640,1190,2390],ae:[660,1720,2410],ai:[700,1300,2500]},
+ LINES:{
+  move:{text:'MOVE! MOVE!',syl:[['u',.3,'m','v',1],['u',.34,'m','v',.95]],gap:.14},
+  go:{text:'GO! GO! GO!',syl:[['o',.2,'g','',1.05],['o',.2,'g','',1.08],['o',.26,'g','',1.12]],gap:.09},
+  comeon:{text:'COME ON! FORWARD!',syl:[['ah',.13,'k','',1],['o',.3,'m','n',1.1],['o',.15,'f','',1],['ah',.26,'w','d',.92]],gap:.05},
+  keep:{text:'KEEP MOVING!',syl:[['i',.16,'k','p',1.05],['u',.2,'m','',1],['i',.22,'v','n',.92]],gap:.04},
+  down:{text:'GET DOWN!',syl:[['e',.12,'g','t',1.05],['a-u',.38,'d','n',.95]],gap:.03},
+  medic:{text:'MEDIC!',syl:[['e',.22,'m','d',1.08],['i',.18,'','k',1]],gap:.02},
+  medic2:{text:'MEDIC! OVER HERE!',syl:[['e',.2,'m','d',1.1],['i',.16,'','k',1],['o',.18,'','v',1],['ah',.12,'','',1],['i',.3,'h','',.9]],gap:.06},
+  gotyou:{text:'I GOT YOU — HANG ON!',syl:[['ai',.2,'','',1],['o',.16,'g','t',1],['u',.12,'y','',1],['ae',.2,'h','',1.05],['o',.3,'','n',.9]],gap:.04},
+  moan:{text:'',syl:[['ah-o',1.1,'','',.75]],gap:0,soft:true}},
+ last:0,cap:null,capT:0,white:null,
+ init(s,r){r.f0=rand(92,150);r.leader=Math.random()<this.LEADER_P;r.nextShout=time+rzR(this.LEADER_EVERY)},
+ onEvent(s,r,kind){if(s.boat)return;
+  if(kind==='resume'){if(r.leader||Math.random()<this.RESUME_SHOUT_P){this.say(s,rzPick(['move','go','comeon','keep']));this.gesture(s,r,Math.random()<.5?'wave':'point')}}
+  else if(kind==='downCall')this.say(s,'down');
+  else if(kind==='dragStart')this.say(s,'gotyou');
+  else if(kind==='hit')this.say(s,Math.random()<.5?'moan':'medic')},
+ gesture(s,r,kind,dur){r.gest={kind,t0:time,dur:dur||this.GESTURE_T[kind]||2}},
+ say(s,key){const r=RZ.ensure(s);if(!audio.ctx||time<this.last+this.MIN_GAP||time<(r.saidAt||-9)+this.PER_MAN_GAP)return false;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d>this.MAX_DIST)return false;
+  this.last=time;r.saidAt=time;const line=this.LINES[key];this.synth(s.x,s.z,r.f0*(line.soft?1:1.45),line);
+  if(line.text&&d<this.CAPTION_DIST&&phase==='beach')this.caption(line.text);return true},
+ caption(t){if(!this.cap){const c=this.cap=document.createElement('div');c.id='voiceCap';c.style.cssText='position:fixed;left:50%;bottom:21%;transform:translateX(-50%);font:italic 600 13px/1.3 system-ui,sans-serif;letter-spacing:.12em;color:#efe6cf;text-shadow:0 1px 4px #000;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20';document.body.appendChild(c)}
+  this.cap.textContent='“'+t+'”';this.cap.style.opacity='.9';this.capT=time+1.8},
+ // Formant synthesis: a buzzing source shaped by three band-pass resonances per vowel, with noise bursts for consonants.
+ synth(x,z,f0,line){const ctx=audio.ctx;if(!ctx||audio.muted||ctx.state!=='running')return;
+  if(!this.white){const b=this.white=ctx.createBuffer(1,ctx.sampleRate*.5,ctx.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+  const dist=Math.hypot(x-player.x,z-player.z),pan=clamp(((x-player.x)*Math.cos(yaw)-(z-player.z)*Math.sin(yaw))/Math.max(8,dist),-1,1);
+  let t=ctx.currentTime+dist/343+.02;const out=ctx.createGain();out.gain.value=this.VOL*(line.soft?.45:1)/(1+dist/12);
+  const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=Math.max(1200,7500-dist*70);const sh=ctx.createWaveShaper(),cv=new Float32Array(256);for(let i=0;i<256;i++){const x2=i/128-1;cv[i]=Math.tanh(x2*2.2)}sh.curve=cv;
+  sh.connect(lp);lp.connect(out);let node=out;if(ctx.createStereoPanner){const p=ctx.createStereoPanner();p.pan.value=pan;out.connect(p);node=p}node.connect(audio.limiter||audio.master);
+  const burst=(at,dur,freq,q,vol)=>{const n=ctx.createBufferSource();n.buffer=this.white;const f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=freq;f.Q.value=q;const g=ctx.createGain();g.gain.setValueAtTime(vol,at);g.gain.exponentialRampToValueAtTime(.001,at+dur);n.connect(f);f.connect(g);g.connect(sh);n.start(at,Math.random()*.3);n.stop(at+dur+.02)};
+  const CONS={k:[2600,3,.5,.05],g:[1500,2.5,.45,.035],t:[3800,2,.4,.04],d:[3000,2,.35,.03],p:[900,1.5,.35,.03],f:[5200,1,.25,.08],v:[1600,.8,.2,.07],h:[1800,.7,.18,.07],w:[600,1,.15,.04],y:[2400,1,.15,.04]};
+  for(const[vw,dur,on,coda,pm]of line.syl){const[v0,v1]=vw.split('-'),F0=this.V[v0],F1=this.V[v1||v0];
+   if(on==='m'||on==='n'){const o=ctx.createOscillator(),f=ctx.createBiquadFilter(),g=ctx.createGain();o.type='sawtooth';o.frequency.value=f0*pm*.95;f.type='lowpass';f.frequency.value=320;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.5,t+.02);g.gain.linearRampToValueAtTime(.0001,t+.07);o.connect(f);f.connect(g);g.connect(sh);o.start(t);o.stop(t+.08);t+=.05}
+   else if(CONS[on]){const c=CONS[on];burst(t,c[3],c[0],c[1],c[2]);t+=c[3]*.7}
+   const o=ctx.createOscillator(),src=ctx.createGain();o.type='sawtooth';const jit=1+rand(-.03,.03);
+   o.frequency.setValueAtTime(f0*pm*jit*.92,t);o.frequency.linearRampToValueAtTime(f0*pm*jit*1.04,t+dur*.3);o.frequency.linearRampToValueAtTime(f0*pm*jit*(line.soft?.7:.86),t+dur);
+   src.gain.setValueAtTime(.0001,t);src.gain.linearRampToValueAtTime(1,t+.025);src.gain.setValueAtTime(1,t+dur*.75);src.gain.linearRampToValueAtTime(.0001,t+dur);o.connect(src);
+   for(let k=0;k<3;k++){const f=ctx.createBiquadFilter(),g=ctx.createGain();f.type='bandpass';f.Q.value=[7,11,14][k];f.frequency.setValueAtTime(F0[k],t);f.frequency.linearRampToValueAtTime(F1[k],t+dur);g.gain.value=[1.4,.8,.45][k];src.connect(f);f.connect(g);g.connect(sh)}
+   o.start(t);o.stop(t+dur+.02);t+=dur;
+   if(CONS[coda]){const c=CONS[coda];burst(t,c[3],c[0],c[1],c[2]*.8);t+=c[3]}
+   t+=line.gap}},
+ tick(dt){if(this.cap&&this.capT&&(time>this.capT||phase!=='beach')){this.capT=0;this.cap.style.opacity='0'}
+  if(phase!=='beach'||!audio.ctx)return;
+  for(const s of soldiers){if(!s.rz||!s.alive||s.boat||s.down)continue;const r=s.rz;if(Math.hypot(s.x-player.x,s.z-player.z)>this.MAX_DIST)continue;
+   if(s.wounded&&!s.aided){if(time>(r.woundCall||0)){r.woundCall=time+rzR(this.WOUNDED_EVERY);if(Math.hypot(s.x-player.x,s.z-player.z)<this.WOUNDED_DIST&&this.say(s,rzPick(['medic','medic2','moan','moan']))&&r.fall&&r.fall.kind==='back'&&!r.dragBy)this.gesture(s,r,'medic')}}
+   else if(r.leader&&!r.st&&s.aiState==='advance'&&time>r.nextShout){r.nextShout=time+rzR(this.LEADER_EVERY);if(this.say(s,rzPick(['comeon','move','keep','go'])))this.gesture(s,r,Math.random()<.6?'wave':'point')}}},
+ // Arm gestures are a two-bone IK pass on the left arm after the animation clip has posed the body.
+ _a:new THREE.Vector3(),_b:new THREE.Vector3(),_c:new THREE.Vector3(),_d:new THREE.Vector3(),_e:new THREE.Vector3(),_t:new THREE.Vector3(),_p:new THREE.Vector3(),_q:new THREE.Quaternion(),_q2:new THREE.Quaternion(),_q3:new THREE.Quaternion(),
+ bones(s,r){if(r.bones!==undefined)return r.bones;const m=s.model,g=n=>m.getObjectByName(n);const b={ua:g('DEF-upper_armL'),fa:g('DEF-forearmL'),h:g('DEF-handL'),head:g('DEF-head'),neck:g('DEF-neck')};return r.bones=b.ua&&b.fa&&b.h&&b.head&&b.neck?b:null},
+ aimBone(bone,from,to,w){const q=this._q.setFromUnitVectors(from.normalize(),to.normalize());bone.getWorldQuaternion(this._q2);this._q2.premultiply(q);bone.parent.getWorldQuaternion(this._q3);this._q3.invert().multiply(this._q2);bone.quaternion.slerp(this._q3,w);bone.updateMatrixWorld(true)},
+ ik(b,target,pole,w){const A=b.ua.getWorldPosition(this._a),Bp=b.fa.getWorldPosition(this._b),C=b.h.getWorldPosition(this._c),la=A.distanceTo(Bp),lb=Bp.distanceTo(C);
+  const d=this._d.subVectors(target,A),dist=clamp(d.length(),.05,(la+lb)*.995);d.normalize();const ca=clamp((la*la+dist*dist-lb*lb)/(2*la*dist),-1,1),sa=Math.sqrt(1-ca*ca);
+  const bend=this._e.subVectors(pole,A);bend.addScaledVector(d,-bend.dot(d)).normalize();const elbow=this._p.copy(A).addScaledVector(d,la*ca).addScaledVector(bend,la*sa);
+  this.aimBone(b.ua,this._t.subVectors(Bp,A),elbow.sub(A),w);b.fa.getWorldPosition(this._b);b.h.getWorldPosition(this._c);
+  const tt=this._t.copy(this._a).addScaledVector(d,dist);this.aimBone(b.fa,this._e.subVectors(this._c,this._b),tt.sub(this._b),w)},
+ post(s,r,dt,dist){const g=r.gest;if(!g)return;const t=time-g.t0;if(t>g.dur){r.gest=null;return}if(!LOD_TUNE.gestures(s,dist)&&LOD_TUNE.on)return;const b=this.bones(s,r);if(!b)return;
+  const w=Math.min(1,t/.25,(g.dur-t)/.3);if(w<=0)return;s.g.updateMatrixWorld(true);
+  const e=s.model.matrixWorld.elements,U=new THREE.Vector3(e[4],e[5],e[6]).normalize(),F=new THREE.Vector3(e[8],e[9],e[10]).normalize();
+  const sh=b.ua.getWorldPosition(new THREE.Vector3()),side=sh.clone().sub(b.neck.getWorldPosition(new THREE.Vector3())).normalize(),target=new THREE.Vector3(),pole=sh.clone();
+  if(g.kind==='helmet'){b.head.getWorldPosition(target);target.addScaledVector(U,.15).addScaledVector(F,.07).addScaledVector(side,.05);pole.addScaledVector(side,.4).addScaledVector(F,.2).addScaledVector(U,-.15)}
+  else if(g.kind==='point'){target.copy(sh).addScaledVector(F,.75).addScaledVector(U,.15).addScaledVector(side,.05);pole.addScaledVector(U,-.5).addScaledVector(side,.25)}
+  else if(g.kind==='wave'){const th=.75+.6*Math.sin(t*7);target.copy(sh).addScaledVector(F,.66*Math.cos(th)).addScaledVector(U,.66*Math.sin(th)).addScaledVector(side,.08);pole.addScaledVector(U,-.4).addScaledVector(side,.35)}
+  else if(g.kind==='medic'){target.copy(sh).add(new THREE.Vector3(0,.62,0)).addScaledVector(side,.15*Math.sin(t*6));pole.addScaledVector(side,.4).add(new THREE.Vector3(0,.1,0))}
+  this.ik(b,target,pole,w)}};
+
+// ----- Wiring: the hooks the existing game calls. Each one only dispatches to the sections that are switched on. -----
+const RZ={SOLDIER_VARIETY,REACTIONS,TERRAIN_GAIT,APPEARANCE,LOD_TUNE,VOICES,
+ any(){return SOLDIER_VARIETY.on||REACTIONS.on||TERRAIN_GAIT.on||APPEARANCE.on||VOICES.on},
+ ensure(s){if(!s.rz){const r=s.rz={st:'',stT:0,stUntil:0,base:{pitch:0,roll:0,yaw:0,lift:0},pose:{pitch:0,roll:0,yaw:0,lift:0}};SOLDIER_VARIETY.init(s,r);VOICES.init(s,r);
+  // A reaction can set aiState before updateSoldiers first initialises the man, so give him his squad (heading drift) here too.
+  if(s.squad===undefined)s.squad=Math.floor(s.seed)%7}return s.rz},
+ emit(s,kind){if(VOICES.on)VOICES.onEvent(s,RZ.ensure(s),kind)},
+ gesture(s,kind,dur){if(VOICES.on)VOICES.gesture(s,RZ.ensure(s),kind,dur)},
+ // Called from loadSoldierModel, after the German crews have been cloned, so their kit is unchanged.
+ onProto(root,anims){const clip=anims&&anims.find(a=>a.name==='Swim_Fwd_Loop');
+  if(clip&&soldierClips){const c=clip.clone();c.name='Crawl';c.tracks=c.tracks.filter(t=>!/DEF-(f_|thumb)/.test(t.name)&&!/^root\./.test(t.name));soldierClips.Crawl=c}
+  if(APPEARANCE.on)APPEARANCE.onProto(root)},
+ onAttach(s){const r=RZ.ensure(s);if(APPEARANCE.on)APPEARANCE.onAttach(s,r)},
+ drive(s,dt){return REACTIONS.on&&REACTIONS.drive(s,RZ.ensure(s),dt)},
+ speed(s,dt){if(!s.rz&&!RZ.any())return 1;const r=RZ.ensure(s);let k=1;if(SOLDIER_VARIETY.on)k*=SOLDIER_VARIETY.speed(s,r);if(TERRAIN_GAIT.on)k*=TERRAIN_GAIT.speed(s,r,dt);if(REACTIONS.on)k*=REACTIONS.speed(s,r);return k},
+ act(s,n,arm=''){const prev=s.act;setAct(s,n,arm);if(prev!==s.act&&SOLDIER_VARIETY.on)SOLDIER_VARIETY.desync(s.rz,s.acts[s.act])},
+ matchSpeed(s,r,v){const a=s.acts[s.act];if(!a)return;if(TERRAIN_GAIT.on){const sc=.95*(s.hs||1)*(SOLDIER_VARIETY.on?SOLDIER_VARIETY.cadence(r):1);a.timeScale=clamp(v/((TERRAIN_GAIT.CLIP_SPEED[s.act]||3)*sc),.3,2.2)}else a.timeScale=clamp(v/(GAIT[s.act]||3),.6,1.45)},
+ // Called from updateModels in place of the stock animation choice; returns false to leave this man to it.
+ anim(s,dt,v,lying,dx,dz){if(!s.model)return false;const r=RZ.ensure(s),b=r.base;b.pitch=b.roll=b.yaw=b.lift=0;if(s.boat||s.script)return false;
+  if(lying){if(!REACTIONS.on)return false;REACTIONS.lying(s,r,b,dt);s.g.rotation.y=Math.PI-s.face;return true}
+  if(!(SOLDIER_VARIETY.on||REACTIONS.on||TERRAIN_GAIT.on))return false;r.fall=null;
+  const moving=v>.3&&v<30;if(moving&&!(r.st==='drag'&&r.dragPhase==='pull'))s.face=Math.atan2(dx,-dz);
+  if(REACTIONS.on&&r.st&&REACTIONS.anim(s,r,b,v,moving)){}
+  else if(TERRAIN_GAIT.on&&TERRAIN_GAIT.tripping(r)){RZ.act(s,'Kneel');b.pitch=.25}
+  else if(moving){let g,ts;if(TERRAIN_GAIT.on)[g,ts]=TERRAIN_GAIT.pick(s,r,v);else{g=s.low&&v<4?'Crouch':v>4.6?'Sprint':v>1.9?'Jog':'Walk';ts=clamp(v/GAIT[g],.6,1.45)*(SOLDIER_VARIETY.on?1/SOLDIER_VARIETY.cadence(r):1)}RZ.act(s,g,'Ready');s.acts[g].timeScale=ts}
+  else{const cov=s.aiState==='cover'||s.aiState==='hold';RZ.act(s,cov?'CrouchIdle':'Idle',cov&&s.aims?'Hold':'Ready')}
+  s.g.rotation.y=Math.PI-s.face;return true},
+ // Called from updateModels after the animation mixer step: posture, appearance and gestures.
+ post(s,dt,v,dist){if(!s.model)return;if(!s.rz&&!RZ.any())return;const r=RZ.ensure(s),o={...r.base},lying=s.down||s.wounded,moving=v>.3&&v<30&&!lying&&!s.boat&&!r.st;
+  const a=s.acts&&s.acts[s.act],cyc=a?a.time/a.getClip().duration:0;
+  if(!s.boat&&!s.script){if(SOLDIER_VARIETY.on)SOLDIER_VARIETY.posture(s,r,o,moving,v,cyc);if(TERRAIN_GAIT.on)TERRAIN_GAIT.posture(s,r,o,moving&&!lying,v,cyc,dt)}
+  const p=r.pose,k=Math.min(1,dt*(lying?7:10));for(const n of['pitch','roll','yaw','lift'])p[n]+=(o[n]-p[n])*k;
+  s.model.rotation.set(p.pitch,p.yaw,p.roll,'YXZ');s.model.position.set(0,p.lift,0);
+  if(APPEARANCE.on)APPEARANCE.update(s,r,dt,v);if(VOICES.on)VOICES.post(s,r,dt,dist)},
+ tick(dt){if(REACTIONS.on)REACTIONS.tick(dt);if(VOICES.on)VOICES.tick(dt)},
+ onRound(g,ix,iz){if(REACTIONS.on&&phase==='beach')REACTIONS.onRound(g,ix,iz)},
+ onBlast(x,z){if(REACTIONS.on)REACTIONS.onBlast(x,z)},
+ onDrop(s,kill){if(REACTIONS.on)REACTIONS.onDrop(s,kill)},
+ onRecycle(s){if(s.rz){const r=s.rz;if(r.dragW&&r.dragW.rz)r.dragW.rz.dragBy=null;if(r.dragBy&&r.dragBy.rz){r.dragBy.rz.st='';r.dragBy.rz.dragW=null}Object.assign(r,{st:'',fall:null,dragW:null,dragBy:null,gest:null,wetH:0,sandH:0,sandFront:0,stumbleAt:-9})}},
+ lodFar(o,dist){return LOD_TUNE.on?LOD_TUNE.far(o,dist):dist>LOD.dist},
+ animEvery(dist){return LOD_TUNE.on?LOD_TUNE.animEvery(dist):4}};
+$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();buildV35();buildAssault();loadSoldierModel();window.__omaha.modelInfo=modelInfo;window.__omaha.realism=RZ;window.__omaha.sfx=sfx;window.__omaha.nearestObstacle=(x,z,r)=>nearestObstacleAt(x,z,r);window.__omaha.tune=T;window.__omaha.cine={get t(){return cine.t},seek:t=>{while(phase==='cinematic'&&cine.t<t)updateCinematic(Math.min(1/30,t-cine.t+1e-4));renderer.render(scene,camera);return cine.t},skip:()=>endCinematic()};Object.defineProperties(window.__omaha,Object.getOwnPropertyDescriptors({get renderInfo(){const r=renderer.info.render;return{calls:r.calls,triangles:r.triangles,programs:renderer.info.programs.length}},crewHit:(ex,ey,ez,d)=>crewHit(ex,ey,ez,d),get cam(){return camera.position},resetCrews,get germansKilled(){return germanKills},lod:LOD}));
 </script></body></html>
