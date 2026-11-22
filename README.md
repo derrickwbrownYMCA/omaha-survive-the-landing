@@ -7,7 +7,15 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v4.2
+## Current build: v4.4
+- German defenders. Each of the six bunkers now has a real embrasure with a two-man MG crew behind it (gunner and loader, the soldier model recoloured in field grey). Only heads and shoulders show through the slit, and they duck while rounds are hitting near it. Shoot the gunner and that gun stops: the loader takes it over after 5–8 s, or, if he is down too, a replacement comes up after 14–22 s. Without a loader the gun reloads much more slowly. A red X marks a hit.
+- Rounds now leave where you aimed (recoil used to be applied before the shot) and wander a little: least when aiming down the sights, more when suppressed or out of breath.
+- Distant soldiers (over 100 m) are drawn with a 192-triangle body instead of the 14,780-triangle one. `?lod=0` turns this off; `?fps=1` shows frame rate, draw calls, triangles and how many soldiers are low-poly.
+
+### From v4.3
+- In-engine opening cinematic: the boats' run-in to Dog Green, skippable.
+
+### From v4.2
 - New soldiers. The cartoon figure is replaced by an adult-proportioned body, painted by body part (skin, olive jacket, wool trousers, canvas leggings, boots) and equipped in code: M1 helmet, haversack with blanket roll and entrenching tool, shoulder straps, inflatable life belt, cartridge belt with pouches, canteen, and an M1 Garand without a scope.
 - New movement: jog, sprint, walk and a crouched run; men behind cover crouch properly, some with rifles up; the engineer kneels at the wire; the fallen lie face down. Each soldier is one draw call.
 
