@@ -139,7 +139,17 @@ function makeSmoke(x,z,size=1){
  }
  group.position.set(x,0,z);scene.add(group);smokes.push({group,clouds,life:rand(10,28),persistent:true,rate:rand(.02,.06)})
 }
-function makeBackgroundBoat(x,z){let g=new THREE.Group();g.position.set(x,.7,z);box(6,1.5,15,steel,0,.6,0,g);box(6,1.2,.3,steel,0,1.8,-7,g);for(let i=0;i<6;i++)box(.55,2,.55,olive,rand(-2,2),2,rand(-5,5),g);scene.add(g);return g}
+// Other LCVPs in the wave: same hull, walls, raised ramp and coxswain station as the player's craft, packed with men
+// (instanced helmets, heads and shoulders) rather than the old open slab with six olive pillars standing in for soldiers.
+function makeBackgroundBoat(x,z){const g=new THREE.Group();g.position.set(x,.25,z);box(7.7,1.35,15.2,steel,0,.48,0,g);box(.35,2,14,steel,-3.7,2.1,0,g);box(.35,2,14,steel,3.7,2.1,0,g);box(7.7,2,.38,steel,0,2.15,7.4,g);box(7.45,2.2,.35,steel,0,2,-7.65,g);box(2.1,.72,.8,steel,0,2.55,6.9,g);g.add(lcvpTroops());scene.add(g);return g}
+let lcvpGeo=null;
+function lcvpTroops(n=32){
+ lcvpGeo=lcvpGeo||{helm:new THREE.SphereGeometry(.29,10,6,0,Math.PI*2,0,Math.PI*.55),head:new THREE.SphereGeometry(.15,8,6),body:new THREE.CylinderGeometry(.33,.24,1.45,8)};
+ const M=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1),hsc=new THREE.Vector3(1.12,.86,1.12);
+ const g=new THREE.Group(),hm=new THREE.InstancedMesh(lcvpGeo.helm,helmetMat,n),dm=new THREE.InstancedMesh(lcvpGeo.head,skinMat,n),bm=new THREE.InstancedMesh(lcvpGeo.body,olive,n);
+ for(let i=0;i<n;i++){const cx=-2.55+(i%4)*1.7+rand(-.25,.25),cz=-5.4+Math.floor(i/4)*1.2+rand(-.2,.2),h=rand(-.1,.08);e.set(rand(-.12,.12),rand(-.4,.4),rand(-.08,.08));q.setFromEuler(e);
+  M.compose(p.set(cx,2.32+h,cz),q,sc);bm.setMatrixAt(i,M);M.compose(p.set(cx,3.17+h,cz),q,sc);dm.setMatrixAt(i,M);M.compose(p.set(cx,3.29+h,cz-.01),q,hsc);hm.setMatrixAt(i,M)}
+ g.add(hm,dm,bm);return g}
 function buildBoat(){boat=new THREE.Group();boat.position.set(0,.25,110);box(7.7,1.35,15.2,steel,0,.48,0,boat);box(7.2,.4,14.2,wood,0,1.35,0,boat);box(.35,2,14,steel,-3.7,2.1,0,boat);box(.35,2,14,steel,3.7,2.1,0,boat);box(7.7,2,.38,steel,0,2.15,7.4,boat);ramp=new THREE.Group();ramp.position.set(0,1.15,-7.65);box(7.45,2.2,.35,steel,0,.85,0,ramp);boat.add(ramp);
  // Steel ribs, wooden nonslip deck strips, cleats, bow markings and handrails.
  for(let i=0;i<7;i++){const z=-5.7+i*1.9;box(.13,.10,7.05,wood,0,1.59,z,boat);for(const sign of [-1,1]){box(.22,.15,.85,dark,sign*3.43,1.5,z,boat);box(.12,.7,.1,steel,sign*3.55,2.7,z,boat)}}
@@ -1044,14 +1054,9 @@ function buildCinematic(){
  for(const [x,z,s] of [[-260,820,1],[140,900,1.3],[420,760,.9],[-520,980,1.4],[30,1150,1.6]]){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=rand(-.5,.5)+Math.PI/2;
   box(110*s,9*s,16*s,hull,0,3*s,0,g);box(30*s,10*s,10*s,hull,-8*s,12*s,0,g);box(12*s,8*s,8*s,hull,-10*s,21*s,0,g);cyl(1.6*s,1.6*s,14*s,hull,15*s,14*s,0,g);box(1,22*s,1,hull,-30*s,17*s,0,g);scene.add(g);cine.ships.push(g)}
  // Sister LCVPs in line abreast, each packed with men (instanced helmets, heads and shoulders).
- const helmGeo=new THREE.SphereGeometry(.29,10,6,0,Math.PI*2,0,Math.PI*.55),headGeo=new THREE.SphereGeometry(.15,8,6),bodyGeo=new THREE.CylinderGeometry(.33,.24,1.45,8);
- const M=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1),hsc=new THREE.Vector3(1.12,.86,1.12);
  for(const [x,dz] of [[-40,9],[-20,4],[20,-3],[41,7],[63,14],[-64,16]]){
   const g=new THREE.Group();for(const c of boat.children)g.add(c.clone(true));g.position.set(x,.25,cineBoatZ(0)+dz);
-  const n=32,hm=new THREE.InstancedMesh(helmGeo,helmetMat,n),dm=new THREE.InstancedMesh(headGeo,skinMat,n),bm=new THREE.InstancedMesh(bodyGeo,olive,n);
-  for(let i=0;i<n;i++){const cx=-2.55+(i%4)*1.7+rand(-.25,.25),cz=-5.4+Math.floor(i/4)*1.2+rand(-.2,.2),h=rand(-.1,.08);e.set(rand(-.12,.12),rand(-.4,.4),rand(-.08,.08));q.setFromEuler(e);
-   M.compose(p.set(cx,2.32+h,cz),q,sc);bm.setMatrixAt(i,M);M.compose(p.set(cx,3.17+h,cz),q,sc);dm.setMatrixAt(i,M);M.compose(p.set(cx,3.29+h,cz-.01),q,hsc);hm.setMatrixAt(i,M)}
-  g.add(hm,dm,bm);scene.add(g);cine.boats.push({g,dz,ph:rand(0,6)})}
+  g.add(lcvpTroops());scene.add(g);cine.boats.push({g,dz,ph:rand(0,6)})}
 }
 function cineCoxswain(){
  if(cine.cox&&(cine.cox.userData.model||!soldierProto))return;
