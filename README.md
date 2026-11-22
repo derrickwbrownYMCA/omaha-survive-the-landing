@@ -16,6 +16,12 @@ Soldier realism, in six self-contained sections near the end of `index.html` (ea
 - **Distant soldiers** (`LOD_TUNE`, `?lodtune=0`): the low-poly switch distance follows the graphics setting (70/100/120/140 m), with hysteresis so men on the boundary don't flicker, and men far from the camera animate less often. Reactions, falls and appearance apply to the low-poly body too; arm gestures are skipped on it.
 - **Voices and gestures** (`VOICES`, `?voices=0`): synthesized shouts (formant synthesis, no recorded speech), heard from where the man is and captioned when he is close: "Move!", "Get down!", "Medic!", "I got you — hang on!". Leaders wave and point forward, frightened men hold their helmets, wounded men raise an arm.
 
+### Third-person view
+- Press **T** to switch between first person (still the default) and a view from a few metres behind and above your soldier that follows where you look. Your soldier is the full v4.5 model with its animations (idle, walk, jog, sprint, crouch; rifle raised while aiming or firing) and the same wet-cloth and sand shading.
+- Shots go where the crosshair is: a ray from the camera through the crosshair finds what it is on, and the round leaves your muzzle toward that point.
+- The camera pulls in rather than clip through or hide behind hedgehogs, crates, the seawall, bunkers or the bluff, and eases back out once clear. Pressed right against something, it moves into your soldier's head and he is not drawn.
+- Self-contained section `THIRD_PERSON` near the end of `index.html`. `?tp=0` turns it off (T does nothing). `?view=third` starts in third person. In the console: `__omaha.view('third')` or `__omaha.view('first')`.
+
 ### From v4.4
 - German defenders. Each of the six bunkers now has a real embrasure with a two-man MG crew behind it (gunner and loader, the soldier model recoloured in field grey). Only heads and shoulders show through the slit, and they duck while rounds are hitting near it. Shoot the gunner and that gun stops: the loader takes it over after 5–8 s, or, if he is down too, a replacement comes up after 14–22 s. Without a loader the gun reloads much more slowly. A red X marks a hit.
 - Rounds now leave where you aimed (recoil used to be applied before the shot) and wander a little: least when aiming down the sights, more when suppressed or out of breath.
@@ -54,9 +60,9 @@ Soldier realism, in six self-contained sections near the end of `index.html` (ea
 - From v3.5: six machine-gun positions with fields of fire and belt changes, cover that only works close behind an obstacle, casualties, deep water, a seawall, and knockdown/concussion effects.
 - Target population: 100 soldiers.
 
-URL switches for testing: `?fps=1` performance readout, `?lod=0` no low-poly bodies, `?realism=0` (or `?variety=0`, `?reactions=0`, `?gait=0`, `?appearance=0`, `?lodtune=0`, `?voices=0`) to turn the v4.5 sections off.
+URL switches for testing: `?fps=1` performance readout, `?lod=0` no low-poly bodies, `?realism=0` (or `?variety=0`, `?reactions=0`, `?gait=0`, `?appearance=0`, `?lodtune=0`, `?voices=0`) to turn the v4.5 sections off, `?tp=0` no third-person view, `?view=third` start in third person.
 
-Controls: WASD movement, mouse look, left-click or F fire, right-click or Q aim, G grenade, V aerial view, Shift sprint, C crouch, E assist, R bandage, Esc pause.
+Controls: WASD movement, mouse look, left-click or F fire, right-click or Q aim, G grenade, V aerial view, T third-person view, Shift sprint, C crouch, E assist, R bandage, Esc pause.
 Use TEST AUDIO if sound isn't playing. Chrome requires a user click to start audio.
 
 The game depends on Three.js from an external CDN.
