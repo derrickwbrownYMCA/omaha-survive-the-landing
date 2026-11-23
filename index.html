@@ -726,7 +726,8 @@ function updateOpening(){
  if(openStage===2&&time>13.1){openStage=3;const g=guns.reduce((a,b)=>Math.abs(a.x)<Math.abs(b.x)?a:b);
   g.state='burst';g.left=22;g.shot=0;g.onPlayer=false;g.aimX=rand(-1,1);g.aimZ=bz-5;g.sweep=0;g.belt=Math.max(g.belt,30);gunSound(g,12)}
  if(openStage>=3&&openStage<9&&time>13.3+(openStage-3)*.28){openStage++;
-  let front=null;for(const s of soldiers)if(s.boat&&!s.down&&(!front||s.z<front.z))front=s;
+  // Cast the six scripted ramp falls from the extras; the two featured men continue ashore.
+  let front=null;for(const s of soldiers)if(s.boat&&!s.ensembleRole&&!s.down&&(!front||s.z<front.z))front=s;
   if(front){dropSoldier(front,true);soundCoverImpact(front.x,bz-6)}}
 }
 function contextLine(){return `${runFallen} men fell around you on this run. On June 6, 1944, Company A of the 116th Infantry landed on this sector; within minutes most of its roughly 200 men were killed or wounded.`}
