@@ -51,7 +51,7 @@ function state() {
     stamina: o.player.stamina, third: tp.third, body: !!b?.g.visible, act: b?.act,
     lean: b?.g.rotation.x, scaleY: b?.g.scale.y, model: o.modelInfo.loaded,
     roles: o.soldiers.filter(s => s.boat && s.ensembleRole).map(s => s.ensembleRole),
-    drawCalls: o.renderInfo.calls };
+    drawCalls: o.renderInfo.calls, study: window.studyFrame };
 }
 async function shot(name) {
   const before = await page.evaluate(state);
@@ -163,79 +163,116 @@ try {
   else if (touch) await page.evaluate(() => __omaha.view('first'));
   else await page.keyboard.press('KeyT');
   const cleanHUD = await page.addStyleTag({content:'body > :not(#render):not(script):not(style){visibility:hidden!important}'});
-  const setupWave = () => {
+  const setupWave = feature => {
     const o = __omaha;
-    const candidates = o.soldiers.filter(s => s.alive && !s.boat && !s.down && !s.wounded && !s.script && !s.rz?.st && !s.rz?.gest && s.model);
+    const listening = new Set(feature ? o.soldiers.flatMap(s=>o.waveResponses(s)).map(r=>r.actor) : []);
+    const candidates = o.soldiers.filter((s,i) => !listening.has(i) && s.alive && !s.boat && !s.down && !s.wounded && !s.script && !s.rz?.st && !s.rz?.gest && s.model);
     if (candidates.length < 2) return false;
     candidates.sort((a,b) => Number(!!b.ensembleRole)-Number(!!a.ensembleRole));
-    const dry = s => s.z < 22 && s.z > -75;
-    let pair, moves = [];
-    for (const a of candidates.filter(dry)) {
-      const b = candidates.filter(s => s !== a).sort((p,q) => Math.hypot(p.x-a.x,p.z-a.z)-Math.hypot(q.x-a.x,q.z-a.z))[0];
-      const d = Math.hypot(b.x-a.x,b.z-a.z);
-      // Close, side-by-side, obstacle-free pair with room for the observer ahead.
-      if (dry(b) && d > 1.3 && d < 3 && Math.abs(b.x-a.x) > .8*d && !o.nearestObstacle(a.x,a.z,5)) { pair = [a,b]; break; }
-    }
-    if (!pair) {
-      pair = candidates.slice(0,2);
-      let site;
-      for (let z=13; z>=-50 && !site; z-=6) for (let x=-60;x<=60;x+=6) {
-        if (!o.nearestObstacle(x,z,6) && o.soldiers.every(s=>pair.includes(s)||Math.hypot(s.x-x,s.z-z)>10)) {site={x,z};break;}
+    // Upper beach, seaward of the -183 m barricade clamp but outside the gun AI's
+    // z > -170 target region and random shell spawn range (|x| <= 370). Check
+    // existing aim lines too. The player stays 61 m seaward, outside the reach of
+    // player-focused shells (±45 m Z + 14 m blast), still within near-rig LOD.
+    const pair = candidates.slice(0,2), z=-178;
+    const x=[409,-409,400,-400].find(x=>!o.nearestObstacle(x,z,7) &&
+      o.soldiers.every(s=>pair.includes(s)||Math.hypot(s.x-x,s.z-z)>25) && o.guns.every(g=>{
+        const dx=g.aimX-g.x,dz=g.aimZ-g.z,k=Math.max(0,Math.min(1,((x-g.x)*dx+(z-g.z)*dz)/(dx*dx+dz*dz||1)));
+        return Math.hypot(x-g.x-k*dx,z-g.z-k*dz)>12;
+      }));
+    if (x===undefined) return false;
+    const moves=pair.map((s,i)=>{
+      const from=[s.x,s.z]; s.x=x+(i?.72:-.72); s.z=z;
+      // Position and blocking only; enter the game's normal hold state. Do not
+      // set gestures, reactions, health, bones, speed, LOD or response data.
+      s.aiState='hold';s.aiUntil=o.time+9;s.face=i?-.28:.28;
+      return {actor:o.soldiers.indexOf(s),role:s.ensembleRole,from,to:[s.x,s.z]};
+    });
+    window.waveCast=pair;o.player.x=x;o.player.z=z+61;
+    const scene=pair[0].g.parent; if(!scene.isScene)throw Error('Expected actors in the live scene');
+    const before=scene.onBeforeRender,after=scene.onAfterRender, pos=o.cam.clone(), points=[];
+    const bones=pair.map(s=>['DEF-head','DEF-handL','DEF-handR','DEF-hips'].map(n=>s.model.getObjectByName(n)));
+    scene.onBeforeRender=function(renderer,world,camera,...rest){
+      before.call(this,renderer,world,camera,...rest);
+      const grip=window.studyGrip!==undefined, ids=grip?[window.studyGrip]:[0,1];
+      const marks=ids.flatMap(i=>bones[i].slice(0,grip?3:4).map((bone,j)=>{
+        const p=bone.getWorldPosition(pos.clone());return {key:`${i}:${bone.name}`,p,j};
+      }));
+      // Only the render camera moves. Fit both helmets and all participating hands
+      // from their current world positions; restore the gameplay camera before update.
+      points.length=0;
+      for(const {p,j} of marks){points.push(p.clone().addScalar(.10),p.clone().addScalar(-.10));if(j===0)points.push(p.clone().setY(p.y+.24));}
+      const bounds=['x','y','z'].map(axis=>{const a=points.map(p=>p[axis]);return [Math.min(...a),Math.max(...a)];});
+      const center=pos.clone().set(...bounds.map(([a,b])=>(a+b)/2));
+      const [w,h,d]=bounds.map(([a,b])=>b-a), tan=Math.tan(camera.fov*Math.PI/360);
+      const az=grip?-.40:0, distance=Math.max(.90,(w*Math.cos(az)+d*Math.abs(Math.sin(az)))/(2*camera.aspect*tan),h/(2*tan))*1.20 + (d+w*Math.abs(Math.sin(az)))/2;
+      window.studyCamera={eye:camera.position.clone(),q:camera.quaternion.clone()};
+      camera.position.copy(center);camera.position.x+=Math.sin(az)*distance;camera.position.z-=Math.cos(az)*distance;
+      camera.lookAt(center);camera.updateMatrixWorld(true);
+      window.studyFrame={t:o.time,actors:ids.map(i=>({i,act:pair[i].act,high:!!pair[i].hi?.visible,down:!!pair[i].down,wounded:!!pair[i].wounded,reaction:pair[i].rz?.st})),
+        ndc:marks.map(({key,p})=>({key,xyz:p.project(camera).toArray()}))};
+    };
+    scene.onAfterRender=function(renderer,world,camera,...rest){
+      if(window.studyCamera){camera.position.copy(window.studyCamera.eye);camera.quaternion.copy(window.studyCamera.q);camera.updateMatrixWorld(true);}
+      after.call(this,renderer,world,camera,...rest);
+      // Browser screenshots can arrive almost a game second late. Save the real
+      // WebGL framebuffer before Chromium discards it, on the exact posed frame.
+      if(window.studyCue!==undefined && window.studyGrip===undefined){
+        const elapsed=o.time-window.studyCue, reply=feature?o.waveResponses(pair[0]).find(r=>r.signal===window.studyCue):null;
+        const label=elapsed>=.35&&elapsed<.48?'contact':feature?
+          reply?.angle>.18&&o.time>=reply.start+.62?'response':null:elapsed>=1.34?'response':null;
+        if(label&&!window.exactFrames[label]) window.exactFrames[label]={
+          t:o.time,reply,study:window.studyFrame,png:renderer.domElement.toDataURL('image/png')};
       }
-      if (!site) return false;
-      moves=pair.map((s,i)=>{const from=[s.x,s.z];s.x=site.x+(i?1:-1);s.z=site.z;return {actor:o.soldiers.indexOf(s),role:s.ensembleRole,from,to:[s.x,s.z]};});
-    }
-    const [a,b]=window.waveCast=pair;
-    // Track the moving pair from their shoreward side with the actual first-person camera.
-    function follow() {
-      if (!window.followWave) return;
-      const x=(a.x+b.x)/2,z=(a.z+b.z)/2,d=Math.hypot(b.x-a.x,b.z-a.z);
-      o.player.x=x; o.player.z=z-Math.max(2, d*.69);
-      o.aimAt(x,(a.g.position.y+b.g.position.y)/2+1.2,z);
-      requestAnimationFrame(follow);
-    }
-    window.followWave=true; follow();
-    return {sender:o.soldiers.indexOf(a),neighbor:o.soldiers.indexOf(b),moves};
+    };
+    window.endStudy=()=>{scene.onBeforeRender=before;scene.onAfterRender=after;};
+    return {sender:moves[0].actor,neighbor:moves[1].actor,moves,player:[o.player.x,o.player.z],blocking:'native hold',camera:'render-only, fit posed heads and palms'};
   };
-  const wave = await (await wait(setupWave)).jsonValue();
+  const wave = await (await wait(setupWave,feature)).jsonValue();
   evidence.staging.push({ type: 'AI wave staged on sand with game gesture API; observer tracks both actors, HUD hidden', ...wave });
   await advance(.1);
   if (feature) await page.evaluate(watchWave);
-  const waveStart = await page.evaluate(() => {
-    const [a,b] = window.waveCast;
-    __omaha.aimAt((a.x+b.x)/2, (a.g.position.y+b.g.position.y)/2 + 1.25, (a.z+b.z)/2);
-    __omaha.realism.gesture(a,'wave'); return __omaha.time;
-  });
+  const cue = await page.evaluate(feature => {
+    const o=__omaha,[a,b]=window.waveCast;
+    if (![a,b].every(s=>s.alive&&!s.boat&&!s.wounded&&!s.down&&!s.script&&!s.rz.st&&!s.rz.gest&&s.hi.visible))
+      throw Error(`Wave cue not eligible: ${JSON.stringify(window.studyFrame?.actors)}`);
+    const t=window.studyCue=o.time; window.exactFrames={}; o.realism.gesture(a,'wave'); // eligibility + actual emit + selection: one tick
+    return {t,replies:feature?o.waveResponses(a):[],frame:window.studyFrame};
+  },feature);
+  const waveStart = cue.t; evidence.cue=cue;
+  if(feature) assert.deepEqual(cue.replies.map(r=>[r.actor,r.signal,r.posed]),[[wave.neighbor,waveStart,null]],'exactly the staged listener selected before posing');
   await wait(t => window.waveCast[0].rz.gest?.kind === 'wave' && __omaha.time >= t+.32, waveStart);
   await shot('09-wave-signal');
-  await wait(t => __omaha.time >= t + 1.05, waveStart); await shot('10-wave-response-window');
+  await wait(t => __omaha.time >= t,feature?cue.replies[0].start+.57:waveStart+1.20);
+  await shot('10-wave-response-window');
   if (feature) evidence.reply = await page.evaluate(verifyWave, waveStart);
-  // A sightline onto a real carry pose: view the primary and supporting hands obliquely
-  // from the front. The selected actor and their rifle remain untouched.
-  await page.evaluate(() => { window.followWave=false; });
-  const gripActor=await (await wait(() => {
-    const o=__omaha, options=o.soldiers.filter(s=>s.alive&&!s.boat&&!s.down&&!s.wounded&&!s.script&&!s.rz?.st&&!s.rz?.gest&&s.model&&['Ready','Hold'].includes(s.arm));
-    options.sort((a,b)=>Number(!!b.ensembleRole)-Number(!!a.ensembleRole)||Number(b.act==='Idle')-Number(a.act==='Idle'));
-    const dry=s=>s.z<23&&s.z>-80&&!o.nearestObstacle(s.x,s.z,3);
-    const s=options.find(dry)??options[0]; if (!s) return false;
-    let moved=null;
-    if (!dry(s)) {
-      const spot=window.waveCast[0]; moved={from:[s.x,s.z],to:[spot.x+2,spot.z]}; [s.x,s.z]=moved.to;
-    }
-    const hands=['DEF-handL','DEF-handR'].map(n=>s.model.getObjectByName(n));
-    const p=o.cam.clone(),q=p.clone();
-    function follow() {
-      if (!window.followGrip) return;
-      const angle=s.g.rotation.y+.48;
-      o.player.x=s.x+1.05*Math.sin(angle);o.player.z=s.z+1.05*Math.cos(angle);
-      hands[0].getWorldPosition(p);hands[1].getWorldPosition(q);p.lerp(q,.5);o.aimAt(p.x,p.y+.12,p.z);
-      requestAnimationFrame(follow);
-    }
-    window.followGrip=true;follow();return {index:o.soldiers.indexOf(s),role:s.ensembleRole,z:s.z,moved};
-  })).jsonValue();
-  evidence.staging.push({type:'HUD hidden; first-person observer tracks both hands on an AI carry pose',actor:gripActor});
+  await wait(()=>Object.keys(window.exactFrames).length===2||__omaha.time>window.studyCue+2.4);
+  const exact=await page.evaluate(async()=>{
+    const frames=window.exactFrames;
+    if(!frames.contact||!frames.response)throw Error(`Missing exact render: ${Object.keys(frames)}`);
+    const pictures=await Promise.all([frames.contact,frames.response].map(async({png})=>{
+      const img=new Image(); img.src=png; await img.decode();return img;
+    }));
+    const strip=document.createElement('canvas');strip.width=pictures[0].width*2;strip.height=pictures[0].height;
+    const ctx=strip.getContext('2d'); pictures.forEach((img,i)=>ctx.drawImage(img,i*img.width,0));
+    return {...frames,sequence:{png:strip.toDataURL('image/png')}};
+  });
+  evidence.exactFrames={};
+  for(const [name,{png,...meta}] of Object.entries(exact)){
+    const file=`wave-${name}.png`; assert(png.startsWith('data:image/png;base64,'));
+    await writeFile(join(OUTPUT,file),Buffer.from(png.slice(png.indexOf(',')+1),'base64'));
+    evidence.exactFrames[name]={file,...meta};
+    if(meta.study) assert(meta.study.ndc.every(({xyz:[x,y,z]})=>Math.abs(x)<.96&&Math.abs(y)<.96&&Math.abs(z)<1),`${name}: exact rendered heads and palms in frame`);
+  }
+  // Once the sender has naturally resumed carry, frame their unmodified grip.
+  await wait(()=>{const s=window.waveCast[0];return !s.rz.gest&&!s.rz.st&&!s.wounded&&!s.down&&['Ready','Hold'].includes(s.arm);});
+  await page.evaluate(()=>{window.studyGrip=0;});
+  evidence.staging.push({type:'HUD hidden; oblique render-camera view of sender after normal return to carry',actor:wave.sender});
   await advance(.15); await shot('11-grip-detail');
-  await page.evaluate(() => { window.followGrip=false; });
+  for(const frame of evidence.frames.slice(-3)) for(const state of [frame.before,frame.after]) {
+    assert(state.study?.actors.every(a=>a.high&&!a.down&&!a.wounded&&!a.reaction),`${frame.name}: live uninjured high-detail subjects`);
+    assert(state.study.ndc.every(({xyz:[x,y,z]})=>Math.abs(x)<.96&&Math.abs(y)<.96&&Math.abs(z)<1),`${frame.name}: heads and hands inside the rendered frame`);
+  }
+  await page.evaluate(() => window.endStudy());
   await cleanHUD.evaluate(el=>el.remove());
   assert.equal(await page.locator('#mute').getAttribute('aria-pressed'), 'true');
   assert.deepEqual(evidence.pageErrors, [], 'no page exceptions');

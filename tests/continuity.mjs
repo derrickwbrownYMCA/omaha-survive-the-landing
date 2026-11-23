@@ -29,7 +29,10 @@ export function verifyWave(signal) {
   window.waveTraceDone = true;
   const replies = window.waveTrace.flatMap(s=>s.replies.filter(r=>r.signal===signal));
   const actors = new Set(replies.map(r=>r.actor));
-  if (actors.size !== 1 || !replies.some(r=>r.posed===null) || !replies.some(r=>r.posed!==null && r.posed>=r.start && r.start-r.signal>=.479))
+  const expected = window.__omaha.soldiers.indexOf(window.waveCast[1]);
+  const peak = replies.filter(r=>r.posed!==null && r.posed>=r.start && r.start-r.signal>=.479)
+    .reduce((best,r)=>r.angle>(best?.angle??0)?r:best,null);
+  if (actors.size !== 1 || !actors.has(expected) || !replies.some(r=>r.posed===null) || !(peak?.angle>.18))
     throw Error(`Expected one delayed, visibly posed listener; saw ${JSON.stringify(replies.slice(-3))}`);
-  return replies.find(r=>r.posed!==null);
+  return peak;
 }

@@ -148,6 +148,12 @@ function createLandingEnsemble(T) {
   }
   function recycle(s){reset(s);replies.delete(s);for(const [other,a] of replies)if(a.from===s)replies.delete(other)}
   // Read-only pose diagnostics for the game's existing visual-inspection API.
-  function responses(from,men){return [...replies].filter(([,a])=>a.from===from).map(([actor,a])=>({actor:men.indexOf(actor),signal:a.signal,start:a.start,posed:a.posed}))}
+  function responses(from,men){return [...replies].filter(([,a])=>a.from===from).map(([actor,a])=>{
+    const r=rigs.get(actor);
+    // Measure the applied look relative to this frame's underlying animation.
+    const saved=r?.count && r.saved[0];
+    const angle=saved && saved.bone===r.neck ? saved.q.angleTo(r.neck.quaternion) : 0;
+    return {actor:men.indexOf(actor),signal:a.signal,start:a.start,posed:a.posed,angle};
+  })}
   return {cast,reset,cinematic,leftHandRelease,signal,beach,recycle,responses};
 }
