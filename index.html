@@ -1136,6 +1136,7 @@ addEventListener('keydown',e=>{if(phase==='cinematic'&&['Space','Enter','Escape'
 // V4.5 SOLDIER REALISM. Six self-contained sections, each with its own config and its own switch:
 //   SOLDIER_VARIETY ?variety=0   REACTIONS ?reactions=0   TERRAIN_GAIT ?gait=0
 //   APPEARANCE ?appearance=0     LOD_TUNE ?lodtune=0      VOICES ?voices=0
+// Spoken shouts are OFF by default (captions and gestures stay); ?voice=1 opts back in to the synthesized speech.
 // ?realism=0 turns all six off, which gives back v4.4 behaviour. At runtime: __omaha.realism.VOICES.on=false.
 // The rest of the game reaches these sections only through the RZ hooks at the bottom of this block
 // (search for "RZ." to find every call site: updateSoldiers, updateModels, fireRound, onExplosion,
@@ -1349,6 +1350,9 @@ const LOD_TUNE={on:rzFlag('lodtune'),
 
 // ----- 6. VOICES: synthesized shouts (no recorded speech), and small gestures: pointing, waving forward, a hand on the helmet. -----
 const VOICES={on:rzFlag('voices'),
+ // SPEECH: audible shouts. Off by default (the synthesized voice sounded poor); captions like MEDIC! still show.
+ // ?voice=1 opts in; swap synth() for recorded clips here when they exist. Runtime: __omaha.realism.VOICES.SPEECH=true.
+ SPEECH:RZ_Q.get('voice')==='1',spoken:0,
  MAX_DIST:80,MIN_GAP:.55,PER_MAN_GAP:4,CAPTION_DIST:14,VOL:.32,
  LEADER_P:.15,LEADER_EVERY:[6,13],WOUNDED_EVERY:[3,8],WOUNDED_DIST:35,RESUME_SHOUT_P:.35,
  GESTURE_T:{point:1.6,wave:2.2,helmet:2.5,medic:2.6},
@@ -1372,13 +1376,13 @@ const VOICES={on:rzFlag('voices'),
   else if(kind==='dragStart')this.say(s,'gotyou');
   else if(kind==='hit')this.say(s,Math.random()<.5?'moan':'medic')},
  gesture(s,r,kind,dur){r.gest={kind,t0:time,dur:dur||this.GESTURE_T[kind]||2}},
- say(s,key){const r=RZ.ensure(s);if(!audio.ctx||time<this.last+this.MIN_GAP||time<(r.saidAt||-9)+this.PER_MAN_GAP)return false;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d>this.MAX_DIST)return false;
-  this.last=time;r.saidAt=time;const line=this.LINES[key];this.synth(s.x,s.z,r.f0*(line.soft?1:1.45),line);
+ say(s,key){const r=RZ.ensure(s);if(time<this.last+this.MIN_GAP||time<(r.saidAt||-9)+this.PER_MAN_GAP)return false;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d>this.MAX_DIST)return false;
+  this.last=time;r.saidAt=time;const line=this.LINES[key];if(this.SPEECH&&audio.ctx){this.spoken++;this.synth(s.x,s.z,r.f0*(line.soft?1:1.45),line)}
   if(line.text&&d<this.CAPTION_DIST&&phase==='beach')this.caption(line.text);return true},
  caption(t){if(!this.cap){const c=this.cap=document.createElement('div');c.id='voiceCap';c.style.cssText='position:fixed;left:50%;bottom:21%;transform:translateX(-50%);font:italic 600 13px/1.3 system-ui,sans-serif;letter-spacing:.12em;color:#efe6cf;text-shadow:0 1px 4px #000;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20';document.body.appendChild(c)}
   this.cap.textContent='“'+t+'”';this.cap.style.opacity='.9';this.capT=time+1.8},
  // Formant synthesis: a buzzing source shaped by three band-pass resonances per vowel, with noise bursts for consonants.
- synth(x,z,f0,line){const ctx=audio.ctx;if(!ctx||audio.muted||ctx.state!=='running')return;
+ synth(x,z,f0,line){const ctx=audio.ctx;if(!this.SPEECH||!ctx||audio.muted||ctx.state!=='running')return;
   if(!this.white){const b=this.white=ctx.createBuffer(1,ctx.sampleRate*.5,ctx.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
   const dist=Math.hypot(x-player.x,z-player.z),pan=clamp(((x-player.x)*Math.cos(yaw)-(z-player.z)*Math.sin(yaw))/Math.max(8,dist),-1,1);
   let t=ctx.currentTime+dist/343+.02;const out=ctx.createGain();out.gain.value=this.VOL*(line.soft?.45:1)/(1+dist/12);
@@ -1397,7 +1401,7 @@ const VOICES={on:rzFlag('voices'),
    if(CONS[coda]){const c=CONS[coda];burst(t,c[3],c[0],c[1],c[2]*.8);t+=c[3]}
    t+=line.gap}},
  tick(dt){if(this.cap&&this.capT&&(time>this.capT||phase!=='beach')){this.capT=0;this.cap.style.opacity='0'}
-  if(phase!=='beach'||!audio.ctx)return;
+  if(phase!=='beach')return;
   for(const s of soldiers){if(!s.rz||!s.alive||s.boat||s.down)continue;const r=s.rz;if(Math.hypot(s.x-player.x,s.z-player.z)>this.MAX_DIST)continue;
    if(s.wounded&&!s.aided){if(time>(r.woundCall||0)){r.woundCall=time+rzR(this.WOUNDED_EVERY);if(Math.hypot(s.x-player.x,s.z-player.z)<this.WOUNDED_DIST&&this.say(s,rzPick(['medic','medic2','moan','moan']))&&r.fall&&r.fall.kind==='back'&&!r.dragBy)this.gesture(s,r,'medic')}}
    else if(r.leader&&!r.st&&s.aiState==='advance'&&time>r.nextShout){r.nextShout=time+rzR(this.LEADER_EVERY);if(this.say(s,rzPick(['comeon','move','keep','go'])))this.gesture(s,r,Math.random()<.6?'wave':'point')}}},
