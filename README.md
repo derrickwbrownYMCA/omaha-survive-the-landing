@@ -7,7 +7,12 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
-## Current build: v4.5
+## Landing-party animation
+The first ten seconds follow two men at the gunwale: one steadies himself on the rail, they exchange a look and a nod, and their shoulder blanket and netted helmet stay with them onto the beach. A nearby soldier can turn and acknowledge a wave a moment later. These beats don't need captions or audio; soldier speech is **off by default** (`?voice=1` opts in).
+
+The third-person soldier leans into motion, settles after a sprint and shifts weight when crouching or getting up. Both hands follow the carried prop; the support hand can leave it to signal or brace. These are display poses only: movement speed, aim and weapon behavior are unchanged.
+
+## Soldier realism (v4.5)
 Soldier realism, in six self-contained sections near the end of `index.html` (each with its own config constants and switch; `?realism=0` turns all six off):
 - **Movement variety** (`SOLDIER_VARIETY`, `?variety=0`): each man has his own pace with slow surges, stride length, step-rate drift, hunch and sway, and every loop starts at his own point in the cycle, so the crowd no longer moves in step.
 - **Reactions to fire** (`REACTIONS`, `?reactions=0`): men flinch at near misses, dive flat when there is no steel close by, crawl to the next obstacle and sometimes freeze behind it. Deaths and wounds fall differently (crumple, stagger, drop to the knees, pitch forward; wounded lie on their backs, sit, double over or crawl). Nearby men drag wounded comrades back to cover and kneel by them.
@@ -17,7 +22,7 @@ Soldier realism, in six self-contained sections near the end of `index.html` (ea
 - **Voices and gestures** (`VOICES`, `?voices=0`): synthesized shouts (formant synthesis, no recorded speech), heard from where the man is and captioned when he is close: "Move!", "Get down!", "Medic!", "I got you — hang on!". Leaders wave and point forward, frightened men hold their helmets, wounded men raise an arm.
 
 ### Third-person view
-- Press **T** to switch between first person (still the default) and a view from a few metres behind and above your soldier that follows where you look. Your soldier is the full v4.5 model with its animations (idle, walk, jog, sprint, crouch; rifle raised while aiming or firing) and the same wet-cloth and sand shading.
+- On touchscreens, open **Controls**, tap **Third-person view**, then close Controls. On a keyboard, press **T** to switch between first person (still the default) and a view from a few metres behind and above your soldier that follows where you look. Your soldier is the full v4.5 model with its animations (idle, walk, jog, sprint, crouch; rifle raised while aiming or firing) and the same wet-cloth and sand shading.
 - Shots go where the crosshair is: a ray from the camera through the crosshair finds what it is on, and the round leaves your muzzle toward that point.
 - The camera pulls in rather than clip through or hide behind hedgehogs, crates, the seawall, bunkers or the bluff, and eases back out once clear. Pressed right against something, it moves into your soldier's head and he is not drawn.
 - Self-contained section `THIRD_PERSON` near the end of `index.html`. `?tp=0` turns it off (T does nothing). `?view=third` starts in third person. In the console: `__omaha.view('third')` or `__omaha.view('first')`.
