@@ -53,7 +53,7 @@ Soldier realism, in six self-contained sections near the end of `index.html` (ea
 ### From v3.8
 - The seawall is now the halfway point, not the end. There are no enemy soldiers in the game: the player suppresses and silences guns.
 - Rifle: left-click or F (FIRE on mobile). Eight rounds, then an automatic reload. Rounds on a bunker's firing slit make that gun stop for a few seconds; firing also draws its attention. You cannot shoot from deep water.
-- At the seawall you are safe crouched and exposed standing. An engineer crawls a Bangalore torpedo up to the wire; covering fire on the nearby guns makes him about three times faster. If he is hit, another man takes over.
+- At the seawall, smoke marks the breach near where you arrive. The objective shows charge progress: the gap opens in about 14 seconds without covering fire, or about 8 with continuous covering fire (game time). If the engineer is hit, the next man keeps his progress; support finishes the job if no local engineer is left.
 - When the wire blows, a gap opens in the wall. Climb the bluff, get to the side of the bunker, and throw a grenade (G, or FIRE when close). The gun goes silent and the run ends.
 - Soldiers now carry kit built in code: a rounded steel-helmet shell, a field pack with bedroll, and a wood-and-dark-metal rifle. The corner panel follows the new stages, and bunkers are solid.
 - Deadlier machine guns: they pick you out more often, stay on you longer, and hit harder. Walking upright across the beach usually gets you killed; moving between obstacles and going when a gun changes belts is the way through.
