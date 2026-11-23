@@ -11,11 +11,15 @@
 <div id="cine"><div class="bar t"></div><div class="bar b"></div><div id="cineCap"><div id="cineCap1"></div><div id="cineCap2"></div></div><div id="cineSub"></div><button id="cineSkip" type="button">SKIP INTRO ›<small>SPACE / ENTER</small></button><div id="cineFade"></div></div>
 <div id="overlay"><div class="panel"><div class="eyebrow" id="overlayeyebrow">A SURVIVAL EXPERIENCE · EARLY PLAYABLE BUILD</div><div class="title" id="overlaytitle">OMAHA<span>.</span><br>THE LANDING</div><div class="tagline" id="overlaybody">You're not here to win the war. You're trying to survive the landing. The battlefield will keep moving even if you don't.</div><div class="rule"></div><div class="facts"><div><strong>MISSION</strong><br>Leave the landing craft, cross the exposed beach, and reach the seawall. Cover the engineers while they blow the wire, climb the bluff, and silence the bunker. Stay low, use obstacles for cover, and help someone if you can.</div><div><strong>CONTROLS</strong><br>Full controls are listed below. During the landing press H or Tab (or tap the CONTROLS button) to see them again; the game pauses while they are open.</div></div><div class="gunhead">CHOOSE YOUR WEAPON</div><div id="guns"><button type="button" class="gun" data-g="garand"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M6 30 L60 24 L150 24 L150 34 L70 36 L40 45 L8 47 Z"/><rect fill="#23262a" x="150" y="25" width="72" height="4"/><rect fill="#23262a" x="146" y="30" width="60" height="3"/><rect fill="#23262a" x="70" y="20" width="42" height="5"/><rect fill="#23262a" x="216" y="20" width="3" height="5"/><path d="M78 36 q9 9 18 0" stroke="#23262a" stroke-width="2" fill="none"/></svg><b>M1 GARAND</b><span>Standard rifle. 8-round clip, one shot per pull. Hits hardest at long range.</span></button><button type="button" class="gun" data-g="carbine"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M26 32 L70 26 L134 26 L134 34 L78 36 L52 45 L28 47 Z"/><rect fill="#23262a" x="134" y="27" width="58" height="3.5"/><rect fill="#23262a" x="78" y="22" width="32" height="5"/><rect fill="#23262a" x="96" y="36" width="8" height="15"/><rect fill="#23262a" x="186" y="22" width="3" height="5"/><path d="M82 36 q7 8 13 0" stroke="#23262a" stroke-width="2" fill="none"/></svg><b>M1 CARBINE</b><span>Light and quick. 15-round magazine, one shot per pull. Less punch.</span></button><button type="button" class="gun" data-g="bar"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M6 30 L50 24 L70 24 L70 37 L44 41 L8 45 Z"/><rect fill="#23262a" x="70" y="22" width="48" height="15"/><rect fill="#7a5433" x="118" y="25" width="38" height="10"/><rect fill="#23262a" x="156" y="28" width="74" height="4"/><rect fill="#23262a" x="228" y="26" width="8" height="8"/><rect fill="#23262a" x="96" y="37" width="12" height="20"/><path d="M214 32 L204 60 M214 32 L224 60" stroke="#23262a" stroke-width="2.5" fill="none"/></svg><b>BAR</b><span>Automatic rifle. 20-round magazine, hold to fire. Heavy: you move slower.</span></button><button type="button" class="gun" data-g="thompson"><svg viewBox="0 0 240 64" aria-hidden="true"><path fill="#7a5433" d="M24 28 L64 26 L64 36 L32 47 L24 45 Z"/><rect fill="#23262a" x="64" y="22" width="64" height="12"/><path fill="#7a5433" d="M72 34 L83 34 L79 53 L68 53 Z"/><rect fill="#23262a" x="98" y="34" width="9" height="27"/><rect fill="#7a5433" x="128" y="30" width="30" height="8"/><rect fill="#23262a" x="128" y="25" width="60" height="5"/><rect fill="#23262a" x="188" y="23" width="9" height="9"/></svg><b>THOMPSON</b><span>Submachine gun. 30-round magazine, hold to fire. Short range only.</span></button></div><button class="play" id="start">BEGIN LANDING</button> <button class="play" id="audioTestMenu" style="background:#324b53;color:#fff;margin-left:8px">TEST AUDIO</button><div class="tiny">V4.1: Choose your weapon before the landing. Aim with the right mouse button, watch your ammunition, cover the engineers while they blow the wire, climb the bluff, and silence the bunker with a grenade (G). V shows an aerial view. Fictional interactive prototype inspired by the historical Omaha Beach landings. Simplified geography and simulation; not a historically exact reconstruction. Graphics quality can be changed while playing. Auto quality can maintain FPS. Session stats save locally. 100 soldiers total. Rounded, jointed infantry silhouettes. Animated surf, foam, damp sand and shoreline details. Higher settings improve sharpness and lighting but may reduce FPS. Sound starts after clicking Begin Landing. Use TEST SOUND in the upper-right to check playback; if silent, verify Chrome and Windows volume mixer settings. Adjust it with the top-right control. Requires an internet connection for the 3D engine.</div></div></div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"}}</script>
+<script src="grip.js"></script>
+<script src="ensemble.js"></script>
+<script src="weight.js"></script>
 <script type="module">
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+const grip=createSoldierGrip(THREE),ensemble=createLandingEnsemble(THREE);
 const $=id=>document.getElementById(id);let scene,camera,renderer,clock,player,boat,ramp,soldiers=[],shells=[],tracers=[],smokes=[],props=[],explosions=[],keys={},started=false,paused=true,phase='intro',time=0,lastEvent=0,lastWarning=0,spawnCounter=0,messageTimer=0,deathCount=0,runIndex=0;let qualityMode=localStorage.getItem('omahaQuality')||'balanced',crowd=null,crowdAgents=[],crowdActive=0,crowdFrames=0,frameSamples=0,frameAccumulator=0;let yaw=0,pitch=0,shake=0,terrain,water,foam,waterBase=null,waterFrame=0,skyDome=null,cloudSprites=[],sunLight=null,prevFrame=performance.now(),mobileMove={x:0,y:0},mobileSprint=false,mobileCrouch=false,touchLook=null,impactTimer=0,score=0,helped=0,checkpoint=0;const mobile=matchMedia('(pointer:coarse)').matches;const qualityProfiles={low:{pixel:0.9,crowd:40,shadow:false},balanced:{pixel:1.35,crowd:40,shadow:false},sharp:{pixel:1.8,crowd:40,shadow:true},ultra:{pixel:2.25,crowd:40,shadow:true}};const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const mat=(color,roughness=1,metalness=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,flatShading:true});const sand=mat(0x9b937c),sand2=mat(0xafa188),wet=mat(0x777e79),seaMat=new THREE.MeshStandardMaterial({color:0x425f69,transparent:true,opacity:.77,roughness:.7,metalness:.06,side:THREE.DoubleSide}),olive=mat(0x545c48),helmetMat=mat(0x535a48),wood=mat(0x574b40),steel=mat(0x50575a,.8,.15),dark=mat(0x263033),foamy=new THREE.MeshBasicMaterial({color:0xc1cbc3,transparent:true,opacity:.2,side:THREE.DoubleSide});
 function box(w,h,d,m,x,y,z,group=scene){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;group.add(o);return o}function cyl(r1,r2,h,m,x,y,z,group=scene){const o=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,7),m);o.position.set(x,y,z);o.castShadow=true;group.add(o);return o}function sphere(r,m,x,y,z,group=scene){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(r,1),m);o.position.set(x,y,z);group.add(o);return o}
@@ -226,7 +230,7 @@ function soldier(x,z,kind='runner',onBoat=false){
  box(.16,.22,.08,rifleMat,0,-.32,.01,rifle);
  g.position.set(x,onBoat?1.1:heightAt(z),z);scene.add(g);
  const s={g,x,z,kind,boat:onBoat,alive:true,wounded:kind==='wounded',speed:rand(1.5,3.6),seed:rand(0,100),legs,arms,knees,elbows,heading:rand(-.4,.4),life:rand(0,20),target:rand(-160,-205),aided:false,stress:rand(.1,.9)};
- soldiers.push(s);return s;
+ grip.fallback(s,rifle);soldiers.push(s);return s;
 }
 function spawnSoldiers(){
  // 100 simulated US soldiers: 22 in the landing craft, 38 detailed on beach,
@@ -464,9 +468,6 @@ function updateSoldiers(dt){for(const s of soldiers){if(!s.alive)continue;
  s.legs[0].rotation.x=swing;s.legs[1].rotation.x=-swing;
  s.knees[0].rotation.x=Math.max(0,-swing)*.85;
  s.knees[1].rotation.x=Math.max(0,swing)*.85;
- s.arms[0].rotation.x=-swing*.72-.18;s.arms[1].rotation.x=swing*.72-.18;
- s.elbows[0].rotation.x=-.35-Math.max(0,swing)*.25;
- s.elbows[1].rotation.x=-.35-Math.max(0,-swing)*.25;
  s.g.rotation.x=stopped?0:.04;
  } }
 function projectile(dt){
@@ -725,7 +726,8 @@ function updateOpening(){
  if(openStage===2&&time>13.1){openStage=3;const g=guns.reduce((a,b)=>Math.abs(a.x)<Math.abs(b.x)?a:b);
   g.state='burst';g.left=22;g.shot=0;g.onPlayer=false;g.aimX=rand(-1,1);g.aimZ=bz-5;g.sweep=0;g.belt=Math.max(g.belt,30);gunSound(g,12)}
  if(openStage>=3&&openStage<9&&time>13.3+(openStage-3)*.28){openStage++;
-  let front=null;for(const s of soldiers)if(s.boat&&!s.down&&(!front||s.z<front.z))front=s;
+  // Cast the six scripted ramp falls from the extras; the two featured men continue ashore.
+  let front=null;for(const s of soldiers)if(s.boat&&!s.ensembleRole&&!s.down&&(!front||s.z<front.z))front=s;
   if(front){dropSoldier(front,true);soundCoverImpact(front.x,bz-6)}}
 }
 function contextLine(){return `${runFallen} men fell around you on this run. On June 6, 1944, Company A of the 116th Infantry landed on this sector; within minutes most of its roughly 200 men were killed or wounded.`}
@@ -908,7 +910,7 @@ function buildGI(g,opt=giOpt){
  const lh=new THREE.Vector3();bone('DEF-handL').getWorldPosition(lh);info.hands=[hp.toArray().map(v=>+v.toFixed(2)),lh.toArray().map(v=>+v.toFixed(2))];
  const dir=new THREE.Vector3(...opt.dir).normalize(),up=new THREE.Vector3(...opt.up),side=new THREE.Vector3().crossVectors(up,dir).normalize();up.crossVectors(dir,side).normalize();
  const Rw=new THREE.Matrix4().makeBasis(dir,up,side).setPosition(hp.clone().lerp(mp,.6).add(new THREE.Vector3(...opt.grip)));
- const L=hand.matrixWorld.clone().invert().multiply(Rw);
+ const L=hand.matrixWorld.clone().invert().multiply(Rw);grip.calibrate(root,L);
  const fingers={};for(const t of hold.tracks)if(fingerRe.test(t.name)&&t.name.endsWith('.quaternion'))fingers[t.name.split('.')[0]]=t.values.slice(0,4);
  // A second carrying pose, rifle lowered: both upper arms are swung down about the shoulder line.
  out.Ready=out.Hold.clone();out.Ready.name='Ready';for(const t of out.Ready.tracks){const m=/^(DEF-upper_arm[LR])\.quaternion/.exec(t.name);if(!m)continue;const pq=new THREE.Quaternion();bone(m[1]).parent.getWorldQuaternion(pq);const ax=new THREE.Vector3(1,0,0).applyQuaternion(pq.invert()).normalize(),rq=new THREE.Quaternion().setFromAxisAngle(ax,opt.low),q=new THREE.Quaternion();t.values=t.values.slice();for(let i=0;i<t.values.length;i+=4){q.fromArray(t.values,i).premultiply(rq).toArray(t.values,i)}}
@@ -998,8 +1000,8 @@ function updateModels(dt){if(!soldierProto)return;modelFrame++;RZ.tick(dt);
    else{const cov=s.aiState==='cover'||s.aiState==='hold';setAct(s,cov?'CrouchIdle':'Idle',cov&&s.aims?'Hold':'Ready')}
    s.g.rotation.y=Math.PI-s.face}
   const camD=Math.hypot(s.x-camera.position.x,s.z-camera.position.z);setLod(s,camD);
-  s.acc+=dt;if((modelFrame+i)%RZ.animEvery(camD)===0||Math.hypot(s.x-player.x,s.z-player.z)<90){s.mixer.update(s.acc);s.acc=0}
-  RZ.post(s,dt,v,camD);
+  ensemble.reset(s);s.acc+=dt;if((modelFrame+i)%RZ.animEvery(camD)===0||Math.hypot(s.x-player.x,s.z-player.z)<90){grip.reset(s);s.mixer.update(s.acc);s.acc=0;grip.pose(s)}
+  RZ.post(s,dt,v,camD);ensemble.beach(s,time);
  }
  updateCrews(dt)}
 // German defenders: a two-man MG crew behind each embrasure, built from the GI model recoloured in field grey.
@@ -1039,7 +1041,7 @@ function updateCrews(dt){if(hitmarkT&&time>hitmarkT){hitmarkT=0;$('hitmark').cla
    const dist=Math.hypot(c.x-camera.position.x,c.z-camera.position.z);if(dist>380){c.g.visible=false;continue}c.g.visible=true;setLod(c,dist);
    if(c.alive){c.low=g.supp>0||(c.role==='loader'&&g.state!=='reload'&&Math.sin(time*.4+c.k*2)>.55);const gn=c.role==='gunner';
     setAct(c,c.low?'CrouchIdle':'Idle',gn?'Hold':'Ready');if(gn)c.g.rotation.y=clamp(Math.atan2(g.aimX-c.x,g.aimZ-c.z),-.45,.45)}
-   c.acc+=dt;if((modelFrame+c.k)%3===0||dist<70){c.mixer.update(c.acc);c.acc=0}}}}
+   c.acc+=dt;if((modelFrame+c.k)%3===0||dist<70){grip.reset(c);c.mixer.update(c.acc);c.acc=0;grip.pose(c)}}}}
 function fpsReadout(fps){const r=renderer.info.render,models=soldiers.filter(s=>s.model&&s.g.visible).length,lods=soldiers.filter(s=>s.lo&&s.lo.visible).length,crew=guns.reduce((n,g)=>n+(g.crew?g.crew.filter(c=>c.g.visible).length:0),0);
  FPSX.textContent=`${fps} FPS  ${r.calls} draws  ${(r.triangles/1000).toFixed(0)}k tris\nGI models ${models} (${lods} low-poly)  German crew ${crew}  quality ${qualityMode}`}
 // Opening cinematic (v4.3): the run-in to Dog Green, rendered in-engine before the scripted landing.
@@ -1066,7 +1068,7 @@ function buildCinematic(){
 function cineCoxswain(){
  if(cine.cox&&(cine.cox.userData.model||!soldierProto))return;
  if(cine.cox){boat.remove(cine.cox);cine.cox=null}
- let g;if(soldierProto){g=SkeletonUtils.clone(soldierProto);g.scale.setScalar(.95);g.userData.model=true;cine.coxMixer=new THREE.AnimationMixer(g);const c=soldierClips.Idle||Object.values(soldierClips)[0];if(c)cine.coxMixer.clipAction(c).play();if(soldierClips.Ready)cine.coxMixer.clipAction(soldierClips.Ready).play()}
+ let g;if(soldierProto){g=SkeletonUtils.clone(soldierProto);g.scale.setScalar(.95);g.userData.model=true;cine.coxRig={model:g,arm:'Ready'};cine.coxMixer=new THREE.AnimationMixer(g);const c=soldierClips.Idle||Object.values(soldierClips)[0];if(c)cine.coxMixer.clipAction(c).play();if(soldierClips.Ready)cine.coxMixer.clipAction(soldierClips.Ready).play()}
  else{const s=soldier(0,0,'runner',false);soldiers.pop();scene.remove(s.g);g=s.g;g.scale.setScalar(.82)}
  g.position.set(0,1.85,6.75);g.rotation.y=Math.PI;boat.add(g);cine.cox=g}
 // Shell geyser: a column of white water thrown up by a near miss, which hangs and falls back.
@@ -1081,12 +1083,12 @@ function cineSpray(n=7){boat.updateMatrixWorld();for(let i=0;i<n;i++){boat.local
  if(audio.ctx&&!audio.muted)soundNoise(.35,.03,900,0,0,rand(-.3,.3))}
 // Camera inside the boat: positions are in boat space, so the shot rides the swell with the men.
 function camBoat(px,py,pz,tx,ty,tz,roll=.7){boat.updateMatrixWorld();camera.position.copy(boat.localToWorld(_cv.set(px,py,pz)));camera.up.set(0,1,0);camera.lookAt(boat.localToWorld(_cw.set(tx,ty,tz)));camera.rotateZ(-boat.rotation.z*roll)}
-const CINE_CAPS=[[.8,5.6,'NORMANDY · JUNE 6, 1944','06:28 — Landing craft of the 116th Infantry, two miles out'],[7,11.6,'COMPANY A','Thirty men to a boat. Seasick, soaked, silent.'],[22,26.6,'OMAHA BEACH · DOG GREEN','German guns have the range.']];
+const CINE_CAPS=[[10,13,'NORMANDY · JUNE 6, 1944','06:28 — Landing craft of the 116th Infantry, two miles out'],[16,19.3,'COMPANY A','Thirty men to a boat. Seasick, soaked, silent.'],[22,26.6,'OMAHA BEACH · DOG GREEN','German guns have the range.']];
 const CINE_SUBS=[[13,15.6,'COXSWAIN: “Keep your heads down! Two minutes!”'],[28.6,31.6,'“Check your weapons. Stay off the ramp till it drops.”']];
 // [start, fov, shot(t,u)] where u runs 0..1 across the shot.
 const CINE_SHOTS=[
- [0,50,(t,u)=>{const bz=boat.position.z;camera.position.set(-7.5+u*3,3.3+Math.sin(t*1.6)*.3,bz-21+u*5);camera.up.set(0,1,0);camera.lookAt(-4+u*2,2.2,bz+8)}],
- [6.5,48,(t,u)=>camBoat(.45,3.3,-7.05+u*.55,-.3,2.95,0)],
+ [0,44,(t,u)=>camBoat(-2.70+.08*u,3.04,-7.35+.08*u,-2.60,2.86,-4.30,.9)],
+ [10,48,(t,u)=>camBoat(.45,3.3,-7.05+u*.55,-.3,2.95,0)],
  [12,42,(t,u)=>camBoat(1.25,3.35,3.7-u*.25,0,3.45,6.75)],
  [14.6,55,(t,u)=>camBoat(.75+u*.25,4.05,8.6,-.2,2.9,-9)],
  [17,40,(t,u)=>{const s=cine.sick;camBoat(.9,3.3,s.z-110-2.4+u*.4,s.x,2.75,s.z-110)}],
@@ -1099,7 +1101,8 @@ const CINE_EVENTS=[[2.2,()=>playSample('boom',.3,-.5,0,.8,2000)],[5.2,()=>cineGe
 function startCinematic(){buildCinematic();cineCoxswain();phase='cinematic';cine.t=0;cine.shot=-1;cine.fired.clear();cine.shake=0;cine.nextSpray=1.2;cine.nextWave=.4;cine.ext.visible=true;for(const s of cine.ships)s.visible=true;
  // Pack the men in rows of four with an aisle down the middle, facing the ramp.
  const men=soldiers.filter(s=>s.boat);men.forEach((s,i)=>{s.x=[-2.6,-.92,.92,2.6][i%4]+rand(-.12,.12);s.z=110-5.3+Math.floor(i/4)*1.86+rand(-.15,.15);s.g.position.x=s.x});
- cine.sick=men.find(s=>s.x>2&&s.z>106&&s.z<109)||men[0];cine.pray=men.find(s=>s.x<-.5&&s.x>-1.5&&s.z<107)||men[1];
+ ensemble.cast(men);const extras=men.filter(s=>!s.ensembleRole);
+ cine.sick=extras.find(s=>s.x>2&&s.z>106&&s.z<109)||extras[0];cine.pray=extras.find(s=>s.x<-.5&&s.x>-1.5&&s.z<107)||extras[1];
  boat.position.set(0,.25,cineBoatZ(0));document.body.classList.add('cine');$('cineFade').style.transition='none';$('cineFade').style.opacity='1';requestAnimationFrame(()=>{$('cineFade').style.transition='opacity 1.6s';$('cineFade').style.opacity='0'});
  renderer.domElement.style.filter='saturate(.5) contrast(1.12) brightness(.95)';lastFilter='(cine)';updateCinematic(0)}
 function endCinematic(){if(phase!=='cinematic')return;phase='boat';time=0;document.body.classList.remove('cine');$('cineCap').style.opacity='0';$('cineSub').style.opacity='0';
@@ -1116,16 +1119,18 @@ function updateCinematic(dt){
  boat.position.y=.25+c.y*k+(Math.sin(tt*2.1)*.12+Math.sin(tt*.75)*.08)*.7*(1-k);boat.rotation.set(c.px*k,0,c.rz*k);updateFlotilla();
  boat.updateMatrixWorld();
  for(const s of soldiers){if(!s.boat)continue;if(soldierProto&&!s.model)attachModel(s);
-  s.g.position.copy(boat.localToWorld(_cv.set(s.x,1.3,s.z-110)));let lean=0,side=0,act='Idle',arm='Ready';
-  if(s===cine.sick){lean=-.55-.18*Math.max(0,Math.sin(t*2.3));side=.32;act='CrouchIdle'}else if(s===cine.pray){lean=-.38;act='CrouchIdle';arm='Hold'}else if(s.low)act='CrouchIdle';
-  s.g.rotation.set(boat.rotation.x+lean,Math.PI,boat.rotation.z+side);if(s.model){setAct(s,act,arm);s.mixer.update(dt)}}
- cineCoxswain();if(cine.coxMixer)cine.coxMixer.update(dt);
+  s.g.position.copy(boat.localToWorld(_cv.set(s.x,s.ensembleRole?1.55:1.3,s.z-110)));let lean=0,side=0,act='Idle',arm='Ready';
+  if(s===cine.sick){lean=-.55-.18*Math.max(0,Math.sin(t*2.3));side=.32;act='CrouchIdle'}else if(s===cine.pray){lean=-.38;act='CrouchIdle';arm='Hold'}else if(s.low&&!s.ensembleRole)act='CrouchIdle';
+  s.g.rotation.set(boat.rotation.x+lean,Math.PI,boat.rotation.z+side);if(s.model){ensemble.reset(s);grip.reset(s);setAct(s,act,arm);s.mixer.update(dt);grip.pose(s);ensemble.cinematic(s,t,boat,VOICES)}}
+ cineCoxswain();if(cine.coxMixer){grip.reset(cine.coxRig);cine.coxMixer.update(dt);grip.pose(cine.coxRig)}
  if(t>cine.nextSpray){cine.nextSpray=t+rand(1.1,2.4);cineSpray()}
  if(t>cine.nextWave){cine.nextWave=t+rand(1.8,3.4);const kk='wave'+(1+Math.floor(Math.random()*4));playSample(kk,.32,rand(-.6,.6),0,rand(.9,1.05))}
  for(let i=0;i<CINE_EVENTS.length;i++)if(t>=CINE_EVENTS[i][0]&&!cine.fired.has(i)){cine.fired.add(i);CINE_EVENTS[i][1]()}
  updateTracersPuffs(dt);
  let si=0;for(let i=0;i<CINE_SHOTS.length;i++)if(t>=CINE_SHOTS[i][0])si=i;const [s0,fov,fn]=CINE_SHOTS[si],s1=si+1<CINE_SHOTS.length?CINE_SHOTS[si+1][0]:CINE_LEN;
- if(si!==cine.shot){cine.shot=si;camera.fov=fov;camera.updateProjectionMatrix()}
+ // Keep both faces and the rail in frame when a phone is held upright.
+ const shotFov=si===0?Math.max(fov,THREE.MathUtils.radToDeg(2*Math.atan(.31/camera.aspect))):fov;
+ if(si!==cine.shot||camera.fov!==shotFov){cine.shot=si;camera.fov=shotFov;camera.updateProjectionMatrix()}
  fn(t,(t-s0)/(s1-s0));
  // Hand-held unease plus shell shake.
  cine.shake=Math.max(0,cine.shake-dt*.8);const hh=(si===0||si===6?.003:.006)*(si===7?(1-smoothstepSand(t,CINE_LEN-2.5,CINE_LEN-.5)):1)+cine.shake*.03;
@@ -1378,7 +1383,7 @@ const VOICES={on:rzFlag('voices'),
   else if(kind==='downCall')this.say(s,'down');
   else if(kind==='dragStart')this.say(s,'gotyou');
   else if(kind==='hit')this.say(s,Math.random()<.5?'moan':'medic')},
- gesture(s,r,kind,dur){r.gest={kind,t0:time,dur:dur||this.GESTURE_T[kind]||2}},
+ gesture(s,r,kind,dur){r.gest={kind,t0:time,dur:dur||this.GESTURE_T[kind]||2};if(kind==='wave'&&phase==='beach')ensemble.signal(s,soldiers,time)},
  say(s,key){const r=RZ.ensure(s);if(time<this.last+this.MIN_GAP||time<(r.saidAt||-9)+this.PER_MAN_GAP)return false;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d>this.MAX_DIST)return false;
   this.last=time;r.saidAt=time;const line=this.LINES[key];if(this.SPEECH&&audio.ctx){this.spoken++;this.synth(s.x,s.z,r.f0*(line.soft?1:1.45),line)}
   if(line.text&&d<this.CAPTION_DIST&&phase==='beach')this.caption(line.text);return true},
@@ -1465,7 +1470,7 @@ const RZ={SOLDIER_VARIETY,REACTIONS,TERRAIN_GAIT,APPEARANCE,LOD_TUNE,VOICES,
  onRound(g,ix,iz){if(REACTIONS.on&&phase==='beach')REACTIONS.onRound(g,ix,iz)},
  onBlast(x,z){if(REACTIONS.on)REACTIONS.onBlast(x,z)},
  onDrop(s,kill){if(REACTIONS.on)REACTIONS.onDrop(s,kill)},
- onRecycle(s){if(s.rz){const r=s.rz;if(r.dragW&&r.dragW.rz)r.dragW.rz.dragBy=null;if(r.dragBy&&r.dragBy.rz){r.dragBy.rz.st='';r.dragBy.rz.dragW=null}Object.assign(r,{st:'',fall:null,dragW:null,dragBy:null,gest:null,wetH:0,sandH:0,sandFront:0,stumbleAt:-9})}},
+ onRecycle(s){ensemble.recycle(s);if(s.rz){const r=s.rz;if(r.dragW&&r.dragW.rz)r.dragW.rz.dragBy=null;if(r.dragBy&&r.dragBy.rz){r.dragBy.rz.st='';r.dragBy.rz.dragW=null}Object.assign(r,{st:'',fall:null,dragW:null,dragBy:null,gest:null,wetH:0,sandH:0,sandFront:0,stumbleAt:-9})}},
  lodFar(o,dist){return LOD_TUNE.on?LOD_TUNE.far(o,dist):dist>LOD.dist},
  animEvery(dist){return LOD_TUNE.on?LOD_TUNE.animEvery(dist):4}};
 // =====================================================================================================
@@ -1539,9 +1544,10 @@ const THIRD_PERSON={on:TP_Q.get('tp')!=='0',third:TP_Q.get('view')==='third',
   else if(v>.3&&v<30){const gait=player.crouched?'Crouch':v>4.6?'Sprint':v>1.9?'Jog':'Walk';setAct(b,gait,arm);
    const fwd=(-Math.sin(yaw)*dx-Math.cos(yaw)*dz)/(Math.hypot(dx,dz)||1);b.acts[gait].timeScale=clamp(v/GAIT[gait],.6,1.45)*(fwd<-.3?-1:1)}
   else setAct(b,player.crouched?'CrouchIdle':'Idle',arm);
-  b.mixer.update(dt);if(APPEARANCE.on&&b.r.u)APPEARANCE.update(b,b.r,dt,v)},
+  grip.reset(b);b.mixer.update(dt);OmahaWeight.update(b,dt,dx,dz,yaw,player.crouched||b.down);grip.pose(b);if(APPEARANCE.on&&b.r.u)APPEARANCE.update(b,b.r,dt,v)},
  // Before the frame is drawn: move the camera behind and above the player. Game logic has already run on the first-person camera.
- pre(dt){const use=this.on&&this.third&&started&&phase==='beach'&&!aerial&&!!player&&player.alive;this.active=use;
+ pre(dt){const use=this.on&&this.third&&started&&phase==='beach'&&!aerial&&!!player&&player.alive;
+  if(use&&!this.active&&this.body){OmahaWeight.reset(this.body);this.body.px=player.x;this.body.pz=player.z}this.active=use;
   if(this.cross)this.cross.style.display=use?'block':'none';
   if(!use){if(this.body)this.body.g.visible=false;return}
   if(!this.grid)this.buildGrid();if(!this.body)this.body=this.makeBody();
@@ -1574,7 +1580,7 @@ const THIRD_PERSON={on:TP_Q.get('tp')!=='0',third:TP_Q.get('view')==='third',
   if(vx*d.x+vy*d.y+vz*d.z<1)return{x:mx,y:my,z:mz,dx:d.x,dy:d.y,dz:d.z}; // target at the muzzle or behind it: fire straight
   return{x:mx,y:my,z:mz,dx:vx/n,dy:vy/n,dz:vz/n}}};
 const TP=THIRD_PERSON;TP.init();
-$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();buildV35();buildAssault();loadSoldierModel();window.__omaha.modelInfo=modelInfo;window.__omaha.realism=RZ;window.__omaha.sfx=sfx;window.__omaha.nearestObstacle=(x,z,r)=>nearestObstacleAt(x,z,r);window.__omaha.tune=T;window.__omaha.cine={get t(){return cine.t},seek:t=>{while(phase==='cinematic'&&cine.t<t)updateCinematic(Math.min(1/30,t-cine.t+1e-4));renderer.render(scene,camera);return cine.t},skip:()=>endCinematic()};Object.defineProperties(window.__omaha,Object.getOwnPropertyDescriptors({get renderInfo(){const r=renderer.info.render;return{calls:r.calls,triangles:r.triangles,programs:renderer.info.programs.length}},crewHit:(ex,ey,ez,d)=>crewHit(ex,ey,ez,d),get cam(){return camera.position},resetCrews,get germansKilled(){return germanKills},lod:LOD,thirdPerson:TP,view:v=>TP.set(v==='third')?'third':'first'}));
+$('start').addEventListener('click',startGame);$('pause').addEventListener('click',pauseGame);init();buildV35();buildAssault();loadSoldierModel();window.__omaha.modelInfo=modelInfo;window.__omaha.realism=RZ;window.__omaha.waveResponses=from=>ensemble.responses(from,soldiers);window.__omaha.sfx=sfx;window.__omaha.nearestObstacle=(x,z,r)=>nearestObstacleAt(x,z,r);window.__omaha.tune=T;window.__omaha.cine={get t(){return cine.t},seek:t=>{while(phase==='cinematic'&&cine.t<t)updateCinematic(Math.min(1/30,t-cine.t+1e-4));renderer.render(scene,camera);return cine.t},skip:()=>endCinematic()};Object.defineProperties(window.__omaha,Object.getOwnPropertyDescriptors({get renderInfo(){const r=renderer.info.render;return{calls:r.calls,triangles:r.triangles,programs:renderer.info.programs.length}},crewHit:(ex,ey,ez,d)=>crewHit(ex,ey,ez,d),get cam(){return camera.position},resetCrews,get germansKilled(){return germanKills},lod:LOD,thirdPerson:TP,view:v=>TP.set(v==='third')?'third':'first'}));
 
 // ===== CONTROLS HELP: start-screen panel, H/Tab overlay, context prompts =====
 // Self-contained: one table of controls feeds the start-screen panel and the in-game overlay;
@@ -1598,7 +1604,10 @@ $('start').addEventListener('click',startGame);$('pause').addEventListener('clic
  function setHelp(on){if(on===help.classList.contains('on'))return;help.classList.toggle('on',on);
   if(on){if(started&&!paused){paused=true;pausedByHelp=true;firing=false;document.exitPointerLock?.()}}
   else if(pausedByHelp){pausedByHelp=false;paused=false;if(!mobile&&renderer)renderer.domElement.requestPointerLock?.()}}
- help.querySelector('.close').addEventListener('click',()=>setHelp(false));help.addEventListener('click',e=>{if(e.target===help)setHelp(false)});
+ if(mobile&&TP.on){const view=document.createElement('button');view.type='button';view.id='touchView';view.className='close';
+  const label=()=>{view.textContent='THIRD-PERSON VIEW: '+(TP.third?'ON':'OFF');view.setAttribute('aria-pressed',String(TP.third))};
+  view.addEventListener('click',()=>{TP.set(!TP.third);label()});label();help.querySelector('.box').prepend(view)}
+ help.querySelector('button.close:not(#touchView)').addEventListener('click',()=>setHelp(false));help.addEventListener('click',e=>{if(e.target===help)setHelp(false)});
  btn.addEventListener('click',e=>{e.currentTarget.blur();setHelp(!help.classList.contains('on'))});
  btn.addEventListener('touchstart',e=>{e.preventDefault();setHelp(!help.classList.contains('on'))},{passive:false});
  addEventListener('keydown',e=>{if(e.code==='Tab'){e.preventDefault()}if(e.repeat)return;
