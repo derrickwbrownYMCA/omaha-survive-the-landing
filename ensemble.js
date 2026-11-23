@@ -78,7 +78,7 @@ function createLandingEnsemble(T) {
       const frame=mount(s.hi,'DEF-head'),box=paintBounds(s.hi.geometry,0x3a4428);
       if(!frame||box.isEmpty())return;
       // Match the vertex shader's tilt about its bind-space pivot.
-      const u=s.rz?.u, net=new T.Group(); frame.add(net);
+      const u=s.rz?.u, net=new T.Group(); net.name='Helmet net'; frame.add(net);
       if(u){u.rzTilt.value.set(-.09,.16);net.rotation.set(-.09,0,.16,'ZYX');
         const p=u.rzPivot.value;net.position.copy(p).sub(target.copy(p).applyQuaternion(net.quaternion));}
       helmet(net,box);
@@ -130,7 +130,7 @@ function createLandingEnsemble(T) {
       if(d<best&&d>.09){nearest=s;best=d}}
     if(!nearest)return null;
     const delay=.48+.17*(Math.sin(nearest.seed||0)+1);
-    replies.set(nearest,{from,start:t+delay});return nearest;
+    replies.set(nearest,{from,signal:t,start:t+delay,posed:null});return nearest;
   }
   function beach(s,t){
     // The player can skip before the GLB arrives; attach the same kit on its first loaded frame.
@@ -144,7 +144,10 @@ function createLandingEnsemble(T) {
     const angle=Math.atan2(from.x-s.x,from.z-s.z)-facing;
     const yaw=Math.max(-1.06,Math.min(1.06,Math.atan2(Math.sin(angle),Math.cos(angle))));
     look(r,yaw*beat(u,0,.45,1.28,1.9),.28*beat(u,.38,.69,.83,1.29));
+    if(r.neck && u>0 && ack.posed===null)ack.posed=t;
   }
   function recycle(s){reset(s);replies.delete(s);for(const [other,a] of replies)if(a.from===s)replies.delete(other)}
-  return {cast,reset,cinematic,leftHandRelease,signal,beach,recycle};
+  // Read-only pose diagnostics for the game's existing visual-inspection API.
+  function responses(from,men){return [...replies].filter(([,a])=>a.from===from).map(([actor,a])=>({actor:men.indexOf(actor),signal:a.signal,start:a.start,posed:a.posed}))}
+  return {cast,reset,cinematic,leftHandRelease,signal,beach,recycle,responses};
 }
