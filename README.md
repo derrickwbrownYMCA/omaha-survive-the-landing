@@ -7,6 +7,16 @@ https://derrickwbrownYMCA.github.io/omaha-survive-the-landing/
 
 Enable GitHub Pages at Settings → Pages → Deploy from a branch → main / (root) if it isn't live yet.
 
+## After the wall: the inland field book
+
+Finishing the bluff brings you to the white pennant on the water tower. The landing menu also has **Start at the bluff** for players who want the illustrated, non-combat chapters without playing the 3D opening. Follow the marked landmarks or the matching action buttons; mouse, touch, and Tab/Enter all work. Each action saves a local checkpoint in this browser. Use **Open inland checkpoint** from the landing menu to return.
+
+- **The Missing Three:** explore the village green, farmhouse and church. The first person you meet walks with you.
+- **The Long Road:** walk the inland detour together or meet beyond the washed-out bridge.
+- **Roll Call:** search the orchard, reunite in the schoolhouse, and mark each person present yourself.
+
+The field book is a fictional interactive story, not a reconstruction of a particular unit. It uses local SVG illustrations and has no CDN dependency. Run `node --test tests/*.test.mjs` for the simulation and campaign graph checks.
+
 ## Landing-party animation
 The first ten seconds follow two men at the gunwale: one steadies himself on the rail, they exchange a look and a nod, and their shoulder blanket and netted helmet stay with them onto the beach. A nearby soldier can turn and acknowledge a wave a moment later. These beats don't need captions or audio; soldier speech is **off by default** (`?voice=1` opts in).
 
