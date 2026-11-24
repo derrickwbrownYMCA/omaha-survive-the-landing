@@ -8,7 +8,7 @@ const names=['Prologue · Above the wall','01 · The Missing Three','02 · The L
 // Coordinates are percentages of the uncropped field sketch. The labeled action list
 // remains a full alternative for anyone who cannot see or select a map marker.
 const landmarks={
- '0:start':[[42,77,'Blanket roll'],[66,39,'Pennant']],
+ '0:start':[[41,56,'Blanket roll'],[69,16,'Pennant']],
  '1:start':[[22,58,'Farm'],[73,50,'Church'],[44,78,'Pump']],
  '1:pump':[[22,58,'Farm'],[73,50,'Church']],
  '2:start':[[21,59,'Long road'],[77,69,'Bank path']],
