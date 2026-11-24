@@ -52,6 +52,10 @@ jobs:
             export GAME_URL='http://127.0.0.1:4173/'
             curl --retry 10 --retry-connrefused --retry-delay 1 -fsS "$GAME_URL" -o /dev/null
           fi
+          if [[ "$SOURCE" = head && "$SCREEN" = desktop ]]; then
+            node --test harness/tests/*.test.mjs
+            GAME_URL="${GAME_URL%/}/campaign/" OUTPUT="$OUTPUT/campaign" node harness/tests/campaign-browser.mjs
+          fi
           node harness/tests/visual.mjs
           if [[ "$SOURCE" = pages ]]; then
             OUTPUT="$OUTPUT/wall-route" node harness/tests/wall-route.mjs
